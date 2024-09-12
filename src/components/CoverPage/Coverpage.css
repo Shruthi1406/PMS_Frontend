@@ -1,0 +1,37 @@
+.coverpage{
+ 
+   background: linear-gradient(
+    rgba(0, 0, 0, 0.5), 
+    rgba(0, 0, 0, 0.5)  
+  ), url('/public/PmsBackroundImage.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   width:100vw;
+   height:100vh;
+   color: white;  
+  text-align: center; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items:flex-start;
+  padding: 0 2rem; 
+
+}
+.heading{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5%;
+}
+.content{
+    color:white;
+}
+.btn{
+    background-color:rgb(241, 199, 120);
+    outline: orange;
+}
+.btn:hover{
+    background-color: orange;
+}
