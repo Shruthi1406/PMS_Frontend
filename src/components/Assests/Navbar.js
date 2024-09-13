@@ -1,34 +1,40 @@
 import React from 'react'
+import PmsLogo1 from './PmsLogo1.jpg';
+
+
+import './Navbar.css'
+
 
 function Navbar() {
   return (
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand">Hidden brand</a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-    </div>
+    <header>
+      <nav>
+        <ul className='list'>
+          <li>
+            <img className='logo' src={PmsLogo1}/>
+          </li>
+          <li>
+            <a href="#">Find Hospitals</a>
+          </li>
+          <li>
+          <input className="form-control me-5" type="search" placeholder="Search Hospitals By Location" aria-label="Search"/>
+          </li>
+          <li>
+            <a href="#">Appointments</a>
+          </li>
+          <li>
+            <a href="#">Medical History</a>
+          </li>
+          <li>
+            <i class="fa-regular fa-bell"></i>
+          </li>
+          <li>
+          <i class="fa-regular fa-user"></i>
+          </li>
+          
+        </ul>
+      </nav>
+    </header>
   )
 }
 

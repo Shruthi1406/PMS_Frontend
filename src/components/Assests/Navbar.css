@@ -1,0 +1,22 @@
+.logo{
+    width:4vw;
+    height:4vh;
+}
+.list{
+  
+    list-style-type:none;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    color:black;
+    
+}
+a{
+    text-decoration: none;
+}
+
+.list .link:hover,
+.list .link.active{
+   text-align: underline;
+
+}
