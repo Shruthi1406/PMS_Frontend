@@ -5,7 +5,8 @@ const PrivateRoute = () => {
   const token = localStorage.getItem('authToken');
 
   if (!token) {
-    return <Navigate to="/login" />;
+    alert("Please login");
+    return <Navigate to="/root"/>;
   }
 
   return <Outlet />;

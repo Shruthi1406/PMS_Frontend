@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import api from '../apiHandler/api';
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
@@ -8,12 +8,12 @@ const Appointments = () => {
     useEffect(() => {
         const fetchAppointments = async () => {
             try {
-                const response = await fetch('https://localhost:44376/api/Appointment/patient/1');
-                if (!response.ok) {
+                const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
+                const response = await api.get('/Appointment/patient/'+patientInfo.patientId);
+                if (!response.data) {
                     throw new Error('Network response was not ok');
                 }
-                const data = await response.json();
-                setAppointments(data);
+                setAppointments(response.data);
             } catch (error) {
                 setError(error.message);
             }
@@ -29,7 +29,12 @@ const Appointments = () => {
     return (
         <div className="container mt-4">
             <h1 className="mb-4">Appointments</h1>
-            <table className="table table-striped table-bordered table-hover">
+            {
+                appointments.length==0?
+                <div>
+                    <h3>You don't have any Appointments</h3>
+                </div>:
+                <table className="table table-striped table-bordered table-hover">
                 <thead className="thead-dark">
                     <tr>
                         <th>Hospital Name</th>
@@ -53,6 +58,7 @@ const Appointments = () => {
                     ))}
                 </tbody>
             </table>
+            }
         </div>
     );
 };

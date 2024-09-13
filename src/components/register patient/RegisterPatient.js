@@ -52,7 +52,7 @@ const RegisterPatient = ({ onClose }) => {
       try {
         const response = await api.post('/Patient/RegisterPatient', formData);
         console.log('Patient registered successfully:', response.data);
-        onClose();  // Close the modal on successful registration
+        onClose();  
       } catch (error) {
         setApiError(error.response ? error.response.data : 'An error occurred');
       } finally {
