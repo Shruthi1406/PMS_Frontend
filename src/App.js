@@ -11,6 +11,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './components/Dashboard/Root';
 import Homepage from './components/Dashboard/Homepage';
 import Coverpage from './components/CoverPage/Coverpage';
+import Appointments from './components/Appointments';
+
 
 const router = createBrowserRouter([ 
   {
@@ -30,7 +32,7 @@ const App = () => {
   return (
     <div>
       <RouterProvider router={router} />
-    </div>
+    <div>      
   );
 };
 
