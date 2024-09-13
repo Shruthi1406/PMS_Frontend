@@ -43,7 +43,7 @@ function Navbar() {
               <NavLink to='/homepage'>Find Hospitals</NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Appointments</a>
+              <Link to="appointments" className="nav-link" href="#">Appointments</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Medical History</a>
