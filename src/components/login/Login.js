@@ -39,9 +39,11 @@ const Login = ({ onClose }) => {
         const response = await api.post('/Patient/PatientLogin', loginData);
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
+          localStorage.setItem('patientInfo', JSON.stringify(response.data.patient)); 
           localStorage.setItem('authToken', response.data.token);
-          navigate('/dashboard');
-          onClose();  // Close the modal on successful login
+          navigate('/root');
+          setTimeout(()=>localStorage.removeItem('authToken'),60000);
+          onClose();  
         }
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
