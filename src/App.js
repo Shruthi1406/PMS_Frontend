@@ -1,12 +1,17 @@
-import logo from './logo.svg';
+
 import './App.css';
 import RegisterPatient from './components/RegisterPatient';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import VitalSignsTable from './components/Medicalhistory/VitalSigntable';
+import PatientDetails from './components/Medicalhistory/Medicalhistory';
+
 function App() {
   return (
     <div>
-      <RegisterPatient />
+      {/* <RegisterPatient /> */}
+      <VitalSignsTable/>
+      <PatientDetails/>
     </div>
   );
 }
