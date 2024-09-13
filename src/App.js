@@ -5,7 +5,7 @@ import Login from './components/login/Login';
 import RegisterPatient from './components/register patient/RegisterPatient';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import PrivateRoute from './apiHandler/PrivateRoute';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -20,8 +20,13 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: 'dashboard',
-    element: <DashBoard/>,
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: 'dashboard',
+        element: <DashBoard />,
+      },
+    ],
   },
 ]);
 

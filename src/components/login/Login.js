@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-
+import api from '../../apiHandler/api';
 const Login = () => {
   const [loginData, setLoginData] = useState({
     Email: '',
@@ -36,9 +36,13 @@ const Login = () => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await axios.post('https://localhost:44376/api/Patient/PatientLogin', loginData);
+        const response = await api.post('/Patient/PatientLogin', loginData);
         console.log('User logged in successfully:', response.data);
-        navigate('/dashboard'); 
+        if(response!=null && response.data.isLogged)
+        {
+          localStorage.setItem('authToken',response.data.toekn);
+          navigate('/dashboard'); 
+        }
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
       } finally {

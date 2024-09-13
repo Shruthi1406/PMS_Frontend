@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import api from '../../apiHandler/api';
 const RegisterPatient = () => {
   const [formData, setFormData] = useState({
     FirstName: '',
@@ -51,7 +52,7 @@ const RegisterPatient = () => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await axios.post('https://localhost:44376/api/Patient/RegisterPatient', formData);
+        const response = await api.post('/Patient/RegisterPatient', formData);
         console.log('Patient registered successfully:', response.data);
 
       } catch (error) {
