@@ -1,0 +1,81 @@
+.custom-navbar {
+    background-color: skyblue;
+  }
+ 
+  .custom-logo {
+    max-width: 60px;
+    border-radius: 50%;
+  }
+
+  .navbar-nav .nav-link {
+    color: #fff;
+    font-size:20px;
+  }
+ 
+ 
+  .icon-style {
+    padding: 20px;
+    color: black;
+  }
+ 
+  .icon-style i {
+    font-size: 1.2rem;
+  }
+ 
+  .custom-search-input {
+    border: 1px solid #ced4da;
+  }
+ 
+  .custom-search-button {
+    background-color: #28a745;
+    color: #fff;
+  }
+ 
+  .custom-search-button:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  .custom-width{
+    width: 10vw;
+  }
+  /* Navbar.css */
+.custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .custom-logo {
+    height: 40px; 
+  }
+  
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-right: 20px; 
+  }
+  
+  .custom-search-button {
+    margin-left: 5px; 
+  }
+  
+  .icon-style {
+    margin-right: 15px; 
+  }
+  
+  .btn-outline-secondary {
+    margin-left: 10px; 
+  }
+
+  .nav-item .input-group {
+    display: flex;
+    align-items: center;
+  }
+  .notifications{
+    color:white;
+    font-size:20px;
+  }
+  

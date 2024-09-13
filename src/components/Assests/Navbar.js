@@ -1,34 +1,69 @@
 import React from 'react'
+import PmsLogo1 from './PmsLogo1.jpg';
+
+
+import './Navbar.css'
+import { NavLink } from 'react-bootstrap';
+
 
 function Navbar() {
   return (
-    <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand">Hidden brand</a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
-    </div>
+    <header>
+      <nav className="navbar navbar-expand-lg custom-navbar">
+      <div className="container-fluid">
+        <div className="d-flex align-items-center">
+          <a className="navbar-brand" href="#">
+            <img src={PmsLogo1} className="img-fluid custom-logo" alt="Logo" />
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div className="collapse navbar-collapse" id="navbarScroll">
+          <ul className="navbar-nav me-auto my-2 my-lg-0">
+            <li className="nav-item">
+              <NavLink to='/homepage'>Find Hospitals</NavLink>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Appointments</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">Medical History</a>
+            </li>
+            <li className='nav-item'>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Find hospital by location" aria-label="Recipient's username with two button addons"/>
+               <button class="btn btn-outline-secondary custom-search-button" type="button">search</button>
+ 
+              </div>
+            </li>
+          </ul>
+          
+         
+          <ul className="navbar-nav ms-auto my-2 my-lg-0">
+           
+            <li className="nav-item">
+              <span className="icon-style notifications">Notifications</span>
+             
+            </li>
+            <li className="nav-item">
+            <button type="button" class="btn btn-outline-secondary notifications">Login/Signup</button>
+            </li>
+           
+          </ul>
+        </div>
+       
+      </div>
+    </nav>
+    </header>
   )
 }
 
