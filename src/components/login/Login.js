@@ -38,7 +38,7 @@ const Login = () => {
       try {
         const response = await axios.post('https://localhost:44376/api/Patient/PatientLogin', loginData);
         console.log('User logged in successfully:', response.data);
-        navigate('/dashboard'); 
+        navigate('/root'); 
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
       } finally {
