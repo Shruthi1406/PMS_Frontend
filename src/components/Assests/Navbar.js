@@ -1,19 +1,29 @@
 import React from 'react'
 import PmsLogo1 from './PmsLogo1.jpg';
-
-
+import { Modal, Button } from 'react-bootstrap';
 import './Navbar.css'
 import { NavLink } from 'react-bootstrap';
-
+import RegisterPatient from '../register patient/RegisterPatient';
+import Login from '../login/Login';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
+  const [showModal, setShowModal] = useState(false);
+  const [currentComponent, setCurrentComponent] = useState('register'); // Manage the current component
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = (component) => {
+    setCurrentComponent(component);
+    setShowModal(true);
+  };
   return (
     <header>
       <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
         <div className="d-flex align-items-center">
           <a className="navbar-brand" href="#">
-            <img src={PmsLogo1} className="img-fluid custom-logo" alt="Logo" />
+            <Link to="/root"><img src={PmsLogo1} className="img-fluid custom-logo" alt="Logo" /></Link>
           </a>
           <button
             className="navbar-toggler"
@@ -55,7 +65,7 @@ function Navbar() {
              
             </li>
             <li className="nav-item">
-            <button type="button" class="btn btn-outline-secondary notifications">Login/Signup</button>
+              <Button variant="light" onClick={() => handleShow('register')}>Login/Signup</Button>
             </li>
            
           </ul>
@@ -63,7 +73,31 @@ function Navbar() {
        
       </div>
     </nav>
+    <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{currentComponent === 'register' ? 'Register Patient' : 'Login'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {currentComponent === 'register' ? (
+            <RegisterPatient onClose={handleClose} />
+          ) : (
+            <Login onClose={handleClose} />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          {currentComponent === 'register' ? (
+            <div>
+              Already have an account? <Button variant="link" onClick={() => setCurrentComponent('login')}>Login here</Button>
+            </div>
+          ) : (
+            <div>
+              Not registered yet? <Button variant="link" onClick={() => setCurrentComponent('register')}>Register here</Button>
+            </div>
+          )}
+        </Modal.Footer>
+      </Modal>
     </header>
+    
   )
 }
 
