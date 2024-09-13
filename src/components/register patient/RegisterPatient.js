@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-const RegisterPatient = () => {
+import api from '../../apiHandler/api';
+
+const RegisterPatient = ({ onClose }) => {
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
@@ -15,7 +15,6 @@ const RegisterPatient = () => {
   });
 
   const [errors, setErrors] = useState({});
-  
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
 
@@ -51,9 +50,9 @@ const RegisterPatient = () => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await axios.post('https://localhost:44376/api/Patient/RegisterPatient', formData);
+        const response = await api.post('/Patient/RegisterPatient', formData);
         console.log('Patient registered successfully:', response.data);
-
+        onClose();  // Close the modal on successful registration
       } catch (error) {
         setApiError(error.response ? error.response.data : 'An error occurred');
       } finally {
@@ -63,8 +62,7 @@ const RegisterPatient = () => {
   };
 
   return (
-    <Container className="mt-5 w-50">
-      <h2 className="text-center mb-4">Register Patient</h2>
+    <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">
         {apiError && <Alert variant="danger">{apiError}</Alert>}
         
@@ -194,12 +192,9 @@ const RegisterPatient = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <div className='d-flex justify-content-between'>
-          <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
-            {loading ? 'Registering...' : 'Register'}
-          </Button>
-          <Form.Label className='mt-3'>Already registered?<Link to="/login">Click here to login</Link></Form.Label>
-        </div>
+        <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
+          {loading ? 'Registering...' : 'Register'}
+        </Button>
       </Form>
     </Container>
   );
