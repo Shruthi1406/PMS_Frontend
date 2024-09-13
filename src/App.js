@@ -1,14 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
-import RegisterPatient from './components/RegisterPatient';
+import DashBoard from './components/dashboard';
+import Landing from './components/landing page/Landing';
+import Login from './components/login/Login';
+import RegisterPatient from './components/register patient/RegisterPatient';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Landing />,
+  },
+  {
+    path: 'register',
+    element: <RegisterPatient />,
+  },
+  {
+    path: 'login',
+    element: <Login />,
+  },
+  {
+    path: 'dashboard',
+    element: <DashBoard/>,
+  },
+]);
+
+const App = () => {
   return (
     <div>
-      <RegisterPatient />
+      <RouterProvider router={router} />
     </div>
   );
-}
-
+};
 export default App;
