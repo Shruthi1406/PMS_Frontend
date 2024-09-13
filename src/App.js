@@ -1,27 +1,32 @@
 import './App.css';
-import DashBoard from './components/dashboard';
-import Landing from './components/landing page/Landing';
-import Login from './components/login/Login';
-import RegisterPatient from './components/register patient/RegisterPatient';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './components/Dashboard/Root';
+import Homepage from './components/Dashboard/Homepage';
+import Coverpage from './components/CoverPage/Coverpage';
+import Appointments from './components/Appointments';
+import PrivateRoute from './apiHandler/PrivateRoute';
+const router = createBrowserRouter([ 
+  {
+    path:"/",
+    element:<Coverpage/>
+  },
+  {
+    path: '/root',
+    element: <Root/>,
+    children:[
+      {element:<Homepage/> ,index:true},
+      {
+        element:<PrivateRoute/>,
+        children:[
+          {
+            path:"appointments",
+            element:<Appointments/>
+          }
+        ]
+      },
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Landing />,
-  },
-  {
-    path: 'register',
-    element: <RegisterPatient />,
-  },
-  {
-    path: 'login',
-    element: <Login />,
-  },
-  {
-    path: 'dashboard',
-    element: <DashBoard/>,
+    ]
   },
 ]);
 
@@ -32,4 +37,8 @@ const App = () => {
     </div>
   );
 };
+
 export default App;
+
+
+

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import api from '../../apiHandler/api';
 
-const Login = () => {
+const Login = ({ onClose }) => {
   const [loginData, setLoginData] = useState({
     Email: '',
     Password: '',
@@ -13,7 +13,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const validate = () => {
     const newErrors = {};
@@ -36,9 +36,15 @@ const Login = () => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await axios.post('https://localhost:44376/api/Patient/PatientLogin', loginData);
+        const response = await api.post('/Patient/PatientLogin', loginData);
         console.log('User logged in successfully:', response.data);
-        navigate('/dashboard'); 
+        if (response.data && response.data.isLogged) {
+          localStorage.setItem('patientInfo', JSON.stringify(response.data.patient)); 
+          localStorage.setItem('authToken', response.data.token);
+          navigate('/root');
+          setTimeout(()=>localStorage.removeItem('authToken'),60000);
+          onClose();  
+        }
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
       } finally {
@@ -48,10 +54,9 @@ const Login = () => {
   };
 
   return (
-    <Container className="mt-5 w-50">
-      <h2 className="text-center mb-4">Login</h2>
+    <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">
-        {apiError && <Alert variant="danger">{typeof apiError === 'string' ? apiError : 'An error occurred'}</Alert>}
+        {apiError && <Alert variant="danger">{apiError}</Alert>}
         
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
@@ -83,12 +88,9 @@ const Login = () => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <div className='d-flex justify-content-between mt-3'>
-          <Button variant="primary" type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </Button>
-          <Form.Label>Not registered? <Link to="/register">Click here to Register</Link></Form.Label>
-        </div>
+        <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </Button>
       </Form>
     </Container>
   );
