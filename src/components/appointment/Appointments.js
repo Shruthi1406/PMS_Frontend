@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import api from '../apiHandler/api';
+import api from '../../apiHandler/api';
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const Appointments = () => {
         const fetchAppointments = async () => {
             try {
                 const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
-                const response = await api.get('/Appointment/patient/'+patientInfo.patientId);
+                const response = await api.get('/Appointment/GetAppointmentByPatientId/'+patientInfo.patientId);
                 if (!response.data) {
                     throw new Error('Network response was not ok');
                 }
