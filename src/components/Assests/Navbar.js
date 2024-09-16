@@ -27,7 +27,7 @@ function Navbar() {
   };
   return (
     <header>
-      <nav className="navbar navbar-expand-lg custom-navbar sticky-top">
+      <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
       <div className="container-fluid">
         <div className="d-flex align-items-center">
           <a className="navbar-brand" href="#">
@@ -48,7 +48,7 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarScroll">
           <ul className="navbar-nav me-auto my-2 my-lg-0">
             <li className="nav-item">
-              <NavLink to='/homepage'>Find Hospitals</NavLink>
+              <Link to='hospitals' className="nav-link">Find Hospitals</Link>
             </li>
             <li className="nav-item">
               <Link to="appointments" className="nav-link">Appointments</Link>

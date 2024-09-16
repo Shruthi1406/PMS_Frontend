@@ -6,10 +6,12 @@
 }
 .content-one{
     max-width: 60%;
+    margin:5%;
 }
 .image{
     width:20vw;
     height:20vh;
+    margin:15%;
 }
 .main-content{
     max-width: 90%;
@@ -30,4 +32,16 @@
 }
 .appointment{
     margin:2%;
+}
+.carousel-heading{
+    text-align:center;
+    margin-top:3%;
+}
+.carousel-inner{
+   
+ margin-top:5%;
+}
+.carousel-item{
+    text-align:center;
+    margin-bottom: 3%;
 }

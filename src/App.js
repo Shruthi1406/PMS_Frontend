@@ -6,6 +6,7 @@ import Homepage from './components/Dashboard/Homepage';
 import Coverpage from './components/CoverPage/Coverpage';
 import Appointments from './components/Appointments';
 import PrivateRoute from './apiHandler/PrivateRoute';
+import Hospital from './components/Hospitals/Hospital';
 const router = createBrowserRouter([ 
   {
     path:"/",
@@ -22,7 +23,12 @@ const router = createBrowserRouter([
           {
             path:"appointments",
             element:<Appointments/>
-          }
+          },
+          {
+            path:"hospitals",
+            element:<Hospital/>
+           
+        }
         ]
       },
 
