@@ -10,7 +10,7 @@ function App() {
   return (
     <div>
       {/* <RegisterPatient /> */}
-      <VitalSignsTable/>
+      {/* <VitalSignsTable/> */}
       <PatientDetails/>
     </div>
   );

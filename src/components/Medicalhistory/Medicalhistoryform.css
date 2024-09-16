@@ -1,0 +1,31 @@
+/* Style for the form container */
+.form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 2rem;
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  }
+  
+  /* Style for the form title */
+  .form-container h1 {
+    color: #007bff; /* Blue color for the title */
+  }
+  
+  /* Style for the form fields */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* Style for the submit button */
+  .btn-primary {
+    background-color: #007bff; /* Bootstrap primary blue */
+    border-color: #007bff;
+  }
+  
+  /* Style for the alert messages */
+  .alert {
+    border-radius: 8px; /* Rounded corners for alert */
+  }
+  

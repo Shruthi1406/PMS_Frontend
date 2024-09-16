@@ -1,58 +1,233 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import '../Medicalhistory/Medicalhistoryform.css';
 
-const PatientDetails = ({ patientId = 2 }) => {
-  const [hospitalName, setHospitalName] = useState('');
-  const [doctorName, setDoctorName] = useState('');
-  const [reason, setReason] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const MedicalHistoryForm = () => {
+  const [formData, setFormData] = useState({
+    patientId: '',
+    doctorId: '',
+    recordedDate: '',
+    reason: '',
+    doctorName: '',
+    hospitalName: '',
+    medication: '',
+    hasAsthma: false,
+    hasBloodPressure: false,
+    hasCancer: false,
+    hasCholesterol: false,
+    hasDiabetes: false,
+    hasHeartDisease: false,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch data for the given patientId
-        const [hospitalResponse, doctorResponse, medicalHistoryResponse] = await Promise.all([
-          axios.get(`https://localhost:44376/api/Hospital/get/${patientId}`),
-          axios.get(`https://localhost:44376/api/Doctor/Get/DoctorById/${patientId}`),
-          axios.get(`https://localhost:44376/api/History?patientId=${patientId}`)
-        ]);
+  const [successMessage, setSuccessMessage] = useState('');
 
-        // Log responses to check data
-        console.log('Hospital Response:', hospitalResponse.data);
-        console.log('Doctor Response:', doctorResponse.data);
-        console.log('Medical History Response:', medicalHistoryResponse.data);
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
 
-        // Process and set state
-        setHospitalName(hospitalResponse.data.hospitalName || 'No hospital name available');
-        setDoctorName(doctorResponse.data.doctorName || 'No doctor name available');
+  const handleMedicationChange = (e) => {
+    setFormData({
+      ...formData,
+      medication: e.target.value.split(',').map(med => med.trim()),
+    });
+  };
 
-        // Assuming medicalHistoryResponse.data is an array
-        const history = medicalHistoryResponse.data[0] || {}; // Take the first item from array or empty object
-        setReason(history.reason || 'No reason available');
-
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching data:', err.response || err.message);
-        setError(err);
-        setLoading(false);
-      }
-    }; 
-
-    fetchData();
-  }, [patientId]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching data: {error.message}</p>;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('https://localhost:44376/api/History', formData);
+      setSuccessMessage('Medical history submitted successfully');
+      setFormData({
+        patientId: '',
+        doctorId: '',
+        recordedDate: '',
+        reason: '',
+        doctorName: '',
+        hospitalName: '',
+        medication: '',
+        hasAsthma: false,
+        hasBloodPressure: false,
+        hasCancer: false,
+        hasCholesterol: false,
+        hasDiabetes: false,
+        hasHeartDisease: false,
+      });
+    } catch (error) {
+      console.error('There was an error!', error);
+      setSuccessMessage('There was an error submitting the form');
+    }
+  };
 
   return (
-    <div>
-      <h1>Patient Details</h1>
-      <p><strong>Hospital:</strong> {hospitalName}</p>
-      <p><strong>Doctor:</strong> {doctorName}</p>
-      <p><strong>Reason:</strong> {reason}</p>
+    <div className="container mt-4">
+      <div className="form-container">
+        <h1 className="text-center mb-4">Medical History Form</h1>
+        <form onSubmit={handleSubmit}>
+          {/* <div className="form-group">
+            <label htmlFor="patientId">Patient ID:</label>
+            <input
+              type="number"
+              id="patientId"
+              name="patientId"
+              className="form-control"
+              value={formData.patientId}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="doctorId">Doctor ID:</label>
+            <input
+              type="number"
+              id="doctorId"
+              name="doctorId"
+              className="form-control"
+              value={formData.doctorId}
+              onChange={handleChange}
+              required
+            />
+          </div> */}
+          <div className="form-group">
+            <label htmlFor="recordedDate">Recorded Date:</label>
+            <input
+              type="date"
+              id="recordedDate"
+              name="recordedDate"
+              className="form-control"
+              value={formData.recordedDate}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="reason">Reason:</label>
+            <input
+              type="text"
+              id="reason"
+              name="reason"
+              className="form-control"
+              value={formData.reason}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="doctorName">Doctor Name:</label>
+            <input
+              type="text"
+              id="doctorName"
+              name="doctorName"
+              className="form-control"
+              value={formData.doctorName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="hospitalName">Hospital Name:</label>
+            <input
+              type="text"
+              id="hospitalName"
+              name="hospitalName"
+              className="form-control"
+              value={formData.hospitalName}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="medication">Medication (comma separated):</label>
+            <input
+              type="text"
+              id="medication"
+              name="medication"
+              className="form-control"
+              value={formData.medication}
+              onChange={handleMedicationChange}
+            />
+          </div>
+          <div className="form-group">
+            <label>Medical Conditions:</label>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasAsthma"
+                name="hasAsthma"
+                className="form-check-input"
+                checked={formData.hasAsthma}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasAsthma" className="form-check-label">Has Asthma</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasBloodPressure"
+                name="hasBloodPressure"
+                className="form-check-input"
+                checked={formData.hasBloodPressure}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasBloodPressure" className="form-check-label">Has Blood Pressure</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasCancer"
+                name="hasCancer"
+                className="form-check-input"
+                checked={formData.hasCancer}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasCancer" className="form-check-label">Has Cancer</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasCholesterol"
+                name="hasCholesterol"
+                className="form-check-input"
+                checked={formData.hasCholesterol}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasCholesterol" className="form-check-label">Has Cholesterol</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasDiabetes"
+                name="hasDiabetes"
+                className="form-check-input"
+                checked={formData.hasDiabetes}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasDiabetes" className="form-check-label">Has Diabetes</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasHeartDisease"
+                name="hasHeartDisease"
+                className="form-check-input"
+                checked={formData.hasHeartDisease}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasHeartDisease" className="form-check-label">Has Heart Disease</label>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+          {successMessage && (
+            <div className="alert alert-success mt-3" role="alert">
+              {successMessage}
+            </div>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
 
-export default PatientDetails;
+export default MedicalHistoryForm;
