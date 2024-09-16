@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
+import api from '../../apiHandler/api';
 
-const RegisterPatient = () => {
+const RegisterPatient = ({ onClose }) => {
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
@@ -15,7 +15,6 @@ const RegisterPatient = () => {
   });
 
   const [errors, setErrors] = useState({});
-  
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
 
@@ -51,9 +50,9 @@ const RegisterPatient = () => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await axios.post('https://localhost:44376/api/Patient/RegisterPatient', formData);
+        const response = await api.post('/Patient/RegisterPatient', formData);
         console.log('Patient registered successfully:', response.data);
-
+        onClose();  
       } catch (error) {
         setApiError(error.response ? error.response.data : 'An error occurred');
       } finally {
@@ -63,8 +62,7 @@ const RegisterPatient = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4">Register Patient</h2>
+    <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">
         {apiError && <Alert variant="danger">{apiError}</Alert>}
         
