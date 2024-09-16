@@ -1,30 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react';
 import PmsLogo1 from './PmsLogo1.jpg';
-import { Modal, Button } from 'react-bootstrap';
-import './Navbar.css'
+import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
+import './Navbar.css';
 import { NavLink } from 'react-bootstrap';
-import RegisterPatient from '../register patient/RegisterPatient';
-import Login from '../login/Login';
-import { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { width } from '@fortawesome/free-solid-svg-icons/fa0';
+import ReceptionistLogin from '../receptionist/ReceptionistLogin';
+import Login from '../login/Login'
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
+  const [key, setKey] = useState('patient'); // Default tab is 'patient'
+  const navigate = useNavigate();
   const [currentComponent, setCurrentComponent] = useState('register'); 
-
   const handleClose = () => setShowModal(false);
   const handleShow = (component) => {
     setCurrentComponent(component);
     setShowModal(true);
   };
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/root');
   };
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg custom-navbar sticky-top">
@@ -82,16 +81,24 @@ function Navbar() {
        
       </div>
     </nav>
-    <Modal show={showModal} onHide={handleClose}>
+      <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{currentComponent === 'register' ? 'Register Patient' : 'Login'}</Modal.Title>
+          <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {currentComponent === 'register' ? (
-            <RegisterPatient onClose={handleClose} />
-          ) : (
-            <Login onClose={handleClose} />
-          )}
+          <Tabs
+            id="login-tabs"
+            activeKey={key}
+            onSelect={(k) => setKey(k)}
+            className="mb-3"
+          >
+            <Tab eventKey="patient" title="Patient Login">
+              <Login onClose={handleClose} />
+            </Tab>
+            <Tab eventKey="receptionist" title="Receptionist Login">
+              <ReceptionistLogin onClose={handleClose} />
+            </Tab>
+          </Tabs>
         </Modal.Body>
         <Modal.Footer>
           {currentComponent === 'register' ? (
@@ -106,8 +113,7 @@ function Navbar() {
         </Modal.Footer>
       </Modal>
     </header>
-    
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
