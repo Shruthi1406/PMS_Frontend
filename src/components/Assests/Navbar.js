@@ -6,16 +6,24 @@ import { NavLink } from 'react-bootstrap';
 import RegisterPatient from '../register patient/RegisterPatient';
 import Login from '../login/Login';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link,useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
-  const [currentComponent, setCurrentComponent] = useState('register'); // Manage the current component
+  const [currentComponent, setCurrentComponent] = useState('register'); 
 
   const handleClose = () => setShowModal(false);
   const handleShow = (component) => {
     setCurrentComponent(component);
     setShowModal(true);
+  };
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navigate('/root');
   };
   return (
     <header>
@@ -43,7 +51,8 @@ function Navbar() {
               <NavLink to='/homepage'>Find Hospitals</NavLink>
             </li>
             <li className="nav-item">
-              <Link to="appointments" className="nav-link" href="#">Appointments</Link>
+
+              <Link to="appointments" className="nav-link">Appointments</Link>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">Medical History</a>
@@ -57,7 +66,7 @@ function Navbar() {
             </li>
           </ul>
           
-         
+          <button onClick={handleLogout}>Logout</button>
           <ul className="navbar-nav ms-auto my-2 my-lg-0">
            
             <li className="nav-item">
@@ -65,7 +74,7 @@ function Navbar() {
              
             </li>
             <li className="nav-item">
-              <Button variant="light" onClick={() => handleShow('register')}>Login/Signup</Button>
+              {localStorage.getItem("authToken")?<div ><FontAwesomeIcon style={{width:"80px"}} icon={faUser}/></div>:<Button variant="light" onClick={() => handleShow('login')}>Login/Signup</Button>}
             </li>
            
           </ul>
