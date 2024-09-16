@@ -27,7 +27,7 @@ function Navbar() {
   };
   return (
     <header>
-      <nav className="navbar navbar-expand-lg custom-navbar">
+      <nav className="navbar navbar-expand-lg custom-navbar sticky-top">
       <div className="container-fluid">
         <div className="d-flex align-items-center">
           <a className="navbar-brand" href="#">

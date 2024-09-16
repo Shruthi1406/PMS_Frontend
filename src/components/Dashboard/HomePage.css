@@ -1,0 +1,33 @@
+.homepage{
+    margin:2%;
+}
+.dash{
+    height:50vw;
+}
+.content-one{
+    max-width: 60%;
+}
+.image{
+    width:20vw;
+    height:20vh;
+}
+.main-content{
+    max-width: 90%;
+}
+.discription{
+    padding: 5%;
+    margin:10%;
+}
+.problem-img{
+    width:18rem;
+    height:16vh;
+}
+.custom-card{
+    width: 18rem;
+}
+.problems{
+    margin:2%;
+}
+.appointment{
+    margin:2%;
+}
