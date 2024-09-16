@@ -79,3 +79,4 @@ const VitalSignsTable = () => {
 };
 
 export default VitalSignsTable;
+

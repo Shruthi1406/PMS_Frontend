@@ -56,6 +56,9 @@ function Navbar() {
             <li className="nav-item">
               <a className="nav-link" href="#">Medical History</a>
             </li>
+            <li className="nav-item">
+            <Link to="bookAppointments" className="nav-link">Book Appointment</Link>
+            </li>
             <li className='nav-item'>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Find hospital by location" aria-label="Recipient's username with two button addons"/>

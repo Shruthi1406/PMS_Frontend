@@ -7,6 +7,7 @@ import Homepage from './components/Dashboard/Homepage';
 import Coverpage from './components/CoverPage/Coverpage';
 import Appointments from './components/Appointments';
 import PrivateRoute from './apiHandler/PrivateRoute';
+import MedicalHistoryForm from './components/Medicalhistory/Medicalhistory';
 const router = createBrowserRouter([ 
   {
     path:"/",
@@ -23,6 +24,12 @@ const router = createBrowserRouter([
           {
             path:"appointments",
             element:<Appointments/>
+            
+
+          },
+          {
+            path:"bookAppointments",
+            element:<MedicalHistoryForm/>
           }
         ]
       },
@@ -34,13 +41,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <div>
-<<<<<<< HEAD
-      {/* <RegisterPatient /> */}
-      {/* <VitalSignsTable/> */}
-      <PatientDetails/>
-=======
       <RouterProvider router={router} />
->>>>>>> dc94f9ffab12607c81d13641836ec213bd23ed91
     </div>
   );
 };
