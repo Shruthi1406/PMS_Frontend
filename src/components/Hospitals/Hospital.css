@@ -1,0 +1,40 @@
+/* Hospital.css */
+
+.custom-card {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 10px skyblue;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-card-img {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+    background-color: #f8f9fa;
+    background-size: cover; 
+    background-position: center; 
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-title {
+    margin-bottom: 0.75rem;
+  }
+  
+  .card-text {
+    margin-bottom: 0.5rem;
+  }
+  .list-hospitals{
+    margin-top:5rem;
+  }
+
+.custom-card-img-container {
+    width: 100%;
+    height: 250px; /* Fixed height for consistency */
+    overflow: hidden; /* Ensures no overflow beyond the container */
+  }
+  

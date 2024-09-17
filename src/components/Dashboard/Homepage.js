@@ -93,10 +93,57 @@ function Homepage() {
                 
             </div>
             {/*carousel */}
+            <div className='carousel'>
+              <h2 className="carousel-heading">What Our Users Say</h2>
+            <div id="carouselExampleDark" class="carousel carousel-dark slide">
+              <div class="carousel-indicators">
+                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                 <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+               <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+      
+      
+                   
+                    <p>The patient monitoring system has significantly enhanced our ability to track and respond to patient needs in real-time.<br/>
+                       Its seamless EHR integration and reliability have been outstanding.</p>
+      
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+      
+                  
+                 <p>I’m impressed with the system’s detailed analytics and remote monitoring capabilities.<br/>
+                   They’ve greatly improved my ability to manage and monitor patient progress effectively</p>
+      
+                </div>
+                <div class="carousel-item">
+      
+                  
+                  <p>This monitoring system has streamlined our workflow and improved patient safety. <br/>
+                    The intuitive interface and timely alerts are incredibly useful for proactive care.</p>
+      
+                </div>
+              </div>
+               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
             
 
         </div>
   <Footer/>
+        
+            
+
+        
+  
         
     </div>
   )
