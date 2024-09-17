@@ -137,6 +137,7 @@ function Navbar() {
           />
           <div>
             <h5>{patientInfo.patientName}</h5>
+            <p>{patientInfo.patientEmail}</p>
           </div>
         </div>
         {/* <ul className="sidebar-nav mt-5">
