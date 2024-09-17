@@ -3,7 +3,7 @@ import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import api from '../../apiHandler/api';
 
-const Login = ({ onClose }) => {
+const ReceptionistLogin = ({ onClose }) => {
   const [loginData, setLoginData] = useState({
     Email: '',
     Password: '',
@@ -36,15 +36,13 @@ const Login = ({ onClose }) => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await api.post('/Patient/Login', loginData);
+        const response = await api.post('/Receptionist/Login', loginData);
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
-          localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
           localStorage.setItem('authToken', response.data.token);
-          navigate('/root');
+          navigate('/receptionist');
           setTimeout(()=>{
             localStorage.removeItem('authToken');
-            localStorage.removeItem('patientInfo');
           },60000);
           onClose();  
         }
@@ -99,4 +97,4 @@ const Login = ({ onClose }) => {
   );
 };
 
-export default Login;
+export default ReceptionistLogin;
