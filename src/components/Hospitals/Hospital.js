@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../apiHandler/api';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Link ,useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Hospital.css'; 
 
 
@@ -32,7 +32,7 @@ const Hospital = () => {
 
   function handleClick(){
    
-    navigate('/doctors');
+    navigate('/root/doctors');
   }
 
   return (
