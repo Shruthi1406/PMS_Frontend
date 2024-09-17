@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import api from '../apiHandler/api';
+import api from '../../apiHandler/api';
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
@@ -9,7 +9,7 @@ const Appointments = () => {
         const fetchAppointments = async () => {
             try {
                 const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
-                const response = await api.get('/Appointment/patient/'+patientInfo.patientId);
+                const response = await api.get('/Appointment/GetAppointmentByPatientId/'+patientInfo.patientId);
                 if (!response.data) {
                     throw new Error('Network response was not ok');
                 }
@@ -21,6 +21,30 @@ const Appointments = () => {
 
         fetchAppointments();
     }, []);
+
+    const getStatusText = (statusId) => {
+        if (statusId === 1) {
+            return 'Booked';
+        } else if (statusId === 0) {
+            return 'Cancelled';
+        } else if (statusId === -1) {
+            return 'Pending';
+        } else {
+            return 'Unknown'; 
+        }
+    };
+
+    const getStatusClass = (statusId) => {
+        if (statusId === 1) {
+            return 'bg-success text-white'; 
+        } else if (statusId === 0) {
+            return 'bg-danger text-white'; 
+        } else if (statusId === -1) {
+            return 'bg-warning text-dark'; 
+        } else {
+            return 'bg-secondary text-white'; 
+        }
+    };
 
     if (error) {
         return <div className="alert alert-danger">Error: {error}</div>;
@@ -53,7 +77,9 @@ const Appointments = () => {
                             <td>{appointment.reason}</td>
                             <td>{new Date(appointment.createdAt).toLocaleString()}</td>
                             <td>{new Date(appointment.appointmentDate).toLocaleString()}</td>
-                            <td>{appointment.statusId === 1 ? 'Booked' : 'Cancelled'}</td>
+                            <td className={getStatusClass(appointment.statusId)}>
+                                {getStatusText(appointment.statusId)}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
