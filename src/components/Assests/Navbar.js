@@ -25,7 +25,7 @@ function Navbar() {
   };
 
   return (
-    <header>
+    <header style={{margin:'50px'}}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
       <div className="container-fluid">
         <div className="d-flex align-items-center">

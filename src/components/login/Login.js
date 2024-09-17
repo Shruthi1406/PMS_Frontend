@@ -45,7 +45,7 @@ const Login = ({ onClose }) => {
           setTimeout(()=>{
             localStorage.removeItem('authToken');
             localStorage.removeItem('patientInfo');
-          },60000);
+          },1800000);
           onClose();  
         }
       } catch (error) {
