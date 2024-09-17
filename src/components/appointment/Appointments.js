@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
+import '../css/Appointments.css'
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
@@ -51,8 +52,8 @@ const Appointments = () => {
     }
 
     return (
-        <div className="container mt-4">
-            <h1 className="mb-4">Appointments</h1>
+        <div className="container mt-5 appointments-heading">
+            <h1 className="mb-4 appointments-heading">Appointments</h1>
             {
                 appointments.length==0?
                 <div>
