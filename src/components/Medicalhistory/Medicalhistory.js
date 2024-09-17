@@ -12,7 +12,7 @@ const CombinedForm = () => {
     reason: '',
     doctorName: '',
     hospitalName: '',
-    medication: [], // Changed to an array
+    medication: [], // Keep this as an array for the DTO
     hasAsthma: false,
     hasBloodPressure: false,
     hasCancer: false,
@@ -26,8 +26,8 @@ const CombinedForm = () => {
     // Appointment Fields
     patientName: '',
     gender: '',
-    height: '',
-    weight: '',
+    height: '', // Ensure correct type (number)
+    weight: '', // Ensure correct type (number)
     dob: '',
     email: '',
     appointmentDate: '',
@@ -56,12 +56,33 @@ const CombinedForm = () => {
     e.preventDefault();
     
     try {
+      // Validation of form data before sending
+      if (!formData.patientId || !formData.doctorId) {
+        throw new Error('Patient ID and Doctor ID are required.');
+      }
+
+      // Prepare data for the first API call
+      const medicalHistoryData = {
+        patientId: formData.patientId,
+        doctorId: formData.doctorId,
+        recordedDate: formData.recordedDate,
+        reason: formData.reason,
+        doctorName: formData.doctorName,
+        hospitalName: formData.hospitalName,
+        medication: formData.medication,
+        hasAsthma: formData.hasAsthma,
+        hasBloodPressure: formData.hasBloodPressure,
+        hasCancer: formData.hasCancer,
+        hasCholesterol: formData.hasCholesterol,
+        hasDiabetes: formData.hasDiabetes,
+        hasHeartDisease: formData.hasHeartDisease,
+        exerciseFrequency: formData.exerciseFrequency,
+        alcoholConsumption: formData.alcoholConsumption,
+        smoke: formData.smoke,
+      };
+
       // First API call: Submit medical history
-      const medicalHistoryResponse = await axios.post('https://localhost:44376/api/History', {
-        ...formData,
-        // Convert medication array to comma-separated string for API compatibility if needed
-        medication: formData.medication.join(', ')
-      }, {
+      const medicalHistoryResponse = await axios.post('https://localhost:44376/api/History', medicalHistoryData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -75,16 +96,23 @@ const CombinedForm = () => {
 
       const medicalHistoryId = medicalHistoryResponse.data.historyId;
 
-      // Prepare appointment data with medicalHistoryId
+      // Prepare data for the second API call
       const appointmentData = {
-        ...formData,
-        medicalHistoryId,
-        // Ensure fields not needed for appointment are not included
-        recordedDate: undefined,
-        reason: undefined,
-        doctorName: undefined,
-        hospitalName: undefined,
-        medication: undefined
+        patientId: formData.patientId,
+        doctorId: formData.doctorId,
+        patientName: formData.patientName,
+        gender: formData.gender,
+        height: parseInt(formData.height, 10),
+        weight: parseInt(formData.weight, 10),
+        dob: formData.dob,
+        email: formData.email,
+        appointmentDate: formData.appointmentDate,
+        statusId: -1, // default value
+        hospitalName: formData.hospitalName,
+        reason: formData.reason,
+        createdAt: new Date().toISOString(), // current timestamp
+        doctorName: formData.doctorName,
+        medicalHistoryId // Pass medicalHistoryId to appointment
       };
 
       // Second API call: Schedule appointment
@@ -122,7 +150,8 @@ const CombinedForm = () => {
       });
     } catch (error) {
       console.error('There was an error!', error);
-      const errorMsg = error.response?.data?.message || error.message || 'There was an error submitting the form';
+      const errorMsg = error.response?.data?.errors || error.message || 'There was an error submitting the form';
+      console.log('Error details:', error.response?.data); // Log detailed error response
       setErrorMessage(errorMsg);
       setSuccessMessage('');
     }
@@ -311,6 +340,7 @@ const CombinedForm = () => {
                     className="form-check-input"
                     checked={formData.exerciseFrequency === frequency}
                     onChange={handleChange}
+                    required 
                   />
                   <label htmlFor={frequency} className="form-check-label">{frequency}</label>
                 </div>
