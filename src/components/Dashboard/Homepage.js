@@ -16,6 +16,7 @@ import Footer from '../Footer';
 
 function Homepage() {
   return (
+    <>
     <div className='homepage'>
         <div class="d-flex justify-content-around description">
             <div class="content-one">
@@ -138,14 +139,16 @@ function Homepage() {
             
 
         </div>
+        </div>
   <Footer/>
+  </>
         
             
 
         
   
         
-    </div>
+
   )
 }
 
