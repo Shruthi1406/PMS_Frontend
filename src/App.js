@@ -1,3 +1,4 @@
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -7,6 +8,7 @@ import Coverpage from './components/CoverPage/Coverpage';
 import Footer from './components/Footer';
 import Appointments from './components/appointment/Appointments'
 import PrivateRoute from './apiHandler/PrivateRoute';
+import MedicalHistoryForm from './components/Medicalhistory/Medicalhistory';
 import Hospital from './components/Hospitals/Hospital';
 import Receptionist from './components/receptionist/Receptionist'
 const router = createBrowserRouter([ 
@@ -27,10 +29,13 @@ const router = createBrowserRouter([
             element:<Appointments/>
           },
           {
+            path:"bookAppointments",
+            element:<MedicalHistoryForm/>
+          },
+          {
             path:"hospitals",
             element:<Hospital/>
-           
-        }
+          }
         ]
       },
     ]
