@@ -36,7 +36,7 @@ const Login = ({ onClose }) => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await api.post('/Patient/PatientLogin', loginData);
+        const response = await api.post('/Patient/Login', loginData);
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
           localStorage.setItem('patientInfo', JSON.stringify(response.data.patient)); 
