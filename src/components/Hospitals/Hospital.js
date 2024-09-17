@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../apiHandler/api';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Link } from 'react-router-dom';
-import './Hospital.css'; // Import custom CSS file for additional styling
+import { useNavigate } from 'react-router-dom';
+import './Hospital.css'; 
+
+
 
 const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchHospitals();
@@ -25,6 +29,11 @@ const Hospital = () => {
       setLoading(false);
     }
   };
+
+  function handleClick(){
+   
+    navigate('/root/doctors');
+  }
 
   return (
     <div className="container mt-5 list-hospitals">
@@ -54,7 +63,7 @@ const Hospital = () => {
                 <h5 className="card-title">{hospital.hospitalName} Hospitals</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
-                <Link  className="btn btn-primary">View Doctors</Link>
+                <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div>
               </div>
             </div>
           </div>
