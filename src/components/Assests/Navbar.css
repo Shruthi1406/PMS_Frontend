@@ -1,5 +1,6 @@
 .custom-navbar {
     background-color: skyblue;
+    z-index: 1050;
   }
  
   .custom-logo {
@@ -80,15 +81,15 @@
   }
   .sidebar {
     position: fixed;
-    top: 0;
-    right: -220px; /* Position off-screen initially */
-    width: 220px;
-    height: 100%;
-    background:black;
+    top: 68px; /* Adjust this value to ensure it's below the navbar */
+    right: -260px; /* Position off-screen initially */
+    width: 260px;
+    height: calc(100% - 70px); /* Adjust height to fit below the navbar */
+    background: linear-gradient(to right, #457b9d, #8ecae6);
     color: #ddd;
     transition: right 0.3s ease;
     overflow-y: auto;
-    z-index: 1000;
+    z-index: 1000; /* Make sure this is lower than the navbar's z-index */
   }
   
   .sidebar.open {
@@ -96,24 +97,25 @@
   }
   
   .sidebar-header {
-    background: #212531;
-    padding: 10px;
+    background: #264653;
+    padding: 0px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-  }
-  
-  .sidebar-header h3 {
-    margin: 0;
+    justify-content: center;
   }
   
   .close-btn {
     background: transparent;
     border: none;
     color: #ddd;
-    font-size: 20px;
+    font-size: 24px; /* Ensure button is large enough */
     cursor: pointer;
   }
+  
+  .sidebar-header h3 {
+    margin: 0;
+  }
+
   
   .sidebar-nav {
     list-style: none;

@@ -20,7 +20,7 @@ function Navbar() {
     setCurrentComponent(component);
     setShowModal(true);
   };
-
+  const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/root');
@@ -128,14 +128,23 @@ function Navbar() {
       </Modal>
 
       <div className={`sidebar${sidebarOpen ? ' open' : ''}`}>
+        <button className="close-btn" onClick={toggleSidebar}>×</button>
         <div className="sidebar-header">
-          <h3>Brand</h3>
-          <button className="close-btn" onClick={toggleSidebar}>×</button>
+          <FontAwesomeIcon
+            icon={faUser}
+            size="4x"  
+            style={{ cursor: "pointer" }}
+          />
+          <div>
+            <h5>{patientInfo.patientName}</h5>
+          </div>
         </div>
-        <ul className="sidebar-nav mt-5">
+        {/* <ul className="sidebar-nav mt-5">
           <li><Link to="#home">Vital Signs</Link></li>
           <li><Link to="#followme">Logout</Link></li>
-        </ul>
+        </ul> */}
+        <Link to="#home">Vital Signs</Link>
+        <Link to="#followme">Logout</Link>
       </div>
 
     </header>
