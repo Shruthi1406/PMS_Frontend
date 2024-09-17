@@ -10,6 +10,7 @@ import derma from './derma.jpg'
 import dentist from './dentist.jpg'
 import cardio from './cardio.jpg'
 import nutrionist from './nutritionist.png'
+import Footer from '../Footer';
 
 
 
@@ -137,7 +138,7 @@ function Homepage() {
             
 
         </div>
-  
+  <Footer/>
         
             
 
