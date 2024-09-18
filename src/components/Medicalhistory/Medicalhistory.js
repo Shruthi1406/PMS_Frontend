@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Medicalhistoryform.css';
+import { useLocation } from 'react-router-dom';
 
 const PatientForm = () => {
+  const location=useLocation();
+  const patientInfo = localStorage.getItem('patientInfo')!=null?JSON.parse(localStorage.getItem('patientInfo')):null;
+  const doctor=location.state!=null?location.state.doctor:null;
+  const hopsital=location.state!=null?location.state.hospital:null;
   const [formData, setFormData] = useState({
     recordedDate: '',
     reason: '',
@@ -17,9 +22,9 @@ const PatientForm = () => {
     exerciseFrequency: '',
     alcoholConsumption: '',
     smoke: '',
-    patientId: '1',
-    doctorId: '2',
-    hospitalName: '',
+    patientId: patientInfo.patientId,
+    doctorId: doctor.doctorId,
+    hospitalName: hopsital.hospitalName,
     patientName: '',
     gender: '',
     height: '',

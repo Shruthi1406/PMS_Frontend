@@ -65,7 +65,7 @@ const Hospital = () => {
                 <p className="card-text">Pincode: {hospital.pincode}</p>
                 {/* <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div> */}
                 
-                <Link to="/root/doctors" state={{hospitalId:hospital.hospitalId}}><div  className="btn btn-primary">View Doctors</div></Link>
+                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>
