@@ -11,6 +11,7 @@ import MedicalHistoryForm from './components/Medicalhistory/Medicalhistory';
 import Hospital from './components/Hospitals/Hospital';
 import Receptionist from './components/receptionist/Receptionist'
 import Doctor from './components/Doctors/Doctor';
+import VitalSignsTable from './components/vitalsigns/VitalSigntable';
 const router = createBrowserRouter([ 
   {
     path:"/",
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             path:"bookAppointments",
             element:<MedicalHistoryForm/>
           },          
+          {
+            path:"vitalsigns",
+            element:<VitalSignsTable/>
+          }
         ]
       },
       {

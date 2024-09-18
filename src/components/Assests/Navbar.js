@@ -4,13 +4,13 @@ import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
 import './Navbar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
 import Login from '../login/Login';
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
-  const [key, setKey] = useState('patient'); // Default tab is 'patient'
+  const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const [currentComponent, setCurrentComponent] = useState('register');
@@ -29,7 +29,41 @@ function Navbar() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
+  function getInitials(name) {
+    return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
+  }
+  function generateBackground(name) {
+    let hash = 0;
+    let i;
+ 
+   for (i = 0; i < name.length; i += 1) {
+     hash = name.charCodeAt(i) + ((hash << 5) - hash);
+   } 
+  // name.charCodeAt() return an int between 0 and 65535
+  // left shift (<<)  operator moves to left by number of specified 
+  // bites after <<. The whole for loop will create a color hash 
+  // based on username length
+   let color = '#';
+ 
+   for (i = 0; i < 3; i += 1) {
+     const value = (hash >> (i * 8)) & 0xff;
+     color += `00${value.toString(16)}`.slice(-2);
+   }
+ 
+   return color;
+ }
+  let initials = getInitials(patientInfo.patientName);
+  let color = generateBackground(patientInfo.patientName);
+  const profileStyle =
+  {
+    display: "flex",
+    height: "45px",
+    width: "45px",
+    borderRadius: "100px",
+    color: "white",
+    background: color,
+    margin: "auto",
+  }
   return (
     <header style={{ margin: '50px' }}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
@@ -72,19 +106,14 @@ function Navbar() {
               </li>
             </ul>
 
-            <button onClick={handleLogout}>Logout</button>
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
               <li className="nav-item">
                 <span className="icon-style notifications">Notifications</span>
               </li>
               <li className="nav-item">
                 {localStorage.getItem("authToken") ? (
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      style={{ width: "80px", cursor: "pointer" }}
-                      onClick={toggleSidebar}
-                    />
+                  <div style={profileStyle}>
+                    <span style={{margin: 'auto',cursor: "pointer",fontSize:"25px"}} onClick={toggleSidebar}> {initials} </span>
                   </div>
                 ) : (
                   <Button variant="light" onClick={() => handleShow('login')}>Login/Signup</Button>
@@ -140,12 +169,10 @@ function Navbar() {
             <p>{patientInfo.patientEmail}</p>
           </div>
         </div>
-        {/* <ul className="sidebar-nav mt-5">
-          <li><Link to="#home">Vital Signs</Link></li>
-          <li><Link to="#followme">Logout</Link></li>
-        </ul> */}
-        <Link to="#home">Vital Signs</Link>
-        <Link to="#followme">Logout</Link>
+        <ul className="sidebar-nav mt-5">
+          <li><Link to="vitalsigns">Vital Signs</Link></li>
+          <li><Link onClick={handleLogout}>Logout</Link></li>
+        </ul>
       </div>
 
     </header>
