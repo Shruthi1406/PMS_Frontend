@@ -1,0 +1,41 @@
+.container {
+    background-color: #f8f9fa; /* Light background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: skyblue; /* Dark blue color */
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table thead {
+    background-color: #77a8dd; /* Bootstrap primary blue */
+    color: white;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #dee2e6; /* Light gray border */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e9ecef; /* Light gray for striped rows */
+  }
+  
+  .table-striped tbody tr:hover {
+    background-color: #cce5ff; /* Light blue on hover */
+  }
+  
+  .table-bordered th,
+  .table-bordered td {
+    border: 1px solid #dee2e6; /* Light gray border */
+  }
+  

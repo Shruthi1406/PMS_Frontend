@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Medicalhistoryform.css'; // Adjust path if necessary
 
-const CombinedForm = () => {
+const PatientForm = () => {
   const [formData, setFormData] = useState({
     // Medical History Fields
     recordedDate: '',
@@ -461,4 +461,4 @@ const CombinedForm = () => {
   );
 };
 
-export default CombinedForm;
+export default PatientForm;
