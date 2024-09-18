@@ -9,14 +9,14 @@ function Doctor() {
     const [loading, setLoading] = useState(true);
     const [error, setErrors] = useState(null);
     const location = useLocation();
-    const hospitalId=location.state!=null?location.state.hospitalId:null;
+    const hospital=location.state!=null?location.state:null;
     useEffect(() => {
         handleApi();
     }, []);
 
    
     function handleApi() {
-        api.get('/Doctor/Get/All/Doctors')
+        api.get('/Doctor/Get/Doctor/HospitalId/'+hospital.hospitalId)
             .then(response => {
                 setDoctors(response.data);
             })
@@ -30,7 +30,7 @@ function Doctor() {
 
     return (
         <>
-            <div>
+            <div style={{margin:"100px"}}>
                 {loading && <div>Loading...</div>}
                 {error && <div>Error: {error.message}</div>}
                 {doctors.length > 0 ? (
@@ -49,12 +49,12 @@ function Doctor() {
                                 <p>Consultation Fee: {doctor.consultationFee}</p>
                             </div>
                             <div className="child btn btn-primary appointment-button">
-                                <Link to='/'>Book Appointment</Link>
+                                <Link to='/root/bookAppointments' state={{doctor:doctor,hospital:hospital}}>Book Appointment</Link>
                             </div>
                         </div>
                     ))
                 ) : (
-                    !loading && <div>No doctors found.</div>
+                    !loading && <div>No doctors available.</div>
                 )}
             </div>
         </>

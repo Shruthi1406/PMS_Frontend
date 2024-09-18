@@ -10,6 +10,7 @@ const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
 
@@ -30,13 +31,18 @@ const Hospital = () => {
     }
   };
 
+  const handleReset = () => {
+    setSearchTerm('');
+    setHospitals([]); // Clear previous results if necessary
+  }
+  
   function handleClick(){
    
     navigate('/root/doctors');
   }
 
   return (
-    <div className="container mt-5 list-hospitals">
+    <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
@@ -65,7 +71,7 @@ const Hospital = () => {
                 <p className="card-text">Pincode: {hospital.pincode}</p>
                 {/* <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div> */}
                 
-                <Link to="/root/doctors" state={hospital.hospitalId}><div  className="btn btn-primary">View Doctors</div></Link>
+                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>
