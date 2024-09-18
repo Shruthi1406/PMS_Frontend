@@ -20,9 +20,10 @@ function Navbar() {
     setCurrentComponent(component);
     setShowModal(true);
   };
-  const patientInfo = localStorage.getItem('patientInfo')!=null?JSON.parse(localStorage.getItem('patientInfo')):{};
+  const patientInfo = localStorage.getItem('patientInfo')!=null?JSON.parse(localStorage.getItem('patientInfo')):null;
   const handleLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('patientInfo');
     navigate('/root');
   };
  
@@ -47,8 +48,13 @@ function Navbar() {
  
    return color;
  }
-  let initials = getInitials(patientInfo.patientName);
-  let color = generateBackground(patientInfo.patientName);
+  let initials="";
+  let color="#ffffff";
+  if(patientInfo!=null)
+  {
+    initials = getInitials(patientInfo.patientName);
+    color = generateBackground(patientInfo.patientName);
+  }
   const profileStyle =
   {
     display: "flex",
@@ -159,10 +165,17 @@ function Navbar() {
             size="4x"  
             style={{ cursor: "pointer" }}
           />
-          <div>
-            <h5>{patientInfo.patientName}</h5>
-            <p>{patientInfo.patientEmail}</p>
-          </div>
+          {patientInfo ? (
+            <div>
+                <h5>{patientInfo.patientName}</h5>
+                <p>{patientInfo.patientEmail}</p>
+            </div>
+            ) : (
+                <div>
+                    <h5>No patient info available</h5>
+                    <p>Please log in</p>
+                </div>
+            )}
         </div>
         <ul className="sidebar-nav mt-5">
           <li><Link to="vitalsigns">Vital Signs</Link></li>
