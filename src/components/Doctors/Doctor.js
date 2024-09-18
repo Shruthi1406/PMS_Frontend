@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../apiHandler/api';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './Doctor.css';
 
 function Doctor() {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setErrors] = useState(null);
-
+    const location = useLocation();
+    const hospitalId=location.state!=null?location.state.hospitalId:null;
     useEffect(() => {
         handleApi();
     }, []);

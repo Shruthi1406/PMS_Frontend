@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../apiHandler/api';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Hospital.css'; 
 
 
@@ -63,7 +63,9 @@ const Hospital = () => {
                 <h5 className="card-title">{hospital.hospitalName} Hospitals</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
-                <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div>
+                {/* <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div> */}
+                
+                <Link to="/root/doctors" state={hospital.hospitalId}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>
