@@ -20,7 +20,7 @@ function Navbar() {
     setCurrentComponent(component);
     setShowModal(true);
   };
-  const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
+  const patientInfo = localStorage.getItem('patientInfo')!=null?JSON.parse(localStorage.getItem('patientInfo')):{};
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/root');
@@ -53,7 +53,7 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0">
               <li className="nav-item">
-                <Link to='hospitals' className="nav-link">Find Hospitals</Link>
+                <Link to='/root/hospitals' className="nav-link">Find Hospitals</Link>
               </li>
               <li className="nav-item">
                 <Link to="appointments" className="nav-link">Appointments</Link>

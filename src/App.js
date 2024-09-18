@@ -31,23 +31,25 @@ const router = createBrowserRouter([
           {
             path:"bookAppointments",
             element:<MedicalHistoryForm/>
-          },
-          {
-            path:"hospitals",
-            element:<Hospital/>
-          },
-          {
-            path:"doctors",
-            element:<Doctor/>
-          },
+          },          
         ]
+      },
+      {
+        path:"/root/hospitals",
+        element:<Hospital/>
+      },
+      {
+        path:"/root/doctors",
+        element:<Doctor/>
       },
     ]
   },
   {
     path:'/receptionist',
     element:<Receptionist/>
-  }
+  },
+
+
 ]);
 
 const App = () => {
