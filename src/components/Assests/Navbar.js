@@ -118,8 +118,8 @@ function Navbar() {
           <div className="text-center mt-3">
             <span>Not registered yet? </span>
             <Button variant="link" onClick={() => {
-              handleCloseLogin(); // Close the login modal
-              handleShowRegister(); // Open the register modal
+              handleCloseLogin(); 
+              handleShowRegister(); 
             }}>
               Register here
             </Button>
@@ -137,8 +137,8 @@ function Navbar() {
           <div className="text-center mt-3">
             <span>Already have an account? </span>
             <Button variant="link" onClick={() => {
-              handleCloseRegister(); // Close the register modal
-              handleShowLogin(); // Open the login modal
+              handleCloseRegister();
+              handleShowLogin(); 
             }}>
               Login here
             </Button>
