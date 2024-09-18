@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../apiHandler/api';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import StarRatings from 'react-star-ratings'
 import './Doctor.css';
 
 function Doctor() {
@@ -27,6 +28,9 @@ function Doctor() {
                 setLoading(false);
             });
     }
+    function getRandomRating(){
+        return Math.floor(Math.random()*5)+1
+    }
 
     return (
         <>
@@ -34,25 +38,35 @@ function Doctor() {
                 {loading && <div>Loading...</div>}
                 {error && <div>Error: {error.message}</div>}
                 {doctors.length > 0 ? (
-                    doctors.map(doctor => (
+                    doctors.map(doctor =>{ const rating=getRandomRating()
+                         return (
                         <div className="Doctors d-flex justify-content-between" key={doctor.doctorId}>
                             <div className="child Doctor-image">
                                 <img
                                     src={`data:image/jpeg;base64,${doctor.image}`}
-                                    className="img-fluid"
+                                    className="img-fluid doctor-image"
                                     alt={doctor.doctorName}
                                 />
                             </div>
                             <div className="child Doctor-Details">
-                                <h4>Doctor Name: {doctor.doctorName}</h4>
+                                <h4>{doctor.doctorName}</h4>
                                 <p>Specialization: {doctor.specialization}</p>
                                 <p>Consultation Fee: {doctor.consultationFee}</p>
+                                <p> <StarRatings
+                                        rating={rating}
+                                        starRatedColor="gold"
+                                        numberOfStars={5}
+                                        name='rating'
+                                        starDimension="20px"
+                                        starSpacing="2px"
+                                    /></p>
                             </div>
                             <div className="child btn btn-primary appointment-button">
-                                <Link to='/root/bookAppointments' state={{doctor:doctor,hospital:hospital}}>Book Appointment</Link>
+                                <Link to='/root/bookAppointments' state={{doctor:doctor,hospital:hospital}}><a>Book Appointment</a></Link>
                             </div>
                         </div>
-                    ))
+                    );
+                   })
                 ) : (
                     !loading && <div>No doctors available.</div>
                 )}

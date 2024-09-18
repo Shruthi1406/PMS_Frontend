@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Medicalhistoryform.css'; // Ensure your CSS file is still imported
 import './Medicalhistoryform.css';
 import { useLocation } from 'react-router-dom';
+
 
 const PatientForm = () => {
   const location=useLocation();
@@ -64,7 +66,7 @@ const PatientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       // Validation of form data before sending
       if (!formData.patientId || !formData.doctorId || !formData.hospitalName) {
@@ -158,7 +160,7 @@ const PatientForm = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="medical-history-container container mt-6">
       <div className="form-container">
         <h1 className="text-center mb-4">Patient Details</h1>
         <form onSubmit={handleSubmit}>
@@ -271,177 +273,81 @@ const PatientForm = () => {
               />
             </div>
           </div>
-
-          {/* Medical History Fields */}
           <div className="row mb-3">
             <div className="col-md-12">
               <label htmlFor="reason">Reason for Visit:</label>
-              <textarea
+              <input
+                type="text"
                 id="reason"
                 name="reason"
                 className="form-control"
                 value={formData.reason}
                 onChange={handleChange}
                 required
-              ></textarea>
+              />
             </div>
           </div>
-
           <div className="row mb-3">
-            <div className="col-md-12">
-              <label htmlFor="medication">Medication (comma-separated):</label>
+            <div className="col-md-6">
+              <label htmlFor="medication">Medication:</label>
               <input
                 type="text"
                 id="medication"
                 name="medication"
                 className="form-control"
+                placeholder="Enter medications separated by commas"
                 value={formData.medication.join(', ')}
                 onChange={handleMedicationChange}
               />
             </div>
-          </div>
-
-          <div className="row mb-3">
             <div className="col-md-6">
-              <label>Medical Conditions:</label>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasAsthma"
-                  name="hasAsthma"
-                  className="form-check-input"
-                  checked={formData.hasAsthma}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasAsthma" className="form-check-label">Asthma</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasBloodPressure"
-                  name="hasBloodPressure"
-                  className="form-check-input"
-                  checked={formData.hasBloodPressure}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasBloodPressure" className="form-check-label">High Blood Pressure</label>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasCancer"
-                  name="hasCancer"
-                  className="form-check-input"
-                  checked={formData.hasCancer}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasCancer" className="form-check-label">Cancer</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasCholesterol"
-                  name="hasCholesterol"
-                  className="form-check-input"
-                  checked={formData.hasCholesterol}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasCholesterol" className="form-check-label">High Cholesterol</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasDiabetes"
-                  name="hasDiabetes"
-                  className="form-check-input"
-                  checked={formData.hasDiabetes}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasDiabetes" className="form-check-label">Diabetes</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  id="hasHeartDisease"
-                  name="hasHeartDisease"
-                  className="form-check-input"
-                  checked={formData.hasHeartDisease}
-                  onChange={handleChange}
-                />
-                <label htmlFor="hasHeartDisease" className="form-check-label">Heart Disease</label>
+              <label>Health Conditions:</label>
+              <div>
+                <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma</label>
+                <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure</label>
+                <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer</label>
+                <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol</label>
+                <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes</label>
+                <label><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
               </div>
             </div>
           </div>
-
           <div className="row mb-3">
             <div className="col-md-6">
               <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
-              <select
+              <input
+                type="text"
                 id="exerciseFrequency"
                 name="exerciseFrequency"
                 className="form-control"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
-              >
-                <option value="">Select Frequency</option>
-                <option value="Daily">Daily</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Never">Never</option>
-              </select>
+              />
             </div>
             <div className="col-md-6">
               <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
-              <select
+              <input
+                type="text"
                 id="alcoholConsumption"
                 name="alcoholConsumption"
                 className="form-control"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
-              >
-                <option value="">Select Consumption</option>
-                <option value="Daily">Daily</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Never">Never</option>
-              </select>
+              />
             </div>
           </div>
           <div className="row mb-3">
             <div className="col-md-6">
-              <label>Do you smoke?</label>
-              <div className="form-check">
-                <input
-                  type="radio"
-                  id="smokeYes"
-                  name="smoke"
-                  value="Yes"
-                  className="form-check-input"
-                  checked={formData.smoke === 'Yes'}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="smokeYes" className="form-check-label">Yes</label>
-              </div>
-              <div className="form-check">
-                <input
-                  type="radio"
-                  id="smokeNo"
-                  name="smoke"
-                  value="No"
-                  className="form-check-input"
-                  checked={formData.smoke === 'No'}
-                  onChange={handleRadioChange}
-                />
-                <label htmlFor="smokeNo" className="form-check-label">No</label>
+              <label htmlFor="smoke">Do you smoke?</label>
+              <div>
+                <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes</label>
+                <label><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
               </div>
             </div>
           </div>
-
+          {successMessage && <div className="alert alert-success">{successMessage}</div>}
+          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <button type="submit" className="btn btn-primary">Submit</button>
-          {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
-          {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
         </form>
       </div>
     </div>
