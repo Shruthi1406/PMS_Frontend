@@ -7,14 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
 import Login from '../login/Login';
-
+ 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
   const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const [currentComponent, setCurrentComponent] = useState('register');
-  
+ 
   const handleClose = () => setShowModal(false);
   const handleShow = (component) => {
     setCurrentComponent(component);
@@ -25,7 +25,7 @@ function Navbar() {
     localStorage.removeItem('authToken');
     navigate('/root');
   };
-
+ 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -38,11 +38,7 @@ function Navbar() {
  
    for (i = 0; i < name.length; i += 1) {
      hash = name.charCodeAt(i) + ((hash << 5) - hash);
-   } 
-  // name.charCodeAt() return an int between 0 and 65535
-  // left shift (<<)  operator moves to left by number of specified 
-  // bites after <<. The whole for loop will create a color hash 
-  // based on username length
+   }
    let color = '#';
  
    for (i = 0; i < 3; i += 1) {
@@ -105,7 +101,7 @@ function Navbar() {
                 </div>
               </li>
             </ul>
-
+ 
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
               <li className="nav-item">
                 <span className="icon-style notifications">Notifications</span>
@@ -123,7 +119,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      
+     
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
@@ -155,7 +151,7 @@ function Navbar() {
           )}
         </Modal.Footer>
       </Modal>
-
+ 
       <div className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         <button className="close-btn" onClick={toggleSidebar}>×</button>
         <div className="sidebar-header">
@@ -174,9 +170,10 @@ function Navbar() {
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>
-
+ 
     </header>
   );
 }
-
+ 
 export default Navbar;
+ 
