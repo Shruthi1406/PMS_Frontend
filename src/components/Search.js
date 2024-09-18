@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 
@@ -70,7 +70,7 @@ const HospitalSearchComponent = () => {
                   <p className="card-text">Location: {hospital.city}</p>
                   <p className="card-text">Pincode: {hospital.pincode}</p>
                   <p className="card-text">Hospital ID: {hospital.hospitalId}</p>
-                  <div onClick={handleClick} className="btn btn-primary">View Doctors</div>
+                  <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
                 </div>
               </div>
             </div>
