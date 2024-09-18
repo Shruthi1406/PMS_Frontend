@@ -1,41 +1,62 @@
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react';
 import api from '../../apiHandler/api';
+import { Link } from 'react-router-dom';
+import './Doctor.css';
 
 function Doctor() {
-    const[Doctors,setDoctors]=useState([]);
-    const[loading,setLoading]=useState(true);
-    const[errors,setErrors]=useState(null);
+    const [doctors, setDoctors] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setErrors] = useState(null);
 
-    useEffect(()=>{
-       handleApi() 
-    },[])
+    useEffect(() => {
+        handleApi();
+    }, []);
 
-    function handleApi(){
-        try{
-            const response=api.get('/Doctor/Get/All/Doctors');
-            setDoctors(response.data);
-        }
-        catch(error){
-            setErrors(error);
-        }
-        finally{
-            setLoading(false);
-        }
-
+   
+    function handleApi() {
+        api.get('/Doctor/Get/All/Doctors')
+            .then(response => {
+                setDoctors(response.data);
+            })
+            .catch(error => {
+                setErrors(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
-  return (
-    <div>
-        <div className="Doctors d-flex justify-content-center">
-            <div className="Dotor-image"><img src="..." class="img-fluid" alt="..."/></div>
-            <div className="Doctor-Details">
-                <h4>Doctor Name</h4>
-                <p>Specialization</p>
-                <p>Consultation Fee</p>
+    return (
+        <>
+            <div>
+                {loading && <div>Loading...</div>}
+                {error && <div>Error: {error.message}</div>}
+                {doctors.length > 0 ? (
+                    doctors.map(doctor => (
+                        <div className="Doctors d-flex justify-content-between" key={doctor.doctorId}>
+                            <div className="child Doctor-image">
+                                <img
+                                    src={`data:image/jpeg;base64,${doctor.image}`}
+                                    className="img-fluid"
+                                    alt={doctor.doctorName}
+                                />
+                            </div>
+                            <div className="child Doctor-Details">
+                                <h4>Doctor Name: {doctor.doctorName}</h4>
+                                <p>Specialization: {doctor.specialization}</p>
+                                <p>Consultation Fee: {doctor.consultationFee}</p>
+                            </div>
+                            <div className="child btn btn-primary appointment-button">
+                                <Link to='/'>Book Appointment</Link>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    !loading && <div>No doctors found.</div>
+                )}
             </div>
-        </div>
-    </div>
-  )
+        </>
+    );
 }
 
-export default Doctor
+export default Doctor;

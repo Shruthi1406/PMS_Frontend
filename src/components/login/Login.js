@@ -12,7 +12,7 @@ const Login = ({ onClose }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-
+  const [isUserValid,setIsUserValid]=useState(true);
   const navigate = useNavigate();
 
   const validate = () => {
@@ -39,6 +39,7 @@ const Login = ({ onClose }) => {
         const response = await api.post('/Patient/Login', loginData);
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
+          setIsUserValid(true);
           localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
           localStorage.setItem('authToken', response.data.token);
           navigate('/root');
@@ -48,6 +49,11 @@ const Login = ({ onClose }) => {
           },1800000);
           onClose();  
         }
+        else
+        {
+          setIsUserValid(false);
+        }
+
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
       } finally {
@@ -60,7 +66,7 @@ const Login = ({ onClose }) => {
     <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">
         {apiError && <Alert variant="danger">{apiError}</Alert>}
-        
+        {isUserValid?<></>:<Alert variant="danger">Invalid Username or Password</Alert>}
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control

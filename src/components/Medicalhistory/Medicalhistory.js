@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../Medicalhistory/Medicalhistoryform.css';
+import './Medicalhistoryform.css'; // Adjust path if necessary
 
-const CombinedForm = () => {
+const PatientForm = () => {
   const [formData, setFormData] = useState({
     // Medical History Fields
-    patientId: '',
-    doctorId: '',
     recordedDate: '',
     reason: '',
-    doctorName: '',
-    hospitalName: '',
     medication: [], // Keep this as an array for the DTO
     hasAsthma: false,
     hasBloodPressure: false,
@@ -24,6 +20,9 @@ const CombinedForm = () => {
     smoke: '', 
 
     // Appointment Fields
+    patientId: '1', // Static Patient ID
+    doctorId: '2', // Static Doctor ID
+    hospitalName: '', // Added Hospital Name field
     patientName: '',
     gender: '',
     height: '', // Ensure correct type (number)
@@ -52,23 +51,28 @@ const CombinedForm = () => {
     });
   };
 
+  const handleRadioChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     try {
       // Validation of form data before sending
-      if (!formData.patientId || !formData.doctorId) {
-        throw new Error('Patient ID and Doctor ID are required.');
+      if (!formData.patientId || !formData.doctorId || !formData.hospitalName) {
+        throw new Error('Patient ID, Doctor ID, and Hospital Name are required.');
       }
 
       // Prepare data for the first API call
       const medicalHistoryData = {
         patientId: formData.patientId,
-        doctorId: formData.doctorId,
         recordedDate: formData.recordedDate,
         reason: formData.reason,
-        doctorName: formData.doctorName,
-        hospitalName: formData.hospitalName,
         medication: formData.medication,
         hasAsthma: formData.hasAsthma,
         hasBloodPressure: formData.hasBloodPressure,
@@ -82,7 +86,7 @@ const CombinedForm = () => {
       };
 
       // First API call: Submit medical history
-      const medicalHistoryResponse = await axios.post('https://localhost:44376/api/History', medicalHistoryData, {
+      const medicalHistoryResponse = await axios.post('https://localhost:44376/api/History/AddMedicalhistory', medicalHistoryData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -100,6 +104,7 @@ const CombinedForm = () => {
       const appointmentData = {
         patientId: formData.patientId,
         doctorId: formData.doctorId,
+        hospitalName: formData.hospitalName, // Include Hospital Name
         patientName: formData.patientName,
         gender: formData.gender,
         height: parseInt(formData.height, 10),
@@ -108,10 +113,8 @@ const CombinedForm = () => {
         email: formData.email,
         appointmentDate: formData.appointmentDate,
         statusId: -1, // default value
-        hospitalName: formData.hospitalName,
         reason: formData.reason,
         createdAt: new Date().toISOString(), // current timestamp
-        doctorName: formData.doctorName,
         medicalHistoryId // Pass medicalHistoryId to appointment
       };
 
@@ -124,12 +127,8 @@ const CombinedForm = () => {
       
       // Clear form fields
       setFormData({
-        patientId: '',
-        doctorId: '',
         recordedDate: '',
         reason: '',
-        doctorName: '',
-        hospitalName: '',
         medication: [], // Reset to an empty array
         hasAsthma: false,
         hasBloodPressure: false,
@@ -140,6 +139,9 @@ const CombinedForm = () => {
         exerciseFrequency: '',
         alcoholConsumption: '',
         smoke: '', 
+        patientId: '1', // Reset static Patient ID
+        doctorId: '2', // Reset static Doctor ID
+        hospitalName: '', // Reset Hospital Name
         patientName: '',
         gender: '',
         height: '',
@@ -152,7 +154,7 @@ const CombinedForm = () => {
       console.error('There was an error!', error);
       const errorMsg = error.response?.data?.errors || error.message || 'There was an error submitting the form';
       console.log('Error details:', error.response?.data); // Log detailed error response
-      setErrorMessage(errorMsg);
+      setErrorMessage(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
       setSuccessMessage('');
     }
   };
@@ -163,6 +165,42 @@ const CombinedForm = () => {
         <h1 className="text-center mb-4">Patient Details</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
+          <div className="form-group">
+            <label htmlFor="patientId">Patient ID:</label>
+            <input
+              type="text"
+              id="patientId"
+              name="patientId"
+              className="form-control"
+              value={formData.patientId}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="doctorId">Doctor ID:</label>
+            <input
+              type="text"
+              id="doctorId"
+              name="doctorId"
+              className="form-control"
+              value={formData.doctorId}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="hospitalName">Hospital Name:</label>
+            <input
+              type="text"
+              id="hospitalName"
+              name="hospitalName"
+              className="form-control"
+              value={formData.hospitalName}
+              onChange={handleChange}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="patientName">Patient Name:</label>
             <input
@@ -251,9 +289,8 @@ const CombinedForm = () => {
               required
             />
           </div>
-
           {/* Medical History Fields */}
-          <div className="form-group mt-4">
+          <div className="form-group">
             <label htmlFor="recordedDate">Recorded Date:</label>
             <input
               type="date"
@@ -266,41 +303,18 @@ const CombinedForm = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="reason">Reason:</label>
-            <input
-              type="text"
+            <label htmlFor="reason">Reason for Visit:</label>
+            <textarea
               id="reason"
               name="reason"
               className="form-control"
               value={formData.reason}
               onChange={handleChange}
               required
-            />
+            ></textarea>
           </div>
           <div className="form-group">
-            <label htmlFor="doctorName">Doctor Name:</label>
-            <input
-              type="text"
-              id="doctorName"
-              name="doctorName"
-              className="form-control"
-              value={formData.doctorName}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="hospitalName">Hospital Name:</label>
-            <input
-              type="text"
-              id="hospitalName"
-              name="hospitalName"
-              className="form-control"
-              value={formData.hospitalName}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="medication">Medication (comma separated):</label>
+            <label htmlFor="medication">Medication (comma-separated):</label>
             <input
               type="text"
               id="medication"
@@ -312,84 +326,139 @@ const CombinedForm = () => {
           </div>
           <div className="form-group">
             <label>Medical Conditions:</label>
-            {['Asthma', 'BloodPressure', 'Cancer', 'Cholesterol', 'Diabetes', 'HeartDisease'].map(cond => (
-              <div className="form-check" key={cond}>
-                <input
-                  type="checkbox"
-                  id={`has${cond}`}
-                  name={`has${cond}`}
-                  className="form-check-input"
-                  checked={formData[`has${cond}`]}
-                  onChange={handleChange}
-                />
-                <label htmlFor={`has${cond}`} className="form-check-label">{`Has ${cond.replace(/([A-Z])/g, ' $1')}`}</label>
-              </div>
-            ))}
-          </div>
-          <div className="form-group mt-4">
-            <h4>Healthy and Unhealthy Habits</h4>
-            <div className="form-group">
-              <label>Exercise Frequency:</label>
-              {['Never', '1-2 days', '3-4 days', '5+ days'].map(frequency => (
-                <div className="form-check" key={frequency}>
-                  <input
-                    type="radio"
-                    id={frequency}
-                    name="exerciseFrequency"
-                    value={frequency}
-                    className="form-check-input"
-                    checked={formData.exerciseFrequency === frequency}
-                    onChange={handleChange}
-                    required 
-                  />
-                  <label htmlFor={frequency} className="form-check-label">{frequency}</label>
-                </div>
-              ))}
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasAsthma"
+                name="hasAsthma"
+                className="form-check-input"
+                checked={formData.hasAsthma}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasAsthma" className="form-check-label">Asthma</label>
             </div>
-            <div className="form-group mt-4">
-              <label>Alcohol Consumption:</label>
-              {['None', 'Occasional', 'Frequent'].map(consumption => (
-                <div className="form-check" key={consumption}>
-                  <input
-                    type="radio"
-                    id={consumption}
-                    name="alcoholConsumption"
-                    value={consumption}
-                    className="form-check-input"
-                    checked={formData.alcoholConsumption === consumption}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor={consumption} className="form-check-label">{consumption}</label>
-                </div>
-              ))}
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasBloodPressure"
+                name="hasBloodPressure"
+                className="form-check-input"
+                checked={formData.hasBloodPressure}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasBloodPressure" className="form-check-label">High Blood Pressure</label>
             </div>
-            <div className="form-group mt-4">
-              <label>Smoking:</label>
-              {['No', '0-1 pack per day', '1-2 packs per day', '2+ packs per day'].map(smoke => (
-                <div className="form-check" key={smoke}>
-                  <input
-                    type="radio"
-                    id={smoke}
-                    name="smoke"
-                    value={smoke}
-                    className="form-check-input"
-                    checked={formData.smoke === smoke}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor={smoke} className="form-check-label">{smoke}</label>
-                </div>
-              ))}
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasCancer"
+                name="hasCancer"
+                className="form-check-input"
+                checked={formData.hasCancer}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasCancer" className="form-check-label">Cancer</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasCholesterol"
+                name="hasCholesterol"
+                className="form-check-input"
+                checked={formData.hasCholesterol}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasCholesterol" className="form-check-label">High Cholesterol</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasDiabetes"
+                name="hasDiabetes"
+                className="form-check-input"
+                checked={formData.hasDiabetes}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasDiabetes" className="form-check-label">Diabetes</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="checkbox"
+                id="hasHeartDisease"
+                name="hasHeartDisease"
+                className="form-check-input"
+                checked={formData.hasHeartDisease}
+                onChange={handleChange}
+              />
+              <label htmlFor="hasHeartDisease" className="form-check-label">Heart Disease</label>
             </div>
           </div>
-
-          <button type="submit" className="btn btn-primary mt-3">Submit</button>
+          <div className="form-group">
+            <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
+            <select
+              id="exerciseFrequency"
+              name="exerciseFrequency"
+              className="form-control"
+              value={formData.exerciseFrequency}
+              onChange={handleChange}
+            >
+              <option value="">Select Frequency</option>
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Never">Never</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
+            <select
+              id="alcoholConsumption"
+              name="alcoholConsumption"
+              className="form-control"
+              value={formData.alcoholConsumption}
+              onChange={handleChange}
+            >
+              <option value="">Select Consumption</option>
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Never">Never</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="smoke">Do you smoke?</label>
+            <div className="form-check">
+              <input
+                type="radio"
+                id="smokeYes"
+                name="smoke"
+                value="Yes"
+                className="form-check-input"
+                checked={formData.smoke === 'Yes'}
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="smokeYes" className="form-check-label">Yes</label>
+            </div>
+            <div className="form-check">
+              <input
+                type="radio"
+                id="smokeNo"
+                name="smoke"
+                value="No"
+                className="form-check-input"
+                checked={formData.smoke === 'No'}
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="smokeNo" className="form-check-label">No</label>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+          {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
+          {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
         </form>
-
-        {successMessage && <div className="alert alert-success mt-3">{successMessage}</div>}
-        {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
       </div>
     </div>
   );
 };
 
-export default CombinedForm;
+export default PatientForm;

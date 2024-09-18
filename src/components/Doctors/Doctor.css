@@ -1,0 +1,13 @@
+.Doctors{
+    margin:5%;
+   
+    border:2px solid skyblue;
+}
+.child{
+    margin:5%;
+    
+}
+.appointment-button{
+    width:10rem;
+    height:3rem;
+}
