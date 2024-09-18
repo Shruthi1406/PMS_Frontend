@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
 import Login from '../login/Login';
+import HospitalSearchComponent from '../Search';
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
@@ -14,6 +15,7 @@ function Navbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const [currentComponent, setCurrentComponent] = useState('register');
+  const [location, setLocation] = useState('');
   
   const handleClose = () => setShowModal(false);
   const handleShow = (component) => {
@@ -29,6 +31,11 @@ function Navbar() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value);
+  };
+
   function getInitials(name) {
     return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
   }
@@ -96,12 +103,15 @@ function Navbar() {
               </li>
               <li className='nav-item'>
                 <div className="input-group">
-                  <input type="text" className="form-control" placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" />
-                  <button className="btn btn-outline-secondary custom-search-button" type="button">Search</button>
+                  <input type="text" className="form-control" placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
+                  value={location}
+                  onChange={handleLocationChange}
+                  />
+                  <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link>
                 </div>
               </li>
             </ul>
-
+            
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
               <li className="nav-item">
                 <span className="icon-style notifications">Notifications</span>

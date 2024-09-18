@@ -10,6 +10,7 @@ const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const navigate = useNavigate();
 
@@ -30,6 +31,11 @@ const Hospital = () => {
     }
   };
 
+  const handleReset = () => {
+    setSearchTerm('');
+    setHospitals([]); // Clear previous results if necessary
+  }
+  
   function handleClick(){
    
     navigate('/root/doctors');
