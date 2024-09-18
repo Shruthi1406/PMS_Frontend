@@ -32,7 +32,7 @@ const router = createBrowserRouter([
           {
             path:"bookAppointments",
             element:<MedicalHistoryForm/>
-          },          
+          },                     
           {
             path:"vitalsigns",
             element:<VitalSignsTable/>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import '../Medicalhistory/VitalSigns.css';
 
 const VitalSignsTable = () => {
   const [patientId] = useState(2); // Default patientId
@@ -44,8 +45,8 @@ const VitalSignsTable = () => {
   if (error) return <p>Error fetching data: {error}</p>;
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4">Vital Signs for Patient {patientId}</h2>
+    <div className="container mb-4">
+      <h2 className="mb-4">Vital Signs</h2>
       {vitalSigns.length > 0 ? (
         <div className="table-responsive">
           <table className="table table-striped table-bordered">
