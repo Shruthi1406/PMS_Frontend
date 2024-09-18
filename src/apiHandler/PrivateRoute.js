@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRoute = () => {
   const token = localStorage.getItem('authToken');
+  const alertShownRef = useRef(false); 
+
+  useEffect(() => {
+    if (!token && !alertShownRef.current) {
+      alert("Please login");
+      alertShownRef.current = true; 
+    }
+  }, [token]);
 
   if (!token) {
-    alert("Please login");
-    return <Navigate to="/root"/>;
+    return <Navigate to="/root" />;
   }
 
   return <Outlet />;

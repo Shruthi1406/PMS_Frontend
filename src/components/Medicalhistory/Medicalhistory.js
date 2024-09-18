@@ -10,7 +10,7 @@ const PatientForm = () => {
   const doctor=location.state!=null?location.state.doctor:null;
   const hopsital=location.state!=null?location.state.hospital:null;
   const [formData, setFormData] = useState({
-    recordedDate: '',
+    //recordedDate: '',
     reason: '',
     medication: [],
     hasAsthma: false,
@@ -25,7 +25,8 @@ const PatientForm = () => {
     patientId: patientInfo.patientId,
     doctorId: doctor.doctorId,
     hospitalName: hopsital.hospitalName,
-    patientName: '',
+    firstName:'',
+    lastName:'',
     gender: '',
     height: '',
     weight: '',
@@ -73,7 +74,6 @@ const PatientForm = () => {
       // Prepare data for the first API call
       const medicalHistoryData = {
         patientId: formData.patientId,
-        recordedDate: formData.recordedDate,
         reason: formData.reason,
         medication: formData.medication,
         hasAsthma: formData.hasAsthma,
@@ -100,14 +100,13 @@ const PatientForm = () => {
         throw new Error('Medical History ID not found in response');
       }
 
-      const medicalHistoryId = medicalHistoryResponse.data.historyId;
 
       // Prepare data for the second API call
       const appointmentData = {
         patientId: formData.patientId,
         doctorId: formData.doctorId,
         hospitalName: formData.hospitalName,
-        patientName: formData.patientName,
+        patientName: formData.firstName+" "+formData.lastName,
         gender: formData.gender,
         height: parseInt(formData.height, 10),
         weight: parseInt(formData.weight, 10),
@@ -116,8 +115,6 @@ const PatientForm = () => {
         appointmentDate: formData.appointmentDate,
         statusId: -1,
         reason: formData.reason,
-        createdAt: new Date().toISOString(),
-        medicalHistoryId
       };
 
       // Second API call: Schedule appointment
@@ -129,7 +126,6 @@ const PatientForm = () => {
       
       // Clear form fields
       setFormData({
-        recordedDate: '',
         reason: '',
         medication: [],
         hasAsthma: false,
@@ -141,8 +137,8 @@ const PatientForm = () => {
         exerciseFrequency: '',
         alcoholConsumption: '',
         smoke: '', 
-        patientId: '1',
-        doctorId: '2',
+        patientId: '',
+        doctorId: '',
         hospitalName: '',
         patientName: '',
         gender: '',
@@ -169,51 +165,25 @@ const PatientForm = () => {
           {/* Appointment Fields */}
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="patientId">Patient ID:</label>
+              <label htmlFor="firstName">First Name:</label>
               <input
                 type="text"
-                id="patientId"
-                name="patientId"
+                id="firstName"
+                name="firstName"
                 className="form-control"
-                value={formData.patientId}
+                value={formData.firstName}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="doctorId">Doctor ID:</label>
+              <label htmlFor="lastName">Last Name:</label>
               <input
                 type="text"
-                id="doctorId"
-                name="doctorId"
+                id="lastName"
+                name="lastName"
                 className="form-control"
-                value={formData.doctorId}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="hospitalName">Hospital Name:</label>
-              <input
-                type="text"
-                id="hospitalName"
-                name="hospitalName"
-                className="form-control"
-                value={formData.hospitalName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="patientName">Patient Name:</label>
-              <input
-                type="text"
-                id="patientName"
-                name="patientName"
-                className="form-control"
-                value={formData.patientName}
+                value={formData.lastName}
                 onChange={handleChange}
                 required
               />
@@ -304,19 +274,7 @@ const PatientForm = () => {
 
           {/* Medical History Fields */}
           <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="recordedDate">Recorded Date:</label>
-              <input
-                type="date"
-                id="recordedDate"
-                name="recordedDate"
-                className="form-control"
-                value={formData.recordedDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6">
+            <div className="col-md-12">
               <label htmlFor="reason">Reason for Visit:</label>
               <textarea
                 id="reason"
