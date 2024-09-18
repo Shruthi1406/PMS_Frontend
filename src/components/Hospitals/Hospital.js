@@ -36,7 +36,7 @@ const Hospital = () => {
   }
 
   return (
-    <div className="container mt-5 list-hospitals">
+    <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
@@ -65,7 +65,7 @@ const Hospital = () => {
                 <p className="card-text">Pincode: {hospital.pincode}</p>
                 {/* <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div> */}
                 
-                <Link to="/root/doctors" state={hospital.hospitalId}><div  className="btn btn-primary">View Doctors</div></Link>
+                <Link to="/root/doctors" state={{hospitalId:hospital.hospitalId}}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>
