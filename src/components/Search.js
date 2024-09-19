@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation,Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 
 const HospitalSearchComponent = () => {
@@ -8,7 +7,6 @@ const HospitalSearchComponent = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const location = new URLSearchParams(useLocation().search).get('location');
-  const navigate = useNavigate();
   
   const handleSearch = (location) => {
     if (!location) return;
@@ -33,11 +31,6 @@ const HospitalSearchComponent = () => {
     
     handleSearch(location);
   }, [location]);
-
-  function handleClick() {
-    
-    navigate('/root/doctors');
-  }
   
   return (
     <div className="container mt-5 search-component">
