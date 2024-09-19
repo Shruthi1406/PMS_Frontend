@@ -17,82 +17,97 @@ import Footer from '../Footer';
 function Homepage() {
   return (
     <>
-    <div className='homepage'>
-        <div class="d-flex justify-content-around description">
-            <div class="content-one">
-                <h2>Streamline Your Healthcare Experience with Effortless Appointment Booking</h2>
-                <h5>Simplify Scheduling with Our User-Friendly Booking System</h5>
-                <p>Welcome to new era of convenience in helathcare mangagement.
-                Our  Patient Appointment Booking System is designed to make scheduling medical appointments easy and efficient,putting you in control of your healthcare Journey.</p>
-            </div>
-            <div class="flex-shrink-1">
-            <img src={dashboard} class="img-fluid image" alt="patient"/>
+    <div className='Home-content'>
+       <div className='homepage'>
+         <div className="d-flex justify-content-around description">
+          <div className="flex-grow-1 mt-5">
+              <h2>Streamline Your Healthcare Experience with Effortless Appointment Booking</h2>
+              <h5>Simplify Scheduling with Our User-Friendly Booking System</h5>
+          <p>
+            Welcome to a new era of convenience in healthcare management. 
+            Our Patient Appointment Booking System is designed to make scheduling 
+            medical appointments easy and efficient, putting you in control of 
+            your healthcare journey.
+          </p>
+          </div>
+    <div className="card custom-card flex-shrink-1 mt-5" style={{ width: '18rem' }}>
+        <img src={dashboard} className="card-img-top img-fluid" alt="Patient" />
+    </div>
+</div>
+
+        <div className='problems'>
+          <h2>Consult top Doctors online for any health concern</h2>
+          <div className="d-flex justify-content-around">
+          {/* Problem 1 */}
+          <div className="card custom-card">
+            <img src={cough} className="card-img-top img-fluid problem-img" alt="Typical cold" />
+            <div className="card-body">
+                <p className="card-text">Typical cold with fever and cough.</p>
+                <button type="button" className="btn btn-info">Consult Now</button>
             </div>
         </div>
-        <div className='problems'>
-            <h2 className='problems'>Consult top Doctors online for any health concern</h2>
-            <div class="d-flex justify-content-around">
-                {/*problem-1*/}
-              <div class="card custom-card">
-                  <img src={cough} class="card-img-top img-fluid problem-img" alt="..."/>
-                  <div class="card-body">
-                     <p class="card-text">Typical cold with fever and cough.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
-                    </div>
-                </div>
-                 {/*problem-2*/}
-                 <div class="card custom-card">
-                     <img src={bone} class="card-img-top img-fluid problem-img" alt="..."/>
-                     <div class="card-body">
-                       <p class="card-text">Arthritis causing joint discomfort.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
-                    </div>
-                </div>
-                 {/*problem-2*/}
-                 <div class="card custom-card">
-                     <img src={migrane} class="card-img-top img-fluid problem-img" alt="..."/>
-                     <div class="card-body">
-                       <p class="card-text">Pulsating pain, light sensitivity.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
-                    </div>
-                </div>
-                 {/*problem-2*/}
-                 <div class="card custom-card">
-                     <img src={depression} class="card-img-top img-fluid problem-img" alt="..."/>
-                     <div class="card-body">
-                       <p class="card-text">Persistent sadness and hopelessness.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
-                    </div>
-                </div>
-                
+        {/* Problem 2 */}
+        <div className="card custom-card">
+            <img src={bone} className="card-img-top img-fluid problem-img" alt="Arthritis" />
+            <div className="card-body">
+                <p className="card-text">Arthritis causing joint discomfort.</p>
+                <button type="button" className="btn btn-info">Consult Now</button>
             </div>
-            {/* specalization based */}
-            <div className='appointment'>
-                <h2>Book an appointment for in-clinic consultation</h2>
-                {/*Dentist */}
-                <div className='d-flex justify-content-around'>
-                 <div className="container">
-                    <img src={dentist} class="card-img-top img-fluid problem-img" alt="..."/><br/>
-                    <Link to='/'>Dentist</Link>
-                 </div>
-                 {/*Derma */}
-                  <div className="container">
-                    <img src={derma} class="card-img-top img-fluid problem-img" alt="..."/><br/>
-                    <Link to='/'>Dermatologist</Link>
-                  </div>
-                 {/*cardio */}
-                  <div className="container">
-                    <img src={cardio} class="card-img-top img-fluid problem-img" alt="..."/><br/>
-                    <Link to='/'>Cardiologist</Link>
-                   </div>
-                 {/*nutrionist */}
-                   <div className="container">
-                     <img src={nutrionist} class="card-img-top img-fluid problem-img" alt="..."/><br/>
-                     <Link to='/'>Nutritionist</Link>
-                   </div>
-                </div>
-                
+        </div>
+        {/* Problem 3 */}
+        <div className="card custom-card">
+            <img src={migrane} className="card-img-top img-fluid problem-img" alt="Migrane" />
+            <div className="card-body">
+                <p className="card-text">Pulsating pain, light sensitivity.</p>
+                <button type="button" className="btn btn-info">Consult Now</button>
             </div>
+        </div>
+        {/* Problem 4 */}
+        <div className="card custom-card">
+            <img src={depression} className="card-img-top img-fluid problem-img" alt="Depression" />
+            <div className="card-body">
+                <p className="card-text">Persistent sadness and hopelessness.</p>
+                <button type="button" className="btn btn-info">Consult Now</button>
+            </div>
+        </div>
+    </div>
+
+
+            {/* Specialization Based */}
+<div className='appointment'>
+    <h2>Book an appointment for in-clinic consultation</h2>
+    <div className='d-flex justify-content-around'>
+        {/* Dentist */}
+        <div className="card custom-card">
+            <img src={dentist} className="card-img-top img-fluid problem-img" alt="Dentist" />
+            <div className="card-body">
+                <Link to='/' className="btn btn-info">Dentist</Link>
+            </div>
+        </div>
+        {/* Dermatologist */}
+        <div className="card custom-card">
+            <img src={derma} className="card-img-top img-fluid problem-img" alt="Dermatologist" />
+            <div className="card-body">
+                <Link to='/' className="btn btn-info">Dermatologist</Link>
+            </div>
+        </div>
+        {/* Cardiologist */}
+        <div className="card custom-card">
+            <img src={cardio} className="card-img-top img-fluid problem-img" alt="Cardiologist" />
+            <div className="card-body">
+                <Link to='/' className="btn btn-info">Cardiologist</Link>
+            </div>
+        </div>
+        {/* Nutritionist */}
+        <div className="card custom-card">
+            <img src={nutrionist} className="card-img-top img-fluid problem-img" alt="Nutritionist" />
+            <div className="card-body">
+                <Link to='/' className="btn btn-info">Nutritionist</Link>
+            </div>
+        </div>
+    </div>
+</div>
+
             {/*carousel */}
             <div className='carousel'>
               <h2 className="carousel-heading">What Our Users Say</h2>
@@ -140,6 +155,7 @@ function Homepage() {
 
         </div>
         </div>
+  </div>
   <Footer/>
   </>
         
