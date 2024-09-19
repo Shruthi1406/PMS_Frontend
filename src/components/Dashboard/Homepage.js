@@ -37,7 +37,7 @@ function Homepage() {
                   <img src={cough} class="card-img-top img-fluid problem-img" alt="..."/>
                   <div class="card-body">
                      <p class="card-text">Typical cold with fever and cough.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
+                     <Link to='/root/specialist' state={{specialization:'GeneralPhysician'}}><button type="button" class="btn btn-info">consult now</button></Link>
                     </div>
                 </div>
                  {/*problem-2*/}
@@ -45,7 +45,7 @@ function Homepage() {
                      <img src={bone} class="card-img-top img-fluid problem-img" alt="..."/>
                      <div class="card-body">
                        <p class="card-text">Arthritis causing joint discomfort.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
+                       <Link to='/root/specialist' state={{specialization:'Neurologist'}}><button type="button" class="btn btn-info">consult now</button></Link>
                     </div>
                 </div>
                  {/*problem-2*/}
@@ -53,7 +53,7 @@ function Homepage() {
                      <img src={migrane} class="card-img-top img-fluid problem-img" alt="..."/>
                      <div class="card-body">
                        <p class="card-text">Pulsating pain, light sensitivity.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
+                      <Link to='/root/specialist' state={{specialization:'Neurologist'}}><button type="button" class="btn btn-info">consult now</button></Link>
                     </div>
                 </div>
                  {/*problem-2*/}
@@ -61,7 +61,7 @@ function Homepage() {
                      <img src={depression} class="card-img-top img-fluid problem-img" alt="..."/>
                      <div class="card-body">
                        <p class="card-text">Persistent sadness and hopelessness.</p>
-                      <button type="button" class="btn btn-info">consult now</button>
+                       <Link to='/root/specialist' state={{specialization:'psychiatrist'}}><button type="button" class="btn btn-info">consult now</button></Link>
                     </div>
                 </div>
                 
