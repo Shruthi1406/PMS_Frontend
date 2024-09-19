@@ -69,7 +69,7 @@ const Hospital = () => {
                 <h5 className="card-title">{hospital.hospitalName} Hospitals</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
-                {/* <div onClick={ handleClick}  className="btn btn-primary">View Doctors</div> */}
+
                 
                 <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
