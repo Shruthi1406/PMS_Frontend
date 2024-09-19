@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Medicalhistoryform.css'; // Ensure your CSS file is still imported
-import './Medicalhistoryform.css';
 import { useLocation } from 'react-router-dom';
 
-
 const PatientForm = () => {
-  const location=useLocation();
-  const patientInfo = localStorage.getItem('patientInfo')!=null?JSON.parse(localStorage.getItem('patientInfo')):null;
-  const doctor=location.state!=null?location.state.doctor:null;
-  const hopsital=location.state!=null?location.state.hospital:null;
+  const location = useLocation();
+  const patientInfo = localStorage.getItem('patientInfo') != null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
+  const doctor = location.state != null ? location.state.doctor : null;
+  const hospital = location.state != null ? location.state.hospital : null;
+
   const [formData, setFormData] = useState({
-    //recordedDate: '',
     reason: '',
     medication: [],
     hasAsthma: false,
@@ -26,9 +24,9 @@ const PatientForm = () => {
     smoke: '',
     patientId: patientInfo.patientId,
     doctorId: doctor.doctorId,
-    hospitalName: hopsital.hospitalName,
-    firstName:'',
-    lastName:'',
+    hospitalName: hospital.hospitalName,
+    firstName: '',
+    lastName: '',
     gender: '',
     height: '',
     weight: '',
@@ -95,20 +93,19 @@ const PatientForm = () => {
           'Content-Type': 'application/json'
         }
       });
-      
+
       console.log('Medical History Response:', medicalHistoryResponse);
 
       if (!medicalHistoryResponse.data.historyId) {
         throw new Error('Medical History ID not found in response');
       }
 
-
       // Prepare data for the second API call
       const appointmentData = {
         patientId: formData.patientId,
         doctorId: formData.doctorId,
         hospitalName: formData.hospitalName,
-        patientName: formData.firstName+" "+formData.lastName,
+        patientName: formData.firstName + " " + formData.lastName,
         gender: formData.gender,
         height: parseInt(formData.height, 10),
         weight: parseInt(formData.weight, 10),
@@ -125,7 +122,7 @@ const PatientForm = () => {
 
       setSuccessMessage('Form submitted successfully');
       setErrorMessage('');
-      
+
       // Clear form fields
       setFormData({
         reason: '',
@@ -138,11 +135,12 @@ const PatientForm = () => {
         hasHeartDisease: false,
         exerciseFrequency: '',
         alcoholConsumption: '',
-        smoke: '', 
+        smoke: '',
         patientId: '',
         doctorId: '',
         hospitalName: '',
-        patientName: '',
+        firstName: '',
+        lastName: '',
         gender: '',
         height: '',
         weight: '',
@@ -315,25 +313,37 @@ const PatientForm = () => {
           <div className="row mb-3">
             <div className="col-md-6">
               <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
-              <input
-                type="text"
+              <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
                 className="form-control"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Select Frequency</option>
+                <option value="Never">Never</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Always">Always</option>
+              </select>
             </div>
             <div className="col-md-6">
               <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
-              <input
-                type="text"
+              <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
                 className="form-control"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
-              />
+              >
+                <option value="">Select Consumption</option>
+                <option value="None">None</option>
+                <option value="Socially">Socially</option>
+                <option value="Moderately">Moderately</option>
+                <option value="Frequently">Frequently</option>
+                <option value="Heavily">Heavily</option>
+              </select>
             </div>
           </div>
           <div className="row mb-3">

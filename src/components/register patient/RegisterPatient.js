@@ -50,7 +50,7 @@ const RegisterPatient = ({ onClose }) => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await api.post('/Patient/RegisterPatient', formData);
+        const response = await api.post('/Patient/Register', formData);
         console.log('Patient registered successfully:', response.data);
         onClose();  
       } catch (error) {
