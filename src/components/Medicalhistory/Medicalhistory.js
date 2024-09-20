@@ -158,9 +158,12 @@ const PatientForm = () => {
   };
 
   return (
-    <div className="medical-history-container container mt-6">
+    <div className='background mb-5'>
+
+   
+    <div className="medical-history-container container mt-5">
       <div className="form-container">
-        <h1 className="text-center mb-4">Patient Details</h1>
+        <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
           <div className="row mb-3">
@@ -168,7 +171,7 @@ const PatientForm = () => {
               <label htmlFor="firstName">First Name:</label>
               <input
                 type="text"
-                id="firstName"
+                id="first"
                 name="firstName"
                 className="form-control"
                 value={formData.firstName}
@@ -301,11 +304,11 @@ const PatientForm = () => {
             <div className="col-md-6">
               <label>Health Conditions:</label>
               <div>
-                <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma</label>
-                <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure</label>
-                <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer</label>
-                <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol</label>
-                <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes</label>
+                <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma &nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure &nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer &nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol &nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes &nbsp;&nbsp;</label>
                 <label><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
               </div>
             </div>
@@ -350,7 +353,7 @@ const PatientForm = () => {
             <div className="col-md-6">
               <label htmlFor="smoke">Do you smoke?</label>
               <div>
-                <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes</label>
+                <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
                 <label><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
               </div>
             </div>
@@ -360,6 +363,7 @@ const PatientForm = () => {
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

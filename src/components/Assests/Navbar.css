@@ -12,7 +12,19 @@
     color: #fff;
     font-size:20px;
   }
- 
+  #search {
+    background-color: white; /* Set background to white */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px; /* Padding for better spacing */
+    font-size: 16px; /* Font size for better readability */
+  }
+  
+  /* Change focus outline color */
+  #search:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional shadow */
+  }
+  
  
   .icon-style {
     padding: 20px;
