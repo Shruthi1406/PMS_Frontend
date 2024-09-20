@@ -63,7 +63,7 @@ function Doctor() {
                             <div className="child Doctor-Details">
                                 <h4>{doctor.doctorName}</h4>
                                 <p>Specialization: {doctor.specialization}</p>
-                                <p>Consultation Fee: {doctor.consultationFee}</p>
+                                <p>Consultation Fee: Rs.{doctor.consultationFee}</p>
                                 <p> <StarRatings
                                         rating={rating}
                                         starRatedColor="gold"
