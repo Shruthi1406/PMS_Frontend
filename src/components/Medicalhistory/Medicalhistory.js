@@ -33,6 +33,7 @@ const PatientForm = () => {
     dob: '',
     email: '',
     appointmentDate: '',
+    appointmentTime:''
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -111,7 +112,7 @@ const PatientForm = () => {
         weight: parseInt(formData.weight, 10),
         dob: formData.dob,
         email: formData.email,
-        appointmentDate: formData.appointmentDate,
+        appointmentDate: `${formData.appointmentDate}T${formData.appointmentTime}`,
         statusId: -1,
         reason: formData.reason,
       };
@@ -147,6 +148,7 @@ const PatientForm = () => {
         dob: '',
         email: '',
         appointmentDate: '',
+        appointmentTime:''
       });
     } catch (error) {
       console.error('There was an error!', error);
@@ -261,7 +263,7 @@ const PatientForm = () => {
                 required
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-3">
               <label htmlFor="appointmentDate">Appointment Date:</label>
               <input
                 type="date"
@@ -269,6 +271,18 @@ const PatientForm = () => {
                 name="appointmentDate"
                 className="form-control"
                 value={formData.appointmentDate}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col-md-3">
+              <label htmlFor="appointmentDate">Appointment Time:</label>
+              <input
+                type="time"
+                id="appointmentTime"
+                name="appointmentTime"
+                className="form-control"
+                value={formData.appointmentTime}
                 onChange={handleChange}
                 required
               />

@@ -66,7 +66,7 @@ const Hospital = () => {
               )}
             </div>
               <div className="card-body">
-                <h5 className="card-title">{hospital.hospitalName} Hospitals</h5>
+                <h5 className="card-title">{hospital.hospitalName} Hospital</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
 

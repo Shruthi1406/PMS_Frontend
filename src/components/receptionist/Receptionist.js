@@ -44,7 +44,7 @@ const Receptionist = () => {
     }
   };
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('recAuthToken');
     localStorage.removeItem('receptionistInfo');
     navigate('/root');
   };

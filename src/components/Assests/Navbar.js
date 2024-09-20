@@ -46,6 +46,11 @@ function Navbar() {
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
+  function handleSearch()
+  {
+    navigate(`/root/locationSearch?location=${location.toLowerCase()}`);
+    setLocation('');
+  }
 
   function getInitials(name) {
     return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
@@ -95,7 +100,8 @@ function Navbar() {
                   value={location}
                   onChange={handleLocationChange}
                   />
-                  <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link>
+                  {/* <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link> */}
+                  <button className="btn btn-outline-secondary custom-search-button" type="button" onClick={handleSearch}>Search</button>
                 </div>
               </li>
             </ul>
@@ -106,9 +112,9 @@ function Navbar() {
                 <span className="icon-style notifications">Notifications</span>
               </li>
               <li className="nav-item">
-                {localStorage.getItem("authToken") ? (
+                {localStorage.getItem("authToken")!=null ? (
                   <div style={profileStyle}>
-                    <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{patientInfo!=null ?getInitials(patientInfo.patientName):null}</span>
+                    <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
                   </div>
                 ) : (
                   <Button variant="light" onClick={handleShowLogin}>Login/Signup</Button>
