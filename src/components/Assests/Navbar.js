@@ -30,7 +30,7 @@ function Navbar() {
   const handleCloseRegister = () => setShowRegisterModal(false);
   const handleShowRegister = () => setShowRegisterModal(true);
   
-  const patientInfo = localStorage.getItem('patientInfo') ? JSON.parse(localStorage.getItem('patientInfo')) : null;
+  const patientInfo = localStorage.getItem('patientInfo')!=null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
@@ -70,7 +70,7 @@ function Navbar() {
     width: "45px",
     borderRadius: "100px",
     color: "white",
-    background: patientInfo ? generateBackground(patientInfo.patientName) : '#ccc',
+    background: patientInfo!=null ? generateBackground(patientInfo.patientName) : '#ccc',
     margin: "auto",
   };
 
@@ -108,7 +108,7 @@ function Navbar() {
               <li className="nav-item">
                 {localStorage.getItem("authToken") ? (
                   <div style={profileStyle}>
-                    <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
+                    <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{patientInfo!=null ?getInitials(patientInfo.patientName):null}</span>
                   </div>
                 ) : (
                   <Button variant="light" onClick={handleShowLogin}>Login/Signup</Button>
@@ -168,7 +168,7 @@ function Navbar() {
         <button className="close-btn" onClick={toggleSidebar}>×</button>
         <div className="sidebar-header">
           <FontAwesomeIcon icon={faUser} size="4x" style={{ cursor: "pointer" }} />
-          {patientInfo ? (
+          {patientInfo!=null ? (
             <div>
               <h5>{patientInfo.patientName}</h5>
               <p>{patientInfo.patientEmail}</p>

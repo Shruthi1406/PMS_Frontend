@@ -40,11 +40,13 @@ const ReceptionistLogin = ({ onClose }) => {
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
           setIsUserValid(true);
+          localStorage.setItem('receptionistInfo', JSON.stringify(response.data.user)); 
           localStorage.setItem('authToken', response.data.token);
           navigate('/receptionist');
           setTimeout(()=>{
             localStorage.removeItem('authToken');
-          },60000);
+            localStorage.removeItem('receptionistInfo');
+          },1800000);
           onClose();  
         }
         else

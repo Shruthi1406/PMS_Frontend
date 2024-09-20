@@ -13,6 +13,7 @@ import Doctor from './components/Doctors/Doctor';
 import VitalSignsTable from './components/vitalsigns/VitalSigntable';
 import HospitalSearchComponent from './components/Search';
 import { useState } from 'react';
+import Specailist from './components/Doctors/Specailist';
 
 const App = () => {
   const [location, setLocation] = useState('');
@@ -59,7 +60,10 @@ const App = () => {
         {
           path: '/root/doctors',
           element: <Doctor />,
-        },
+        },{
+          path:'/root/specialist',
+          element:<Specailist/>
+        }
       ],
     },
     {

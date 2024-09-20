@@ -9,7 +9,7 @@ import temperature from '../Assests/temperature.jpg';
 import respiratory from '../Assests/respiratory.jpg';
 
 const VitalSignsTable = () => {
-  const [patientId] = useState(2); // Default patientId
+  const [patientId] = useState(2); 
   const [vitalSigns, setVitalSigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,8 +19,7 @@ const VitalSignsTable = () => {
       try {
         if (patientId) {
           const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSigns?patientId=${patientId}`);
-          console.log('Vital Signs Response:', response.data); // Log data for debugging
-
+          console.log('Vital Signs Response:', response.data); 
           if (Array.isArray(response.data)) {
             setVitalSigns(response.data);
           } else if (response.data.vitalSignId) {
