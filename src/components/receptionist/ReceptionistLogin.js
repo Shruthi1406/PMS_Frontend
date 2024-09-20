@@ -45,7 +45,8 @@ const ReceptionistLogin = ({ onClose }) => {
           navigate('/receptionist');
           setTimeout(()=>{
             localStorage.removeItem('authToken');
-          },60000);
+            localStorage.removeItem('receptionistInfo');
+          },1800000);
           onClose();  
         }
         else
