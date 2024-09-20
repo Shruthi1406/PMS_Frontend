@@ -41,6 +41,7 @@ const Login = ({ onClose }) => {
         if (response.data && response.data.isLogged) {
           setIsUserValid(true);
           localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
+          localStorage.setItem('isPatient',response.data.isPatient);
           localStorage.setItem('authToken', response.data.token);
           navigate('/root');
           setTimeout(()=>{
