@@ -46,6 +46,11 @@ function Navbar() {
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
+  function handleSearch()
+  {
+    navigate(`/root/locationSearch?location=${location.toLowerCase()}`);
+    setLocation('');
+  }
 
   function getInitials(name) {
     return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
@@ -95,7 +100,8 @@ function Navbar() {
                   value={location}
                   onChange={handleLocationChange}
                   />
-                  <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link>
+                  {/* <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link> */}
+                  <button className="btn btn-outline-secondary custom-search-button" type="button" onClick={handleSearch}>Search</button>
                 </div>
               </li>
             </ul>
