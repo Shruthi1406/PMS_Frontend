@@ -81,10 +81,10 @@ function Navbar() {
 
   return (
     <header style={{ margin: '50px' }}>
-      <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
+      <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
         <div className="container-fluid">
           <Link to="/root" className="navbar-brand">
-            <img src={PmsLogo1} className="img-fluid custom-logo" alt="Logo" />
+            <img  src={PmsLogo1} className="img-fluid custom-logo ml-5" alt="Logo" />
           </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -93,7 +93,7 @@ function Navbar() {
             <ul className="navbar-nav me-auto my-2 my-lg-0">
               <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Find Hospitals</Link></li>
               <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
-              <li className="nav-item"><a className="nav-link" href="#">Medical History</a></li>
+              
               <li className='nav-item'>
                 <div className="input-group">
                   <input type="text" id="search" className="form-control"  placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 

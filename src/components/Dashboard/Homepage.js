@@ -90,28 +90,28 @@ function Homepage() {
               <div className="card custom-card">
                 <img src={dentist} className="card-img-top img-fluid problem-img" alt="Dentist" />
                 <div className="card-body">
-                  <Link to='/' className="btn btn-info">Dentist</Link>
+                  <Link to='/root/specialist' state={{ specialization: 'Dentist' }} className="btn btn-info">Dentist</Link>
                 </div>
               </div>
               {/* Dermatologist */}
               <div className="card custom-card">
                 <img src={derma} className="card-img-top img-fluid problem-img" alt="Dermatologist" />
                 <div className="card-body">
-                  <Link to='/' className="btn btn-info">Dermatologist</Link>
+                  <Link to='/root/specialist' state={{ specialization: 'Dermatologist' }} className="btn btn-info">Dermatologist</Link>
                 </div>
               </div>
               {/* Cardiologist */}
               <div className="card custom-card">
                 <img src={cardio} className="card-img-top img-fluid problem-img" alt="Cardiologist" />
                 <div className="card-body">
-                  <Link to='/' className="btn btn-info">Cardiologist</Link>
+                  <Link to='/root/specialist' state={{ specialization: 'Cardiologist' }} className="btn btn-info">Cardiologist</Link>
                 </div>
               </div>
               {/* Nutritionist */}
               <div className="card custom-card">
                 <img src={nutrionist} className="card-img-top img-fluid problem-img" alt="Nutritionist" />
                 <div className="card-body">
-                  <Link to='/' className="btn btn-info">Nutritionist</Link>
+                  <Link to='/root/specialist' state={{ specialization: 'Nutrionist' }} className="btn btn-info">Nutritionist</Link>
                 </div>
               </div>
             </div>

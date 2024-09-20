@@ -50,7 +50,7 @@ const Hospital = () => {
         {hospitals.map(hospital => (
           <div key={hospital.hospitalId} className="col-md-4 mb-4">
             <div className="card custom-card">
-            <div className="custom-card-img-container">
+            <div className="custom-card-img-container hospital-image">
               {hospital.hospitalImage ? (
                 <img
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}
