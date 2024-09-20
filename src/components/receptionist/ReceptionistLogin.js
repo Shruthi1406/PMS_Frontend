@@ -41,10 +41,11 @@ const ReceptionistLogin = ({ onClose }) => {
         if (response.data && response.data.isLogged) {
           setIsUserValid(true);
           localStorage.setItem('receptionistInfo', JSON.stringify(response.data.user)); 
-          localStorage.setItem('authToken', response.data.token);
-          navigate('/receptionist');
+          localStorage.setItem('recAuthToken', response.data.token);
+          //navigate('/receptionist');
+          window.open('/receptionist', '_blank');
           setTimeout(()=>{
-            localStorage.removeItem('authToken');
+            localStorage.removeItem('recAuthToken');
             localStorage.removeItem('receptionistInfo');
           },1800000);
           onClose();  
