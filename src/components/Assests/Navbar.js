@@ -91,7 +91,7 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0">
-              <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Find Hospitals</Link></li>
+              <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>
               <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
               
               <li className='nav-item'>
