@@ -25,3 +25,6 @@
 .text-skyblue {
     color: skyblue; /* Skyblue color for headings */
 }
+.appointments-heading{
+    margin-top: 5rem;
+}

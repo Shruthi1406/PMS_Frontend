@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../apiHandler/api';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Link } from 'react-router-dom';
-import './Hospital.css'; // Import custom CSS file for additional styling
+import { Link, useNavigate } from 'react-router-dom';
+import './Hospital.css'; 
+
+
 
 const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchHospitals();
@@ -26,8 +31,18 @@ const Hospital = () => {
     }
   };
 
+  const handleReset = () => {
+    setSearchTerm('');
+    setHospitals([]); // Clear previous results if necessary
+  }
+  
+  function handleClick(){
+   
+    navigate('/root/doctors');
+  }
+
   return (
-    <div className="container mt-5 list-hospitals">
+    <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
@@ -35,7 +50,7 @@ const Hospital = () => {
         {hospitals.map(hospital => (
           <div key={hospital.hospitalId} className="col-md-4 mb-4">
             <div className="card custom-card">
-            <div className="custom-card-img-container">
+            <div className="custom-card-img-container hospital-image">
               {hospital.hospitalImage ? (
                 <img
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}
@@ -51,10 +66,12 @@ const Hospital = () => {
               )}
             </div>
               <div className="card-body">
-                <h5 className="card-title">{hospital.hospitalName} Hospitals</h5>
+                <h5 className="card-title">{hospital.hospitalName} Hospital</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
-                <Link  className="btn btn-primary">View Doctors</Link>
+
+                
+                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>

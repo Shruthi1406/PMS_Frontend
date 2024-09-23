@@ -12,7 +12,7 @@ const ReceptionistLogin = ({ onClose }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-
+  const [isUserValid,setIsUserValid]=useState(true);
   const navigate = useNavigate();
 
   const validate = () => {
@@ -39,12 +39,20 @@ const ReceptionistLogin = ({ onClose }) => {
         const response = await api.post('/Receptionist/Login', loginData);
         console.log('User logged in successfully:', response.data);
         if (response.data && response.data.isLogged) {
-          localStorage.setItem('authToken', response.data.token);
-          navigate('/receptionist');
+          setIsUserValid(true);
+          localStorage.setItem('receptionistInfo', JSON.stringify(response.data.user)); 
+          localStorage.setItem('recAuthToken', response.data.token);
+          //navigate('/receptionist');
+          window.open('/receptionist', '_blank');
           setTimeout(()=>{
-            localStorage.removeItem('authToken');
-          },60000);
+            localStorage.removeItem('recAuthToken');
+            localStorage.removeItem('receptionistInfo');
+          },1800000);
           onClose();  
+        }
+        else
+        {
+          setIsUserValid(false);
         }
       } catch (error) {
         setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
@@ -58,7 +66,7 @@ const ReceptionistLogin = ({ onClose }) => {
     <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">
         {apiError && <Alert variant="danger">{apiError}</Alert>}
-        
+        {isUserValid?<></>:<Alert variant="danger">Invalid Username or Password</Alert>}
         <Form.Group controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
