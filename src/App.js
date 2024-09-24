@@ -14,7 +14,9 @@ import VitalSignsTable from './components/vitalsigns/VitalSigntable';
 import HospitalSearchComponent from './components/Search';
 import { useState } from 'react';
 import Specailist from './components/Doctors/Specailist';
-
+import FitbitCallback from './components/fitbit/FitbitCallback';
+import FitbitLogin from './components/fitbit/FitbitLogin';
+import HeartRateDisplay from './components/fitbit/HeartRateDisplay';
 const App = () => {
   const [location, setLocation] = useState('');
 
@@ -67,9 +69,21 @@ const App = () => {
       ],
     },
     {
+      path: '/fitbit-callback',
+      element: <FitbitCallback />,
+    },
+    {
+      path: '/fitbit-login',
+      element: <FitbitLogin />,
+    },
+    {
       path: '/receptionist',
       element: <Receptionist />,
     },
+    {
+      path:"/heartrate",
+      element:<HeartRateDisplay/>
+    }
   ]);
 
   return (
