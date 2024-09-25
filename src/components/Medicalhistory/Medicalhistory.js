@@ -186,7 +186,7 @@ const PatientForm = () => {
  
    
     <div className="medical-history-container container mt-5 mh-container">
-      <div className="form-container">
+      <div className="form-container ">
         <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}

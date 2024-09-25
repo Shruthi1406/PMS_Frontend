@@ -1,6 +1,7 @@
 .medical-history-container {
-  max-width: 1000px;
-  margin-top: 100px;
+  max-width: 900px;
+
+  margin-top: 10px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -92,6 +93,7 @@ label {
   justify-content: flex-start; /* Align to the left */
   align-items: flex-start;
   padding-top: 100px;
+ 
 }
 
 
