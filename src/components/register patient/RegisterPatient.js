@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import api from '../../apiHandler/api';
+import './RegisterPatient.css'
 
 const RegisterPatient = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const RegisterPatient = ({ onClose }) => {
     PatientEmail: '',
     ContactNumber: '',
     Password: '',
-    DeviceName: '',
+    DeviceName: 'Apple',
     Age: '',
     Gender: '',
   });
@@ -112,7 +113,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formContactNumber" className="mt-3">
-          <Form.Label>Contact Number</Form.Label>
+          <Form.Label className='form-label' >Contact Number</Form.Label>
           <Form.Control
             type="text"
             name="ContactNumber"
@@ -129,7 +130,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formPassword" className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className='form-label'>Password</Form.Label>
           <Form.Control
             type="password"
             name="Password"
@@ -143,8 +144,8 @@ const RegisterPatient = ({ onClose }) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formDeviceName" className="mt-3">
-          <Form.Label>Device Name</Form.Label>
+        {/* <Form.Group controlId="formDeviceName" className="mt-3">
+          <Form.Label className='form-label'>Device Name</Form.Label>
           <Form.Control
             type="text"
             name="DeviceName"
@@ -156,7 +157,7 @@ const RegisterPatient = ({ onClose }) => {
           <Form.Control.Feedback type="invalid">
             {errors.DeviceName}
           </Form.Control.Feedback>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group controlId="formAge" className="mt-3">
           <Form.Label>Age</Form.Label>
