@@ -44,7 +44,7 @@
 #reason:focus,
 #medication:focus {
   outline: none; /* Remove default outline */
-  border-color: white; /* Darker blue border on focus */
+  
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional shadow */
 }
 
@@ -151,4 +151,14 @@ label {
 .checkbox-group label,
 .radio-group label {
   margin-right: 15px; /* Spacing between labels */
+}
+.select-white {
+  color: white; /* Set text color to white */
+  background-color: transparent; /* Optional: set background to transparent */
+  border: 1px solid white; /* Optional: add border for better visibility */
+}
+
+.select-white option {
+  color: black; /* Set option text color to black (or any other color) */
+  background-color: white; /* Set option background color */
 }

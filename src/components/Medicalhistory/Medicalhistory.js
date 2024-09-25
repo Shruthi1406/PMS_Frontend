@@ -33,7 +33,7 @@ const PatientForm = () => {
     dob: '',
     email: '',
     appointmentDate: '',
-    appointmentTime:''
+    appointmentTime: ''
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -65,6 +65,13 @@ const PatientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrorMessage('Invalid email format');
+      return;
+    }
 
     try {
       // Validation of form data before sending
@@ -148,7 +155,7 @@ const PatientForm = () => {
         dob: '',
         email: '',
         appointmentDate: '',
-        appointmentTime:''
+        appointmentTime: ''
       });
     } catch (error) {
       console.error('There was an error!', error);
@@ -161,226 +168,223 @@ const PatientForm = () => {
 
   return (
     <div className='background mb-5'>
-
-   
-    <div className="medical-history-container container mt-5 mh-container">
-      <div className="form-container">
-        <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
-        <form onSubmit={handleSubmit}>
-          {/* Appointment Fields */}
-          <div className="row mb-6">
-            <div className="col-md-6 ">
-              <label htmlFor="firstName">First Name:</label>
-              <input
-                type="text"
-                id="first"
-                name="firstName"
-                className="form-control"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="lastName">Last Name:</label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                className="form-control"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="gender">Gender:</label>
-              <select
-                id="gender"
-                name="gender"
-                className="form-control"
-                value={formData.gender}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="height">Height (in cm):</label>
-              <input
-                type="number"
-                id="height"
-                name="height"
-                className="form-control"
-                value={formData.height}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="weight">Weight (in kg):</label>
-              <input
-                type="number"
-                id="weight"
-                name="weight"
-                className="form-control"
-                value={formData.weight}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="dob">Date of Birth:</label>
-              <input
-                type="date"
-                id="dob"
-                name="dob"
-                className="form-control"
-                value={formData.dob}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="form-control"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="appointmentDate">Appointment Date:</label>
-              <input
-                type="date"
-                id="appointmentDate"
-                name="appointmentDate"
-                className="form-control"
-                value={formData.appointmentDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="appointmentDate">Appointment Time:</label>
-              <input
-                type="time"
-                id="appointmentTime"
-                name="appointmentTime"
-                className="form-control"
-                value={formData.appointmentTime}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-12">
-              <label htmlFor="reason">Reason for Visit:</label>
-              <input
-                type="text"
-                id="reason"
-                name="reason"
-                className="form-control"
-                value={formData.reason}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="medication">Medication:</label>
-              <input
-                type="text"
-                id="medication"
-                name="medication"
-                className="form-control"
-                placeholder="Enter medications separated by commas"
-                value={formData.medication.join(', ')}
-                onChange={handleMedicationChange}
-              />
-            </div>
-            <div className="col-md-6">
-              <label>Health Conditions:</label>
-              <div>
-                <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
+      <div className="medical-history-container container mt-5 mh-container">
+        <div className="form-container">
+          <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
+          <form onSubmit={handleSubmit}>
+            {/* Appointment Fields */}
+            <div className="row mb-6">
+              <div className="col-md-6 ">
+                <label htmlFor="firstName">First Name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  className="form-control"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="lastName">Last Name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  className="form-control"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                />
               </div>
             </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
-              <select
-                id="exerciseFrequency"
-                name="exerciseFrequency"
-                className="form-control"
-                value={formData.exerciseFrequency}
-                onChange={handleChange}
-              >
-                <option value="">Select Frequency</option>
-                <option value="Never">Never</option>
-                <option value="Rarely">Rarely</option>
-                <option value="Sometimes">Sometimes</option>
-                <option value="Often">Often</option>
-                <option value="Always">Always</option>
-              </select>
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
-              <select
-                id="alcoholConsumption"
-                name="alcoholConsumption"
-                className="form-control"
-                value={formData.alcoholConsumption}
-                onChange={handleChange}
-              >
-                <option value="">Select Consumption</option>
-                <option value="None">None</option>
-                <option value="Socially">Socially</option>
-                <option value="Moderately">Moderately</option>
-                <option value="Frequently">Frequently</option>
-                <option value="Heavily">Heavily</option>
-              </select>
-            </div>
-          </div>
-          <div className="row mb-6">
-            <div className="col-md-6">
-              <label htmlFor="smoke">Do you smoke?</label>
-              <div>
-                <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
-                <label><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="gender">Gender:</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  className="form-control select-white"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="height">Height (in cm):</label>
+                <input
+                  type="number"
+                  id="height"
+                  name="height"
+                  className="form-control"
+                  value={formData.height}
+                  onChange={handleChange}
+                  required
+                />
               </div>
             </div>
-          </div>
-          {successMessage && <div className="alert alert-success">{successMessage}</div>}
-          {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-          <div className="button-container">
-          <button type="submit" className="btn btn-primary">Submit</button>
-          </div>
-
-        </form>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="weight">Weight (in kg):</label>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  className="form-control"
+                  value={formData.weight}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="dob">Date of Birth:</label>
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  className="form-control"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-control"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-3">
+                <label htmlFor="appointmentDate">Appointment Date:</label>
+                <input
+                  type="date"
+                  id="appointmentDate"
+                  name="appointmentDate"
+                  className="form-control"
+                  value={formData.appointmentDate}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="col-md-3">
+                <label htmlFor="appointmentTime">Appointment Time:</label>
+                <input
+                  type="time"
+                  id="appointmentTime"
+                  name="appointmentTime"
+                  className="form-control"
+                  value={formData.appointmentTime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row mb-6">
+              <div className="col-md-12">
+                <label htmlFor="reason">Reason for Visit:</label>
+                <input
+                  type="text"
+                  id="reason"
+                  name="reason"
+                  className="form-control"
+                  value={formData.reason}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="medication">Medication:</label>
+                <input
+                  type="text"
+                  id="medication"
+                  name="medication"
+                  className="form-control"
+                  placeholder="Enter medications separated by commas"
+                  value={formData.medication.join(', ')}
+                  onChange={handleMedicationChange}
+                />
+              </div>
+              <div className="col-md-6">
+                <label>Health Conditions:</label>
+                <div>
+                  <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma &nbsp;&nbsp;</label>
+                  <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure &nbsp;&nbsp;</label>
+                  <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer &nbsp;&nbsp;</label>
+                  <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol &nbsp;&nbsp;</label>
+                  <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes &nbsp;&nbsp;</label>
+                  <label><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
+                </div>
+              </div>
+            </div>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
+                <select
+                  id="exerciseFrequency"
+                  name="exerciseFrequency"
+                  className="form-control select-white "
+                  value={formData.exerciseFrequency}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Frequency</option>
+                  <option value="Never">Never</option>
+                  <option value="Rarely">Rarely</option>
+                  <option value="Sometimes">Sometimes</option>
+                  <option value="Often">Often</option>
+                  <option value="Always">Always</option>
+                </select>
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
+                <select
+                  id="alcoholConsumption"
+                  name="alcoholConsumption"
+                  className="form-control select-white"
+                  value={formData.alcoholConsumption}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Consumption</option>
+                  <option value="None">None</option>
+                  <option value="Socially">Socially</option>
+                  <option value="Moderately">Moderately</option>
+                  <option value="Frequently">Frequently</option>
+                  <option value="Heavily">Heavily</option>
+                </select>
+              </div>
+            </div>
+            <div className="row mb-6">
+              <div className="col-md-6">
+                <label htmlFor="smoke">Do you smoke?</label>
+                <div>
+                  <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
+                  <label><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
+                </div>
+              </div>
+            </div>
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            <div className="button-container">
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
