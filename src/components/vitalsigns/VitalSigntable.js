@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import '../Medicalhistory/VitalSigns.css'; 
-import heartrate from '../Assests/heartrate.jpg';
-import oxygen from '../Assests/oxygen.jpg';
-import bp from '../Assests/bp.jpg';
-import temperature from '../Assests/temperature.jpg';
-import respiratory from '../Assests/respiratory.jpg';
+import { Line } from 'react-chartjs-2';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../Medicalhistory/VitalSigns.css';
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-plugin-annotation';
+
+Chart.register(...registerables);
 
 const VitalSignsTable = () => {
-  const [patientId] = useState(2); 
+  const patientInfo = localStorage.getItem('patientInfo') ? JSON.parse(localStorage.getItem('patientInfo')) : null;
+  const [patientId, setPatientId] = useState(patientInfo ? patientInfo.patientId : 2);
   const [vitalSigns, setVitalSigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,70 +18,182 @@ const VitalSignsTable = () => {
   useEffect(() => {
     const fetchVitalSigns = async () => {
       try {
-        if (patientId) {
-          const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSigns?patientId=${patientId}`);
-          console.log('Vital Signs Response:', response.data); 
-          if (Array.isArray(response.data)) {
-            setVitalSigns(response.data);
-          } else if (response.data.vitalSignId) {
-            setVitalSigns([response.data]);
-          } else {
-            console.error('Unexpected data format:', response.data);
-            setError('Unexpected data format');
-          }
+        const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSigns?patientId=${patientId}`);
+        if (Array.isArray(response.data)) {
+          setVitalSigns(response.data);
+        } else if (response.data.vitalSignId) {
+          setVitalSigns([response.data]);
         } else {
-          console.error('Patient ID is required');
-          setError('Patient ID is required');
+          setError('Unexpected data format');
         }
       } catch (err) {
-        console.error('Error fetching data:', err.message || 'Error fetching data');
         setError(err.message || 'Error fetching data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchVitalSigns();
-  }, [patientId]); // Depend on patientId
+    if (patientId) {
+      fetchVitalSigns();
+    }
+  }, [patientId]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching data: {error}</p>;
 
-  // Vital sign data structure
-  const vitalSignData = [
-    { type: 'Heart Rate', value: vitalSigns.length > 0 ? vitalSigns[0].heartRate : 'N/A', image: heartrate },
-    { type: 'Oxygen Saturation', value: vitalSigns.length > 0 ? vitalSigns[0].oxygenSaturation : 'N/A', image: oxygen },
-    { type: 'Blood Pressure', value: vitalSigns.length > 0 ? vitalSigns[0].bloodPressure : 'N/A', image: bp },
-    { type: 'Temperature', value: vitalSigns.length > 0 ? vitalSigns[0].temperature : 'N/A', image: temperature },
-    { type: 'Respiratory Rate', value: vitalSigns.length > 0 ? vitalSigns[0].respiratoryRate : 'N/A', image: respiratory },
-  ];
+  const labels = vitalSigns.map(v => new Date(v.date).toLocaleDateString());
+
+  // Heart Rate Data
+  const heartRateData = vitalSigns.map(v => v.heartRate);
+  const heartRateLineChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Heart Rate',
+        data: heartRateData,
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        tension: 0.1,
+      },
+    ],
+  };
+
+  // Temperature Data
+  const temperatureData = vitalSigns.map(v => v.temperature);
+  const temperatureLineChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Temperature',
+        data: temperatureData,
+        fill: false,
+        borderColor: 'rgba(255, 206, 86, 1)',
+        tension: 0.1,
+      },
+    ],
+  };
+
+  // Oxygen Saturation Data
+  const oxygenSaturationData = vitalSigns.map(v => v.oxygenSaturation);
+  const oxygenLineChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Oxygen Saturation',
+        data: oxygenSaturationData,
+        fill: false,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        tension: 0.1,
+      },
+    ],
+  };
+
+  // Blood Pressure Data
+  const systolicData = [];
+  const diastolicData = [];
+
+  vitalSigns.forEach(v => {
+    if (v.bloodPressure) {
+      const [systolic, diastolic] = v.bloodPressure.split('/').map(Number);
+      systolicData.push(systolic);
+      diastolicData.push(diastolic);
+    } else {
+      systolicData.push(0);
+      diastolicData.push(0);
+    }
+  });
+
+  const bloodPressureLineChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Systolic Blood Pressure',
+        data: systolicData,
+        fill: false,
+        borderColor: 'rgba(255, 0, 0, 1)', // Red for systolic
+        tension: 0.1,
+      },
+      {
+        label: 'Diastolic Blood Pressure',
+        data: diastolicData,
+        fill: false,
+        borderColor: 'rgba(0, 128, 0, 1)', // Green for diastolic
+        tension: 0.1,
+      },
+      {
+        label: 'Normal Systolic Range',
+        data: Array(labels.length).fill(120), // Normal systolic value
+        borderColor: 'rgba(255, 206, 86, 0.5)',
+        fill: false,
+        borderDash: [5, 5],
+      },
+      {
+        label: 'Normal Diastolic Range',
+        data: Array(labels.length).fill(80), // Normal diastolic value
+        borderColor: 'rgba(255, 206, 86, 0.5)',
+        fill: false,
+        borderDash: [5, 5],
+      },
+    ],
+  };
+
+  // Respiratory Rate Data
+  const respiratoryRateData = vitalSigns.map(v => v.respiratoryRate);
+  const respiratoryLineChartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Respiratory Rate',
+        data: respiratoryRateData,
+        fill: false,
+        borderColor: 'rgba(255, 159, 64, 1)',
+        tension: 0.1,
+      },
+    ],
+  };
 
   return (
-    <div className="vital-signs-container mb-4" style={{ width: '60%', margin: '0 auto' }}>
-      <h2 className="vital-signs-title mb-4">Vital Signs</h2>
-      {vitalSignData.length > 0 ? (
-        <div className="row">
-          {vitalSignData.map((sign, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <div className="card vital-sign-card">
-                <img 
-                  src={sign.image} 
-                  alt={sign.type} 
-                  className="card-img-top" 
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{sign.type}</h5>
-                  <p className="card-text">
-                    <strong>{sign.value}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+    <div className="vital-signs-container mb-4" style={{ width: '80%', margin: '0 auto' }}>
+      <h1 className="vital-signs-title mb-4">Vital Signs</h1>
+
+      <div className="row">
+        <div className="col-md-4">
+          <h1>Heart Rate</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={heartRateLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
+          </div>
         </div>
-      ) : (
-        <p>No vital signs available.</p>
-      )}
+
+        <div className="col-md-4">
+          <h1>Temperature</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={temperatureLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <h1>Oxygen Saturation</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={oxygenLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
+          </div>
+        </div>
+      </div>
+
+      <div className="row mt-4">
+        <div className="col-md-4">
+          <h1>Blood Pressure</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={bloodPressureLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <h1>Respiratory Rate</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={respiratoryLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
