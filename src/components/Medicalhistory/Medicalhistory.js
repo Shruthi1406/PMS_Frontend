@@ -3,13 +3,13 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Medicalhistoryform.css'; 
 import { useLocation } from 'react-router-dom';
-
+import api from '../../apiHandler/api';
 const PatientForm = () => {
   const location = useLocation();
   const patientInfo = localStorage.getItem('patientInfo') != null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
   const doctor = location.state != null ? location.state.doctor : null;
   const hospital = location.state != null ? location.state.hospital : null;
-
+  
   const [formData, setFormData] = useState({
     reason: '',
     medication: [],
@@ -38,7 +38,8 @@ const PatientForm = () => {
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [slots, setSlots] = useState({});
+  const [selectedSlot, setSelectedSlot] = useState('');
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -71,7 +72,9 @@ const PatientForm = () => {
       if (!formData.patientId || !formData.doctorId || !formData.hospitalName) {
         throw new Error('Patient ID, Doctor ID, and Hospital Name are required.');
       }
-
+      if (!selectedSlot) {
+        throw new Error('You must select an appointment slot.');
+      }
       // Prepare data for the first API call
       const medicalHistoryData = {
         patientId: formData.patientId,
@@ -89,7 +92,7 @@ const PatientForm = () => {
       };
 
       // First API call: Submit medical history
-      const medicalHistoryResponse = await axios.post('https://localhost:44376/api/History/AddMedicalhistory', medicalHistoryData, {
+      const medicalHistoryResponse = await api.post('/History/AddMedicalhistory', medicalHistoryData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -118,7 +121,7 @@ const PatientForm = () => {
       };
 
       // Second API call: Schedule appointment
-      const appointmentResponse = await axios.post('https://localhost:44376/api/Appointment/schedule', appointmentData);
+      const appointmentResponse = await api.post('/Appointment/schedule', appointmentData);
       console.log('Appointment Response:', appointmentResponse);
 
       setSuccessMessage('Form submitted successfully');
@@ -158,7 +161,26 @@ const PatientForm = () => {
       setSuccessMessage('');
     }
   };
+  const handleDateChange = async (e) => {
+    const newDate = e.target.value;
+    setFormData({ ...formData, appointmentDate: newDate });
 
+    if (newDate) {
+      try {
+        const response = await api.get(`/Doctor/GetDoctorSlotsByDate?DoctorId=${doctor.doctorId}&date=${newDate}`);
+        console.log(response.data);
+        setSlots(response.data); // Set the fetched slots
+      } catch (error) {
+        console.error('Error fetching slots:', error);
+        setErrorMessage('Failed to fetch slots. Please try again.');
+      }
+    }
+    console.log(formData.appointmentTime);
+  };
+  const handleSlotClick = (time) => {
+    setSelectedSlot(time); // Update the selected slot
+    setFormData({ ...formData, appointmentTime: time });
+  };
   return (
     <div className='background mb-5'>
 
@@ -263,31 +285,87 @@ const PatientForm = () => {
                 required
               />
             </div>
-            <div className="col-md-3">
-              <label htmlFor="appointmentDate">Appointment Date:</label>
-              <input
-                type="date"
-                id="appointmentDate"
-                name="appointmentDate"
-                className="form-control"
-                value={formData.appointmentDate}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="col-md-3">
-              <label htmlFor="appointmentDate">Appointment Time:</label>
-              <input
-                type="time"
-                id="appointmentTime"
-                name="appointmentTime"
-                className="form-control"
-                value={formData.appointmentTime}
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <div className="col-md-6">
+                <label htmlFor="appointmentDate">Appointment Date:</label>
+                <input
+                  type="date"
+                  id="appointmentDate"
+                  name="appointmentDate"
+                  className="form-control"
+                  value={formData.appointmentDate}
+                  onChange={handleDateChange}
+                  required
+                />
+              </div>
           </div>
+          {/* Display Slots */}
+          {formData.appointmentDate && (
+              <div className="row mb-3">
+                <div className="col-md-12">
+                  <label>Select Slot:</label>
+                  <div>
+                    {
+                      (slots.slot_1 && slots.slot_2 && slots.slot_3 && slots.slot_4 && slots.slot_5)?
+                      <p>No slots are available on the selected date</p>
+                      :
+                      <div>
+                        {slots.slot_1 !== undefined && (
+                          <button
+                            type="button"
+                            className={`btn ${selectedSlot === '10:00:00' ? 'btn-success' : 'btn-outline-primary'} m-1`}
+                            disabled={slots.slot_1}
+                            onClick={() => handleSlotClick('10:00:00')}
+                          >
+                            10:00
+                          </button>
+                        )}
+                        {slots.slot_2 !== undefined && (
+                          <button
+                            type="button"
+                            className={`btn ${selectedSlot === '11:00:00' ? 'btn-success' : 'btn-outline-primary'} m-1`}
+                            disabled={slots.slot_2}
+                            onClick={() => handleSlotClick('11:00:00')}
+                          >
+                            11:00
+                          </button>
+                        )}
+                        {slots.slot_3 !== undefined && (
+                          <button
+                            type="button"
+                            className={`btn ${selectedSlot === '14:00:00' ? 'btn-success' : 'btn-outline-primary'} m-1`}
+                            disabled={slots.slot_3}
+                            onClick={() => handleSlotClick('14:00:00')}
+                          >
+                            14:00
+                          </button>
+                        )}
+                        {slots.slot_4 !== undefined && (
+                          <button
+                            type="button"
+                            className={`btn ${selectedSlot === '15:00:00' ? 'btn-success' : 'btn-outline-primary'} m-1`}
+                            disabled={slots.slot_4}
+                            onClick={() => handleSlotClick('15:00:00')}
+                          >
+                            15:00
+                          </button>
+                        )}
+                        {slots.slot_5 !== undefined && (
+                          <button
+                            type="button"
+                            className={`btn ${selectedSlot === '16:00:00' ? 'btn-success' : 'btn-outline-primary'} m-1`}
+                            disabled={slots.slot_5}
+                            onClick={() => handleSlotClick('16:00:00')}
+                          >
+                            16:00
+                          </button>
+                        )}
+                    </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            )}
+          <div className="row mb-3">
           <div className="row mb-6">
             <div className="col-md-12">
               <label htmlFor="reason">Reason for Visit:</label>
