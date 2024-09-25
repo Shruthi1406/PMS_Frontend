@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Medicalhistoryform.css'; // Ensure your CSS file is still imported
+import './Medicalhistoryform.css'; 
 import { useLocation } from 'react-router-dom';
 
 const PatientForm = () => {
@@ -163,13 +163,13 @@ const PatientForm = () => {
     <div className='background mb-5'>
 
    
-    <div className="medical-history-container container mt-5">
+    <div className="medical-history-container container mt-5 mh-container">
       <div className="form-container">
         <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
-          <div className="row mb-3">
-            <div className="col-md-6">
+          <div className="row mb-6">
+            <div className="col-md-6 ">
               <label htmlFor="firstName">First Name:</label>
               <input
                 type="text"
@@ -194,7 +194,7 @@ const PatientForm = () => {
               />
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="gender">Gender:</label>
               <select
@@ -224,7 +224,7 @@ const PatientForm = () => {
               />
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="weight">Weight (in kg):</label>
               <input
@@ -250,7 +250,7 @@ const PatientForm = () => {
               />
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="email">Email:</label>
               <input
@@ -288,7 +288,7 @@ const PatientForm = () => {
               />
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-12">
               <label htmlFor="reason">Reason for Visit:</label>
               <input
@@ -302,7 +302,7 @@ const PatientForm = () => {
               />
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="medication">Medication:</label>
               <input
@@ -327,7 +327,7 @@ const PatientForm = () => {
               </div>
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
               <select
@@ -363,7 +363,7 @@ const PatientForm = () => {
               </select>
             </div>
           </div>
-          <div className="row mb-3">
+          <div className="row mb-6">
             <div className="col-md-6">
               <label htmlFor="smoke">Do you smoke?</label>
               <div>
@@ -374,7 +374,10 @@ const PatientForm = () => {
           </div>
           {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+          <div className="button-container">
           <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
+
         </form>
       </div>
     </div>
