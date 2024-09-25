@@ -76,17 +76,21 @@ const App = () => {
         {
           path:'/root/notifications',
           element:<Notifications/>
+        },
+        {
+          path: '/root/fitbit-callback',
+          element: <FitbitCallback />,
+        },
+        {
+          path: '/root/fitbit-login',
+          element: <FitbitLogin />,
+        },
+        {
+          path: '/root/vital-signs',
+          element: <VitalSignsDisplay />,
         }
       ],
-    },
-    {
-      path: '/fitbit-callback',
-      element: <FitbitCallback />,
-    },
-    {
-      path: '/fitbit-login',
-      element: <FitbitLogin />,
-    },
+    },    
     {
       path: '/receptionist',
       element: <Receptionist />,
@@ -95,10 +99,7 @@ const App = () => {
       path:"/heartrate",
       element:<HeartRateDisplay/>
     },
-    {
-      path: '/vital-signs',
-      element: <VitalSignsDisplay />,
-    }
+    
   ]);
 
   return (

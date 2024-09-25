@@ -6,7 +6,7 @@ import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
-
+import { getAuthorizationUrl } from '../fitbit/fitbitAPI';
 import HospitalSearchComponent from '../Search';
 
 import Login from '../login/Login'; 
@@ -80,7 +80,9 @@ function Navbar({notificationCount}) {
     background: patientInfo!=null ? generateBackground(patientInfo.patientName) : '#ccc',
     margin: "auto",
   };
-
+  const handleLogin = () => {
+    window.location.href = getAuthorizationUrl();
+  };
   return (
     <header className='navbar-header' style={{ margin: '50px' }}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
@@ -190,6 +192,7 @@ function Navbar({notificationCount}) {
         </div>
         <ul className="sidebar-nav mt-5">
           <li><Link to="vitalsigns">Vital Signs</Link></li>
+          <li><Link onClick={handleLogin}>Device</Link></li>
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>

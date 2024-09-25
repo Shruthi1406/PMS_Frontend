@@ -197,7 +197,7 @@ const PatientForm = () => {
                 type="text"
                 id="first"
                 name="firstName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
@@ -209,7 +209,7 @@ const PatientForm = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.lastName}
                 onChange={handleChange}
                 required
@@ -222,7 +222,7 @@ const PatientForm = () => {
               <select
                 id="gender"
                 name="gender"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.gender}
                 onChange={handleChange}
                 required
@@ -239,7 +239,7 @@ const PatientForm = () => {
                 type="number"
                 id="height"
                 name="height"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.height}
                 onChange={handleChange}
                 required
@@ -253,7 +253,7 @@ const PatientForm = () => {
                 type="number"
                 id="weight"
                 name="weight"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.weight}
                 onChange={handleChange}
                 required
@@ -265,7 +265,7 @@ const PatientForm = () => {
                 type="date"
                 id="dob"
                 name="dob"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.dob}
                 onChange={handleChange}
                 required
@@ -279,7 +279,7 @@ const PatientForm = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -291,7 +291,7 @@ const PatientForm = () => {
                   type="date"
                   id="appointmentDate"
                   name="appointmentDate"
-                  className="form-control"
+                  className="form-control form-control2"
                   value={formData.appointmentDate}
                   onChange={handleDateChange}
                   required
@@ -373,7 +373,7 @@ const PatientForm = () => {
                 type="text"
                 id="reason"
                 name="reason"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.reason}
                 onChange={handleChange}
                 required
@@ -387,7 +387,7 @@ const PatientForm = () => {
                 type="text"
                 id="medication"
                 name="medication"
-                className="form-control"
+                className="form-control form-control2"
                 placeholder="Enter medications separated by commas"
                 value={formData.medication.join(', ')}
                 onChange={handleMedicationChange}
@@ -411,7 +411,7 @@ const PatientForm = () => {
               <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
               >
@@ -428,7 +428,7 @@ const PatientForm = () => {
               <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
               >
