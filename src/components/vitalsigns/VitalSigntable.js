@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Line, Pie } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Medicalhistory/VitalSigns.css';
 import { Chart, registerables } from 'chart.js';
@@ -9,7 +9,8 @@ import 'chartjs-plugin-annotation';
 Chart.register(...registerables);
 
 const VitalSignsTable = () => {
-  const [patientId] = useState(2);
+  const patientInfo = localStorage.getItem('patientInfo') ? JSON.parse(localStorage.getItem('patientInfo')) : null;
+  const [patientId, setPatientId] = useState(patientInfo ? patientInfo.patientId : 2);
   const [vitalSigns, setVitalSigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +33,9 @@ const VitalSignsTable = () => {
       }
     };
 
-    fetchVitalSigns();
+    if (patientId) {
+      fetchVitalSigns();
+    }
   }, [patientId]);
 
   if (loading) return <p>Loading...</p>;
@@ -42,12 +45,6 @@ const VitalSignsTable = () => {
 
   // Heart Rate Data
   const heartRateData = vitalSigns.map(v => v.heartRate);
-  const heartRatePieData = [
-    vitalSigns.filter(v => v.heartRate < 60).length,
-    vitalSigns.filter(v => v.heartRate >= 60 && v.heartRate <= 100).length,
-    vitalSigns.filter(v => v.heartRate > 100).length,
-  ];
-
   const heartRateLineChartData = {
     labels,
     datasets: [
@@ -57,20 +54,6 @@ const VitalSignsTable = () => {
         fill: false,
         borderColor: 'rgba(75, 192, 192, 1)',
         tension: 0.1,
-      },
-    ],
-  };
-
-  const heartRatePieChartData = {
-    labels: ['Low', 'Normal', 'High'],
-    datasets: [
-      {
-        data: heartRatePieData,
-        backgroundColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(255, 206, 86, 1)',
-        ],
       },
     ],
   };
@@ -92,11 +75,6 @@ const VitalSignsTable = () => {
 
   // Oxygen Saturation Data
   const oxygenSaturationData = vitalSigns.map(v => v.oxygenSaturation);
-  const oxygenPieData = [
-    vitalSigns.filter(v => v.oxygenSaturation >= 90).length,
-    vitalSigns.filter(v => v.oxygenSaturation < 90).length,
-  ];
-
   const oxygenLineChartData = {
     labels,
     datasets: [
@@ -106,19 +84,6 @@ const VitalSignsTable = () => {
         fill: false,
         borderColor: 'rgba(54, 162, 235, 1)',
         tension: 0.1,
-      },
-    ],
-  };
-
-  const oxygenPieChartData = {
-    labels: ['Normal', 'Low'],
-    datasets: [
-      {
-        data: oxygenPieData,
-        backgroundColor: [
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 99, 132, 1)',
-        ],
       },
     ],
   };
@@ -172,7 +137,6 @@ const VitalSignsTable = () => {
     ],
   };
 
-
   // Respiratory Rate Data
   const respiratoryRateData = vitalSigns.map(v => v.respiratoryRate);
   const respiratoryLineChartData = {
@@ -190,49 +154,43 @@ const VitalSignsTable = () => {
 
   return (
     <div className="vital-signs-container mb-4" style={{ width: '80%', margin: '0 auto' }}>
-      <h2 className="vital-signs-title mb-4">Vital Signs</h2>
+      <h1 className="vital-signs-title mb-4">Vital Signs</h1>
 
       <div className="row">
         <div className="col-md-4">
-          <h3>Heart Rate</h3>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Line data={heartRateLineChartData} options={{ responsive: true }} />
-          </div>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Pie data={heartRatePieChartData} options={{ responsive: true }} />
+          <h1>Heart Rate</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={heartRateLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
           </div>
         </div>
 
         <div className="col-md-4">
-          <h3>Temperature</h3>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Line data={temperatureLineChartData} options={{ responsive: true }} />
+          <h1>Temperature</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={temperatureLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
           </div>
         </div>
 
         <div className="col-md-4">
-          <h3>Oxygen Saturation</h3>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Line data={oxygenLineChartData} options={{ responsive: true }} />
-          </div>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Pie data={oxygenPieChartData} options={{ responsive: true }} />
+          <h1>Oxygen Saturation</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={oxygenLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
           </div>
         </div>
       </div>
 
       <div className="row mt-4">
         <div className="col-md-4">
-          <h3>Blood Pressure</h3>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Line data={bloodPressureLineChartData} options={{ responsive: true }} />
+          <h1>Blood Pressure</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={bloodPressureLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
           </div>
         </div>
 
         <div className="col-md-4">
-          <h3>Respiratory Rate</h3>
-          <div style={{ width: '300px', height: '200px' }}>
-            <Line data={respiratoryLineChartData} options={{ responsive: true }} />
+          <h1>Respiratory Rate</h1>
+          <div style={{ width: '400px', height: '300px' }}>
+            <Line data={respiratoryLineChartData} options={{ responsive: true, plugins: { legend: { display: true, position: 'top' } }, scales: { y: { beginAtZero: true } } }} />
           </div>
         </div>
       </div>
