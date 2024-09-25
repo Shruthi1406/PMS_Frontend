@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PmsLogo1 from './PmsLogo1.jpg';
 import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
 import './Navbar.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
@@ -13,12 +13,14 @@ import Login from '../login/Login';
 import RegisterPatient from '../register patient/RegisterPatient';
 
 
-function Navbar() {
+function Navbar({notificationCount}) {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  // const locationForNotification=useLocation();
+  // const notificationCount=locationForNotification.state?.notificationCount || 0;
 
   const [location, setLocation] = useState('');
 
@@ -80,7 +82,7 @@ function Navbar() {
   };
 
   return (
-    <header style={{ margin: '50px' }}>
+    <header className='navbar-header' style={{ margin: '50px' }}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
         <div className="container-fluid">
           <Link to="/root" className="navbar-brand">
@@ -109,7 +111,7 @@ function Navbar() {
 
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
               <li className="nav-item">
-                <span className="icon-style notifications">Notifications</span>
+              <Link to="/root/notifications" className="nav-link"><i style={{  fontSize: "30px" }} class="fa-regular fa-bell"></i></Link>
               </li>
               <li className="nav-item">
                 {localStorage.getItem("authToken")!=null ? (
