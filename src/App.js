@@ -17,6 +17,7 @@ import Specailist from './components/Doctors/Specailist';
 import FitbitCallback from './components/fitbit/FitbitCallback';
 import FitbitLogin from './components/fitbit/FitbitLogin';
 import HeartRateDisplay from './components/fitbit/HeartRateDisplay';
+import VitalSignsDisplay from './components/fitbit/VitalSignsDisplay';
 const App = () => {
   const [location, setLocation] = useState('');
 
@@ -62,7 +63,8 @@ const App = () => {
         {
           path: '/root/doctors',
           element: <Doctor />,
-        },{
+        },
+        {
           path:'/root/specialist',
           element:<Specailist/>
         }
@@ -83,6 +85,10 @@ const App = () => {
     {
       path:"/heartrate",
       element:<HeartRateDisplay/>
+    },
+    {
+      path: '/vital-signs',
+      element: <VitalSignsDisplay />,
     }
   ]);
 
