@@ -41,7 +41,7 @@ const VitalSignsTable = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching data: {error}</p>;
 
-  const labels = vitalSigns.map(v => new Date(v.date).toLocaleDateString());
+  const labels = vitalSigns.map(v => new Date().toLocaleDateString());
 
   // Heart Rate Data
   const heartRateData = vitalSigns.map(v => v.heartRate);
