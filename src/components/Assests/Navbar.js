@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import PmsLogo1 from './PmsLogo1.jpg';
 import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
 import './Navbar.css';
@@ -20,6 +20,7 @@ function Navbar({notificationCount}) {
   const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const sidebarRef = useRef(null);
   // const locationForNotification=useLocation();
   // const notificationCount=locationForNotification.state?.notificationCount || 0;
   // Add the necessary state for the AddDevice modal
@@ -55,6 +56,7 @@ function Navbar({notificationCount}) {
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('patientInfo');
+    setSidebarOpen(!sidebarOpen);
     navigate('/root');
   };
 
@@ -103,9 +105,19 @@ function Navbar({notificationCount}) {
   };
   const onDeviceAdded = () => {
     setDeviceAdded(true);
-    handleCloseAddDevice(); // Close the modal after adding
+    handleCloseAddDevice();
   };
-
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setSidebarOpen(false); 
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [sidebarOpen]);
   return (
     <header className='navbar-header' style={{ margin: '50px' }}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
@@ -136,11 +148,14 @@ function Navbar({notificationCount}) {
               <li className="nav-item">
               <Link to="/root/notifications" className="nav-link">
                                     <i style={{ fontSize: "30px" }} className="fa-regular fa-bell">
-                                    {notificationCount > 0 && (
-                                            <span className="notification-count">{notificationCount}</span>
-                                        )} 
+                                    {
+                                      localStorage.getItem("authToken")!=null?
+                                      notificationCount > 0 && <span className="notification-count">{notificationCount}</span>:                                  
+                                      <></>
+
+                                    }
                                     </i>
-                                </Link>
+              </Link>
               </li>
               <li className="nav-item">
                 {localStorage.getItem("authToken")!=null ? (
@@ -201,8 +216,8 @@ function Navbar({notificationCount}) {
         </Modal.Body>
       </Modal>
       <AddDevice onClose={handleCloseAddDevice} show={showAddDeviceModal} onDeviceAdded={onDeviceAdded}/>
-      <div className={`sidebar${sidebarOpen ? ' open' : ''}`}>
-        <button className="close-btn" onClick={toggleSidebar}>×</button>
+      <div className={`sidebar${sidebarOpen ? ' open' : ''}`} ref={sidebarRef}>
+        <button className="close-btn" onClick={toggleSidebar}  >×</button>
         <div className="sidebar-header">
           <FontAwesomeIcon icon={faUser} size="4x" style={{ cursor: "pointer" }} />
           {patientInfo!=null ? (

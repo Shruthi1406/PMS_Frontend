@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Medicalhistory/VitalSigns.css';
 import { Chart, registerables } from 'chart.js';
 import { useLocation } from 'react-router-dom';
-
+import '../Medicalhistory/VitalSigns.css';
 Chart.register(...registerables);
 
 const VitalSigns = () => {
@@ -17,7 +17,7 @@ const VitalSigns = () => {
   }
 
   // Assuming `vitals` is an object with relevant properties
-  const labels = vitals.map(v => new Date(v.timestamp).toLocaleDateString()); // Assuming each vital has a timestamp
+  const labels = vitals.map(v => new Date().toLocaleDateString()); // Assuming each vital has a timestamp
 
   // Heart Rate Data
   const heartRateData = vitals.map(v => v.heartRate);
@@ -115,7 +115,7 @@ const VitalSigns = () => {
   };
 
   return (
-    <div className="vital-signs-container mb-4" style={{ width: '80%', marginTop: "100px" }}>
+    <div className="vital-signs-container mb-4" style={{ width: '80%', margin: '0 auto' }}>
       <h1 className="vital-signs-title mb-4">Vital Signs</h1>
 
       <div className="row">
