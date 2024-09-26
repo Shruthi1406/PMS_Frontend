@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useOutletContext } from 'react-router-dom';
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
-    const navigate=useNavigate();
-   
+    const { setNotificationCount } = useOutletContext();
 
     useEffect(() => {
-        
         const storedAppointments = JSON.parse(localStorage.getItem('appointments'));
-        
-        
+
         if (storedAppointments) {
             const newNotifications = storedAppointments
-                .filter(appointment => appointment.statusId === 1) 
-                .map(appointment => {
-                    return `Your appointment at ${appointment.hospitalName} has been booked successfully on ${new Date(appointment.appointmentDate).toLocaleString()}.`;
-                });
-            setNotifications(newNotifications);
-            navigate('/root/notifications', { state: { notificationCount: newNotifications.length } });
+                .filter(appointment => appointment.statusId === 1)
+                .map(appointment => `Your appointment at ${appointment.hospitalName} has been booked successfully on ${new Date(appointment.appointmentDate).toLocaleString()}.`);
 
+            setNotifications(newNotifications);
+            setNotificationCount(newNotifications.length); // Set count when notifications are loaded
         } else {
-            console.log("No appointments found.");
+            setNotificationCount(0); // Reset count if no appointments found
         }
-    }, []);
+    }, [setNotificationCount]);
 
     return (
         <div className="container mt-5">

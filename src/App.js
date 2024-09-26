@@ -25,6 +25,7 @@ import Notifications from './components/Notifications/Notification';
 
 const App = () => {
   const [location, setLocation] = useState('');
+  const [notificationCount, setNotificationCount] = useState(0);
 
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
@@ -37,7 +38,8 @@ const App = () => {
     },
     {
       path: '/root',
-      element: <Root location={location} handleLocationChange={handleLocationChange} />,
+      element: <Root notificationCount={notificationCount} 
+      setNotificationCount={setNotificationCount}  />,
       children: [
         { element: <Homepage />, index: true },
         {
@@ -75,7 +77,8 @@ const App = () => {
         },
         {
           path:'/root/notifications',
-          element:<Notifications/>
+
+          element:<Notifications setNotificationCount={setNotificationCount}/>
         },
         {
           path: '/root/fitbit-callback',
@@ -88,6 +91,7 @@ const App = () => {
         {
           path: '/root/vital-signs',
           element: <VitalSignsDisplay />,
+
         }
       ],
     },    
