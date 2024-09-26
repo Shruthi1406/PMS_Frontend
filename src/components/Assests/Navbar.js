@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import PmsLogo1 from './PmsLogo1.jpg';
 import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
 import './Navbar.css';
@@ -9,6 +9,7 @@ import ReceptionistLogin from '../receptionist/ReceptionistLogin';
 import { getAuthorizationUrl } from '../fitbit/fitbitAPI';
 import HospitalSearchComponent from '../Search';
 import AddDevice from '../vitalsigns/AddDevice';
+import Notifications from '../Notifications/Notification';
 import Login from '../login/Login'; 
 import RegisterPatient from '../register patient/RegisterPatient';
 
@@ -28,6 +29,18 @@ function Navbar({notificationCount}) {
   const handleShowAddDevice = () => setShowAddDeviceModal(true);
   const handleCloseAddDevice = () => setShowAddDeviceModal(false);
   const [location, setLocation] = useState('');
+  console.log("Notification count in navbar:",notificationCount);
+  // const locationNotify = useLocation();
+  // const notificationCount = locationNotify.state?.notificationCount || 0;
+ 
+  // const[notificationCount,setNotificationCount]=useState(0);
+  // const locationNotify=useLocation();
+   //const [location, setLocation] = useState('');
+  
+//    const decrementNotificationCount = () => {
+//     setNotificationCount(prevCount => Math.max(prevCount - 1, 0));
+// };
+
 
 
   const handleCloseLogin = () => setShowLoginModal(false);
@@ -92,6 +105,7 @@ function Navbar({notificationCount}) {
     setDeviceAdded(true);
     handleCloseAddDevice(); // Close the modal after adding
   };
+
   return (
     <header className='navbar-header' style={{ margin: '50px' }}>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
@@ -105,7 +119,7 @@ function Navbar({notificationCount}) {
           <div className="collapse navbar-collapse" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0">
               <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>
-              <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
+              
               
               <li className='nav-item'>
                 <div className="input-group">
@@ -121,8 +135,15 @@ function Navbar({notificationCount}) {
             
 
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
+            <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
               <li className="nav-item">
-              <Link to="/root/notifications" className="nav-link"><i style={{  fontSize: "30px" }} class="fa-regular fa-bell"></i></Link>
+              <Link to="/root/notifications" className="nav-link">
+                                    <i style={{ fontSize: "30px" }} className="fa-regular fa-bell">
+                                    {notificationCount > 0 && (
+                                            <span className="notification-count">{notificationCount}</span>
+                                        )} 
+                                    </i>
+                                </Link>
               </li>
               <li className="nav-item">
                 {localStorage.getItem("authToken")!=null ? (
