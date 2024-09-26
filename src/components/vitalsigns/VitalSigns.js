@@ -1,50 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Medicalhistory/VitalSigns.css';
 import { Chart, registerables } from 'chart.js';
-import 'chartjs-plugin-annotation';
+import { useLocation } from 'react-router-dom';
 
 Chart.register(...registerables);
 
-const VitalSignsTable = () => {
-  const patientInfo = localStorage.getItem('patientInfo') ? JSON.parse(localStorage.getItem('patientInfo')) : null;
-  const [patientId, setPatientId] = useState(patientInfo ? patientInfo.patientId : 2);
-  const [vitalSigns, setVitalSigns] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const VitalSigns = () => {
+  const location = useLocation();
+  const vitalsRes = location.state?.vitals;
+  const vitals=[vitalsRes] // Access the vitals data passed from AddDevice
 
-  useEffect(() => {
-    const fetchVitalSigns = async () => {
-      try {
-        const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSignsByPatientId?patientId=${patientId}`);
-        if (Array.isArray(response.data)) {
-          setVitalSigns(response.data);
-        } else if (response.data.vitalSignId) {
-          setVitalSigns([response.data]);
-        } else {
-          setError('Unexpected data format');
-        }
-      } catch (err) {
-        setError(err.message || 'Error fetching data');
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (!vitals) {
+    return <div>No vital signs data available.</div>;
+  }
 
-    if (patientId) {
-      fetchVitalSigns();
-    }
-  }, [patientId]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching data: {error}</p>;
-
-  const labels = vitalSigns.map(v => new Date().toLocaleDateString());
+  // Assuming `vitals` is an object with relevant properties
+  const labels = vitals.map(v => new Date(v.timestamp).toLocaleDateString()); // Assuming each vital has a timestamp
 
   // Heart Rate Data
-  const heartRateData = vitalSigns.map(v => v.heartRate);
+  const heartRateData = vitals.map(v => v.heartRate);
   const heartRateLineChartData = {
     labels,
     datasets: [
@@ -59,7 +35,7 @@ const VitalSignsTable = () => {
   };
 
   // Temperature Data
-  const temperatureData = vitalSigns.map(v => v.temperature);
+  const temperatureData = vitals.map(v => v.temperature);
   const temperatureLineChartData = {
     labels,
     datasets: [
@@ -74,7 +50,7 @@ const VitalSignsTable = () => {
   };
 
   // Oxygen Saturation Data
-  const oxygenSaturationData = vitalSigns.map(v => v.oxygenSaturation);
+  const oxygenSaturationData = vitals.map(v => v.oxygenSaturation);
   const oxygenLineChartData = {
     labels,
     datasets: [
@@ -92,7 +68,7 @@ const VitalSignsTable = () => {
   const systolicData = [];
   const diastolicData = [];
 
-  vitalSigns.forEach(v => {
+  vitals.forEach(v => {
     if (v.bloodPressure) {
       const [systolic, diastolic] = v.bloodPressure.split('/').map(Number);
       systolicData.push(systolic);
@@ -120,25 +96,11 @@ const VitalSignsTable = () => {
         borderColor: 'rgba(0, 128, 0, 1)', // Green for diastolic
         tension: 0.1,
       },
-      {
-        label: 'Normal Systolic Range',
-        data: Array(labels.length).fill(120), // Normal systolic value
-        borderColor: 'rgba(255, 206, 86, 0.5)',
-        fill: false,
-        borderDash: [5, 5],
-      },
-      {
-        label: 'Normal Diastolic Range',
-        data: Array(labels.length).fill(80), // Normal diastolic value
-        borderColor: 'rgba(255, 206, 86, 0.5)',
-        fill: false,
-        borderDash: [5, 5],
-      },
     ],
   };
 
   // Respiratory Rate Data
-  const respiratoryRateData = vitalSigns.map(v => v.respiratoryRate);
+  const respiratoryRateData = vitals.map(v => v.respiratoryRate);
   const respiratoryLineChartData = {
     labels,
     datasets: [
@@ -153,7 +115,7 @@ const VitalSignsTable = () => {
   };
 
   return (
-    <div className="vital-signs-container mb-4" style={{ width: '80%', margin: '0 auto' }}>
+    <div className="vital-signs-container mb-4" style={{ width: '80%', marginTop: "100px" }}>
       <h1 className="vital-signs-title mb-4">Vital Signs</h1>
 
       <div className="row">
@@ -198,4 +160,4 @@ const VitalSignsTable = () => {
   );
 };
 
-export default VitalSignsTable;
+export default VitalSigns;

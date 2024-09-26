@@ -185,8 +185,8 @@ const PatientForm = () => {
     <div className='background mb-5'>
  
    
-    <div className="medical-history-container container mt-5 mh-container">
-      <div className="form-container ">
+    <div className="medical-history-container container mt-5 mb-1 mh-container">
+      <div className="form-container medical-form ">
         <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
@@ -197,7 +197,7 @@ const PatientForm = () => {
                 type="text"
                 id="first"
                 name="firstName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
@@ -209,7 +209,7 @@ const PatientForm = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.lastName}
                 onChange={handleChange}
                 required
@@ -222,7 +222,9 @@ const PatientForm = () => {
               <select
                 id="gender"
                 name="gender"
-                className="form-control"
+
+                className="form-control form-control2 select-white"
+
                 value={formData.gender}
                 onChange={handleChange}
                 required
@@ -239,7 +241,7 @@ const PatientForm = () => {
                 type="number"
                 id="height"
                 name="height"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.height}
                 onChange={handleChange}
                 required
@@ -253,7 +255,7 @@ const PatientForm = () => {
                 type="number"
                 id="weight"
                 name="weight"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.weight}
                 onChange={handleChange}
                 required
@@ -265,7 +267,7 @@ const PatientForm = () => {
                 type="date"
                 id="dob"
                 name="dob"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.dob}
                 onChange={handleChange}
                 required
@@ -279,7 +281,7 @@ const PatientForm = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -291,9 +293,10 @@ const PatientForm = () => {
                   type="date"
                   id="appointmentDate"
                   name="appointmentDate"
-                  className="form-control"
+                  className="form-control form-control2"
                   value={formData.appointmentDate}
                   onChange={handleDateChange}
+                  min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
                   required
                 />
               </div>
@@ -373,7 +376,7 @@ const PatientForm = () => {
                 type="text"
                 id="reason"
                 name="reason"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.reason}
                 onChange={handleChange}
                 required
@@ -387,7 +390,7 @@ const PatientForm = () => {
                 type="text"
                 id="medication"
                 name="medication"
-                className="form-control"
+                className="form-control form-control2"
                 placeholder="Enter medications separated by commas"
                 value={formData.medication.join(', ')}
                 onChange={handleMedicationChange}
@@ -411,7 +414,7 @@ const PatientForm = () => {
               <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
-                className="form-control"
+                className="form-control form-control2 select-white"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
               >
@@ -428,7 +431,7 @@ const PatientForm = () => {
               <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
-                className="form-control"
+                className="form-control form-control2 select-white"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
               >
@@ -453,12 +456,12 @@ const PatientForm = () => {
           {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <div className="button-container">
-          <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
       </div>
     </div>
-    </div>
+  </div>
   );
 };
  
