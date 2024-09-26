@@ -43,7 +43,7 @@ const FitbitCallback = () => {
           console.log('Devices Data:', devicesData);
 
           // Optionally navigate to the main page after data fetching
-          navigate('/vital-signs'); // Redirect to vital signs display
+          navigate('/root/vital-signs'); // Redirect to vital signs display
         })
         .catch(err => console.error('Error fetching data:', err));
     } else {
