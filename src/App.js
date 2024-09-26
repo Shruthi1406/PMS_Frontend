@@ -14,13 +14,14 @@ import VitalSignsTable from './components/vitalsigns/VitalSigntable';
 import HospitalSearchComponent from './components/Search';
 import { useState } from 'react';
 import Specailist from './components/Doctors/Specailist';
-
+import AddDevice from './components/vitalsigns/AddDevice';
 import FitbitCallback from './components/fitbit/FitbitCallback';
 import FitbitLogin from './components/fitbit/FitbitLogin';
 import HeartRateDisplay from './components/fitbit/HeartRateDisplay';
 import VitalSignsDisplay from './components/fitbit/VitalSignsDisplay';
 
 import Notifications from './components/Notifications/Notification';
+import VitalSigns from './components/vitalsigns/VitalSigns';
 
 
 const App = () => {
@@ -52,7 +53,7 @@ const App = () => {
               element: <MedicalHistoryForm />,
             },
             {
-              path: 'vitalsigns',
+              path: 'vitalsignstable',
               element: <VitalSignsTable />,
             },
           ],
@@ -88,6 +89,14 @@ const App = () => {
         {
           path: '/root/vital-signs',
           element: <VitalSignsDisplay />,
+        },
+        {
+          path:"/root/add-device",
+          element:<AddDevice/>
+        },
+        {
+          path:"/root/vitalsigns",
+          element:<VitalSigns/>
         }
       ],
     },    

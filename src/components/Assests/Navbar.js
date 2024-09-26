@@ -8,7 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ReceptionistLogin from '../receptionist/ReceptionistLogin';
 import { getAuthorizationUrl } from '../fitbit/fitbitAPI';
 import HospitalSearchComponent from '../Search';
-
+import AddDevice from '../vitalsigns/AddDevice';
 import Login from '../login/Login'; 
 import RegisterPatient from '../register patient/RegisterPatient';
 
@@ -21,7 +21,12 @@ function Navbar({notificationCount}) {
   const navigate = useNavigate();
   // const locationForNotification=useLocation();
   // const notificationCount=locationForNotification.state?.notificationCount || 0;
-
+  // Add the necessary state for the AddDevice modal
+  const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
+  const [deviceAdded, setDeviceAdded] = useState(false);
+  // Handle show and close functions
+  const handleShowAddDevice = () => setShowAddDeviceModal(true);
+  const handleCloseAddDevice = () => setShowAddDeviceModal(false);
   const [location, setLocation] = useState('');
 
 
@@ -82,6 +87,10 @@ function Navbar({notificationCount}) {
   };
   const handleLogin = () => {
     window.location.href = getAuthorizationUrl();
+  };
+  const onDeviceAdded = () => {
+    setDeviceAdded(true);
+    handleCloseAddDevice(); // Close the modal after adding
   };
   return (
     <header className='navbar-header' style={{ margin: '50px' }}>
@@ -173,7 +182,7 @@ function Navbar({notificationCount}) {
           </div>
         </Modal.Body>
       </Modal>
-
+      <AddDevice onClose={handleCloseAddDevice} show={showAddDeviceModal} onDeviceAdded={onDeviceAdded}/>
       <div className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         <button className="close-btn" onClick={toggleSidebar}>×</button>
         <div className="sidebar-header">
@@ -191,12 +200,18 @@ function Navbar({notificationCount}) {
           )}
         </div>
         <ul className="sidebar-nav mt-5">
-          <li><Link to="vitalsigns">Vital Signs</Link></li>
-          <li><Link onClick={handleLogin}>Device</Link></li>
+        {deviceAdded ? (
+            <li><Link to="/root/vitalsignstable">Vital Signs</Link></li> // Show Vital Signs if device added
+          ) : (
+            <li><Link onClick={handleShowAddDevice}>Add Device</Link></li> // Show Add Device otherwise
+          )}
+          <li><Link onClick={handleLogin}>Fitbit Device</Link></li>
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>
+
     </header>
+    
   );
 }
 
