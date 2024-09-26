@@ -18,7 +18,7 @@ const VitalSignsTable = () => {
   useEffect(() => {
     const fetchVitalSigns = async () => {
       try {
-        const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSigns?patientId=${patientId}`);
+        const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSignsByPatientId?patientId=${patientId}`);
         if (Array.isArray(response.data)) {
           setVitalSigns(response.data);
         } else if (response.data.vitalSignId) {
