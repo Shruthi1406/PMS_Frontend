@@ -111,26 +111,20 @@ function Navbar({notificationCount}) {
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
         <div className="container-fluid">
           <Link to="/root" className="navbar-brand">
-            <img  src={PmsLogo1} className="img-fluid custom-logo ml-5" alt="Logo" />
+            <img  src={PmsLogo1} className="img-fluid custom-logo ml-5" alt="Logo"  />
           </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0">
-              
-
-              <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>
-
-              
-              
+              <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>            
               <li className='nav-item'>
                 <div className="input-group">
                   <input type="text" id="search" className="form-control"  placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
                   value={location}
                   onChange={handleLocationChange}
                   />
-                  {/* <Link to={`/root/locationSearch?location=${location.toLowerCase()}`}><button className="btn btn-outline-secondary custom-search-button" type="button">Search</button></Link> */}
                   <button className="btn btn-outline-secondary custom-search-button" type="button" onClick={handleSearch}>Search</button>
                 </div>
               </li>
