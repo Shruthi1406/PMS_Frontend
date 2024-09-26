@@ -185,8 +185,8 @@ const PatientForm = () => {
     <div className='background mb-5'>
  
    
-    <div className="medical-history-container container mt-5 mh-container">
-      <div className="form-container ">
+    <div className="medical-history-container container mt-5 mb-1 mh-container">
+      <div className="form-container medical-form ">
         <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
@@ -222,7 +222,7 @@ const PatientForm = () => {
               <select
                 id="gender"
                 name="gender"
-                className="form-control"
+                className="form-control select-white"
                 value={formData.gender}
                 onChange={handleChange}
                 required
@@ -294,6 +294,7 @@ const PatientForm = () => {
                   className="form-control"
                   value={formData.appointmentDate}
                   onChange={handleDateChange}
+                  min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
                   required
                 />
               </div>
@@ -411,7 +412,7 @@ const PatientForm = () => {
               <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
-                className="form-control"
+                className="form-control select-white"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
               >
@@ -428,7 +429,7 @@ const PatientForm = () => {
               <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
-                className="form-control"
+                className="form-control select-white"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
               >
