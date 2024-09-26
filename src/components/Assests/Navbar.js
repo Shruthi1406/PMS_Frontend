@@ -151,7 +151,7 @@ function Navbar({notificationCount}) {
                                     {
                                       localStorage.getItem("authToken")!=null?
                                       notificationCount > 0 && <span className="notification-count">{notificationCount}</span>:                                  
-                                      <></>
+                                      <></> 
 
                                     }
                                     </i>

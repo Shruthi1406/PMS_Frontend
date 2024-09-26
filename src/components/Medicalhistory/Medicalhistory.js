@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Medicalhistoryform.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import api from '../../apiHandler/api';
 const PatientForm = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const patientInfo = localStorage.getItem('patientInfo') != null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
   const doctor = location.state != null ? location.state.doctor : null;
   const hospital = location.state != null ? location.state.hospital : null;
@@ -153,6 +154,7 @@ const PatientForm = () => {
         appointmentDate: '',
         appointmentTime:''
       });
+      setTimeout(()=>navigate(-1),5000);
     } catch (error) {
       console.error('There was an error!', error);
       const errorMsg = error.response?.data?.errors || error.message || 'There was an error submitting the form';
