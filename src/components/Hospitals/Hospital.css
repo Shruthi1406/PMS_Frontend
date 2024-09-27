@@ -24,7 +24,7 @@
   object-fit: cover; /* Maintain aspect ratio while covering the container */
   position: absolute; /* Position image inside the container */
   top: 50%; /* Center image vertically */
-  left: 50%; /* Center image horizontally */
+  left: 38%; /* Center image horizontally */
   transform: translate(-50%, -50%); /* Adjust positioning */
  }
   
