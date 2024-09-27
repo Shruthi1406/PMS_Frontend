@@ -33,7 +33,7 @@ const Hospital = () => {
 
   const handleReset = () => {
     setSearchTerm('');
-    setHospitals([]); // Clear previous results if necessary
+    setHospitals([]);
   }
   
   function handleClick(){
