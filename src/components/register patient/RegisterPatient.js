@@ -9,7 +9,7 @@ const RegisterPatient = ({ onClose }) => {
     PatientEmail: '',
     ContactNumber: '',
     Password: '',
-    DeviceName: '',
+    ConfirmPassword: '',
     Age: '',
     Gender: '',
   });
@@ -30,8 +30,12 @@ const RegisterPatient = ({ onClose }) => {
       newErrors.PatientEmail = 'Valid email is required';
     }
     if (!formData.ContactNumber) newErrors.ContactNumber = 'Contact Number is required';
-    if (!formData.Password || formData.Password.length < 6) newErrors.Password = 'Password must be at least 6 characters';
-    if (!formData.DeviceName) newErrors.DeviceName = 'Device Name is required';
+    if (!formData.Password || formData.Password.length < 6) {
+      newErrors.Password = 'Password must be at least 6 characters';
+    }
+    if (formData.Password !== formData.ConfirmPassword) {
+      newErrors.ConfirmPassword = 'Passwords does not match';
+    }
     if (!formData.Age || formData.Age <= 0) newErrors.Age = 'Age must be a positive number';
     if (!formData.Gender) newErrors.Gender = 'Gender is required';
 
@@ -143,18 +147,18 @@ const RegisterPatient = ({ onClose }) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formDeviceName" className="mt-3">
-          <Form.Label>Device Name</Form.Label>
+        <Form.Group controlId="formConfirmPassword" className="mt-3">
+          <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            type="text"
-            name="DeviceName"
-            placeholder="Enter your device name"
-            value={formData.DeviceName}
+            type="password"
+            name="ConfirmPassword"
+            placeholder="Confirm your password"
+            value={formData.ConfirmPassword}
             onChange={handleChange}
-            isInvalid={!!errors.DeviceName}
+            isInvalid={!!errors.ConfirmPassword}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.DeviceName}
+            {errors.ConfirmPassword}
           </Form.Control.Feedback>
         </Form.Group>
 
