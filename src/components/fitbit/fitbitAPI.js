@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const CLIENT_ID = '23PLDK'; // Replace with your Fitbit Client ID
 const CLIENT_SECRET = '515aa2a4b26bcd091f2895c171e83355'; // Replace with your Fitbit Client Secret
-const REDIRECT_URI = 'http://localhost:3000/fitbit-callback';
+const REDIRECT_URI = 'http://localhost:3000/root/fitbit-callback';
 
 export const getAuthorizationUrl = () => {
   return `https://api.fitbit.com/oauth2/authorize?response_type=token&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=heartrate sleep profile oxygen_saturation respiratory_rate temperature weight&expires_in=31536000`;

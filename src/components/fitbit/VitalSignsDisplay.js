@@ -59,8 +59,8 @@ const VitalSignsDisplay = () => {
     <div>
       <h2>Vital Signs Data</h2>
 
-      <h3>Heart Rate Data</h3>
-      <pre>{JSON.stringify(data.heartRate, null, 2)}</pre>
+      {/* <h3>Heart Rate Data</h3>
+      <pre>{JSON.stringify(data.heartRate, null, 2)}</pre> */}
 
       <h3>Breathing Rate Data</h3>
       <pre>{JSON.stringify(data.breathingRate, null, 2)}</pre>

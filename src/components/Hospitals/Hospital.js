@@ -33,7 +33,7 @@ const Hospital = () => {
 
   const handleReset = () => {
     setSearchTerm('');
-    setHospitals([]); // Clear previous results if necessary
+    setHospitals([]);
   }
   
   function handleClick(){
@@ -50,7 +50,7 @@ const Hospital = () => {
         {hospitals.map(hospital => (
           <div key={hospital.hospitalId} className="col-md-4 mb-4">
             <div className="card custom-card">
-            <div className="custom-card-img-container hospital-image">
+            <div className="custom-card-img-container hospital-image w-100">
               {hospital.hospitalImage ? (
                 <img
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}

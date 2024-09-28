@@ -1,5 +1,9 @@
 /* Hospital.css */
-
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+}
 .custom-card {
     width: 100%;
     border: 1px solid #dee2e6;
@@ -9,15 +13,19 @@
   }
   
   .hospital-image ,.custom-card-img{
-    width: 100%;
-    height: 200px; 
-    object-fit: cover; 
-    background-color: #f8f9fa;
-    background-size: cover; 
-    background-position: center; 
+  
+
+    width: 20rem;
+    margin:20px;
   }
  .custom-card-img{
-  height:40%;
+  width: 100%; /* Make image take full width of the container */
+  height: 100%; /* Make image take full height of the container */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
+  position: absolute; /* Position image inside the container */
+  top: 50%; /* Center image vertically */
+  left: 38%; /* Center image horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning */
  }
   
   .card-body {
@@ -36,8 +44,9 @@
   }
 
 .custom-card-img-container {
-    width: 100%;
-    height: 250px; /* Fixed height for consistency */
+    position: relative;
+    height: 200px; /* Fixed height for consistency */
     overflow: hidden; /* Ensures no overflow beyond the container */
   }
+  
   

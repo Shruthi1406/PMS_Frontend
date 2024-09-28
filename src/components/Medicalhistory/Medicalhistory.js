@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Medicalhistoryform.css'; 
-import { useLocation } from 'react-router-dom';
+import './Medicalhistoryform.css';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import api from '../../apiHandler/api';
 const PatientForm = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const patientInfo = localStorage.getItem('patientInfo') != null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
   const doctor = location.state != null ? location.state.doctor : null;
   const hospital = location.state != null ? location.state.hospital : null;
-  
+ 
   const [formData, setFormData] = useState({
     reason: '',
     medication: [],
@@ -35,7 +36,7 @@ const PatientForm = () => {
     appointmentDate: '',
     appointmentTime:''
   });
-
+ 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [slots, setSlots] = useState({});
@@ -47,7 +48,7 @@ const PatientForm = () => {
       [name]: type === 'checkbox' ? checked : value,
     });
   };
-
+ 
   const handleMedicationChange = (e) => {
     const medicationArray = e.target.value.split(',').map(med => med.trim()).filter(med => med.length > 0);
     setFormData({
@@ -55,7 +56,7 @@ const PatientForm = () => {
       medication: medicationArray
     });
   };
-
+ 
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -63,10 +64,10 @@ const PatientForm = () => {
       [name]: value
     });
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+ 
     try {
       // Validation of form data before sending
       if (!formData.patientId || !formData.doctorId || !formData.hospitalName) {
@@ -90,20 +91,20 @@ const PatientForm = () => {
         alcoholConsumption: formData.alcoholConsumption,
         smoke: formData.smoke,
       };
-
+ 
       // First API call: Submit medical history
       const medicalHistoryResponse = await api.post('/History/AddMedicalhistory', medicalHistoryData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
+ 
       console.log('Medical History Response:', medicalHistoryResponse);
-
+ 
       if (!medicalHistoryResponse.data.historyId) {
         throw new Error('Medical History ID not found in response');
       }
-
+ 
       // Prepare data for the second API call
       const appointmentData = {
         patientId: formData.patientId,
@@ -119,14 +120,14 @@ const PatientForm = () => {
         statusId: -1,
         reason: formData.reason,
       };
-
+ 
       // Second API call: Schedule appointment
       const appointmentResponse = await api.post('/Appointment/schedule', appointmentData);
       console.log('Appointment Response:', appointmentResponse);
-
+ 
       setSuccessMessage('Form submitted successfully');
       setErrorMessage('');
-
+ 
       // Clear form fields
       setFormData({
         reason: '',
@@ -153,6 +154,7 @@ const PatientForm = () => {
         appointmentDate: '',
         appointmentTime:''
       });
+      setTimeout(()=>navigate(-1),5000);
     } catch (error) {
       console.error('There was an error!', error);
       const errorMsg = error.response?.data?.errors || error.message || 'There was an error submitting the form';
@@ -164,7 +166,7 @@ const PatientForm = () => {
   const handleDateChange = async (e) => {
     const newDate = e.target.value;
     setFormData({ ...formData, appointmentDate: newDate });
-
+ 
     if (newDate) {
       try {
         const response = await api.get(`/Doctor/GetDoctorSlotsByDate?DoctorId=${doctor.doctorId}&date=${newDate}`);
@@ -183,10 +185,10 @@ const PatientForm = () => {
   };
   return (
     <div className='background mb-5'>
-
+ 
    
-    <div className="medical-history-container container mt-5 mh-container">
-      <div className="form-container">
+    <div className="medical-history-container container mt-5 mb-1 mh-container">
+      <div className="form-container medical-form ">
         <h1 className="text-center mb-4">MAKE AN APPOINTMENT</h1>
         <form onSubmit={handleSubmit}>
           {/* Appointment Fields */}
@@ -197,7 +199,7 @@ const PatientForm = () => {
                 type="text"
                 id="first"
                 name="firstName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.firstName}
                 onChange={handleChange}
                 required
@@ -209,7 +211,7 @@ const PatientForm = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.lastName}
                 onChange={handleChange}
                 required
@@ -222,7 +224,9 @@ const PatientForm = () => {
               <select
                 id="gender"
                 name="gender"
-                className="form-control"
+
+                className="form-control form-control2 select-white"
+
                 value={formData.gender}
                 onChange={handleChange}
                 required
@@ -239,7 +243,7 @@ const PatientForm = () => {
                 type="number"
                 id="height"
                 name="height"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.height}
                 onChange={handleChange}
                 required
@@ -253,7 +257,7 @@ const PatientForm = () => {
                 type="number"
                 id="weight"
                 name="weight"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.weight}
                 onChange={handleChange}
                 required
@@ -265,7 +269,7 @@ const PatientForm = () => {
                 type="date"
                 id="dob"
                 name="dob"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.dob}
                 onChange={handleChange}
                 required
@@ -279,7 +283,7 @@ const PatientForm = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -291,9 +295,10 @@ const PatientForm = () => {
                   type="date"
                   id="appointmentDate"
                   name="appointmentDate"
-                  className="form-control"
+                  className="form-control form-control2"
                   value={formData.appointmentDate}
                   onChange={handleDateChange}
+                  min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
                   required
                 />
               </div>
@@ -373,7 +378,7 @@ const PatientForm = () => {
                 type="text"
                 id="reason"
                 name="reason"
-                className="form-control"
+                className="form-control form-control2"
                 value={formData.reason}
                 onChange={handleChange}
                 required
@@ -387,7 +392,7 @@ const PatientForm = () => {
                 type="text"
                 id="medication"
                 name="medication"
-                className="form-control"
+                className="form-control form-control2"
                 placeholder="Enter medications separated by commas"
                 value={formData.medication.join(', ')}
                 onChange={handleMedicationChange}
@@ -411,7 +416,7 @@ const PatientForm = () => {
               <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
-                className="form-control"
+                className="form-control form-control2 select-white"
                 value={formData.exerciseFrequency}
                 onChange={handleChange}
               >
@@ -428,7 +433,7 @@ const PatientForm = () => {
               <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
-                className="form-control"
+                className="form-control form-control2 select-white"
                 value={formData.alcoholConsumption}
                 onChange={handleChange}
               >
@@ -453,13 +458,13 @@ const PatientForm = () => {
           {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <div className="button-container">
-          <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
       </div>
     </div>
-    </div>
+  </div>
   );
 };
-
+ 
 export default PatientForm;
