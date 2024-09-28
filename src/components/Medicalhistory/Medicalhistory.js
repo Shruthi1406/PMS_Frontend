@@ -370,7 +370,7 @@ const PatientForm = () => {
                 </div>
               </div>
             )}
- 
+
           <div className="row mb-6">
             <div className="col-md-12">
               <label htmlFor="reason">Reason for Visit:</label>
