@@ -17,7 +17,12 @@ const Receptionist = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await api.get('/Appointment/GetHospitalName/'+hospitalName); 
+        const token = localStorage.getItem('recAuthToken');
+        const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Include the token here
+          }
+        });
         if(response.data)
         {
             console.log(response.data);

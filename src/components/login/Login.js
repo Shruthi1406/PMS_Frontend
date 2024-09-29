@@ -36,19 +36,40 @@ const Login = ({ onClose }) => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await api.post('/Patient/Login', loginData);
-        console.log('User logged in successfully:', response.data);
-        if (response.data && response.data.isLogged) {
+        const response = await api.post('/Auth/login', loginData);
+        console.log('receptionist logged in successfully:', response.data);
+        if (response.data && response.data.isSuccess) {
           setIsUserValid(true);
-          localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
-          localStorage.setItem('isPatient',response.data.isPatient);
-          localStorage.setItem('authToken', response.data.token);
-          navigate('/root');
-          setTimeout(()=>{
-            localStorage.removeItem('authToken');
-            localStorage.removeItem('patientInfo');
-          },1800000);
-          onClose();  
+          if(response.data.user.role==="PATIENT")
+          {
+            console.log('Patient logged in successfully:', response.data);
+            localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
+            localStorage.setItem('authToken', response.data.user.token);
+            navigate('/root');
+            setTimeout(()=>{
+              localStorage.removeItem('authToken');
+              localStorage.removeItem('patientInfo');
+            },1800000);
+            onClose(); 
+          } 
+          else if(response.data.user.role==="RECEPTIONIST")
+          {
+            console.log('receptionist logged in successfully:', response.data);
+            localStorage.setItem('receptionistInfo', JSON.stringify(response.data.user)); 
+            localStorage.setItem('recAuthToken', response.data.user.token);
+            //navigate('/receptionist');
+            window.open('/receptionist', '_blank');
+            setTimeout(()=>{
+              localStorage.removeItem('recAuthToken');
+              localStorage.removeItem('receptionistInfo');
+            },1800000);
+            onClose();  
+          }
+          else
+          {
+            console.log(response.data.error);
+            navigate("/root");
+          }
         }
         else
         {
