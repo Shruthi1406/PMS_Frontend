@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
+import api from '../../apiHandler/api';
 const AddDevice = ({ onClose, show ,onDeviceAdded }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,13 +15,13 @@ const AddDevice = ({ onClose, show ,onDeviceAdded }) => {
     setError('');
     const patientInfo = localStorage.getItem('patientInfo')!=null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
     const deviceReq = {
-      PatientId: patientInfo.patientId, // Ensure you have patientId in localStorage
+      Id: patientInfo.id, // Ensure you have patientId in localStorage
       Email: email,
       Password: password,
     };
 
     try {
-      const response = await axios.post('https://localhost:44376/api/Device/AddDevice', deviceReq);
+      const response = await api.post('/Device/AddDevice', deviceReq);
       if (response.data.isSuccess) {
         // Handle success, e.g., show success message or redirect
         //alert('Device added successfully!');
