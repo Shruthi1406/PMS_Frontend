@@ -23,6 +23,7 @@ import VitalSignsDisplay from './components/fitbit/VitalSignsDisplay';
 import Notifications from './components/Notifications/Notification';
 import VitalSigns from './components/vitalsigns/VitalSigns';
 import HealthForm from './apiHandler/HealthForm';
+import Login from './components/login/Login';
 
 
 const App = () => {
@@ -64,6 +65,10 @@ const App = () => {
         {
           path: '/root/hospitals',
           element: <Hospital />,
+        },
+        {
+          path:"/root/login",
+          element:<Login/>
         },
         {
           path: '/root/locationSearch',

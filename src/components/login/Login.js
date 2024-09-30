@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import api from '../../apiHandler/api';
-
+import "./Login.css";
 const Login = ({ onClose }) => {
   const [loginData, setLoginData] = useState({
     Email: '',
@@ -90,7 +90,7 @@ const Login = ({ onClose }) => {
         {apiError && <Alert variant="danger">{apiError}</Alert>}
         {isUserValid?<></>:<Alert variant="danger">Invalid Username or Password</Alert>}
         <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className='custom-label'>Email</Form.Label>
           <Form.Control
             type="email"
             name="Email"
@@ -105,7 +105,7 @@ const Login = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formPassword" className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className='custom-label'>Password</Form.Label>
           <Form.Control
             type="password"
             name="Password"
