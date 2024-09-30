@@ -1,6 +1,9 @@
 .custom-navbar {
     background-color: skyblue;
     z-index: 1050;
+    display: flex;
+    align-items: center;
+    
   }
  
   .custom-logo {
@@ -73,6 +76,7 @@
   
   .custom-search-button {
     margin-left: 5px; 
+    
   }
   
   .icon-style {
@@ -174,7 +178,3 @@
     align-items: center; 
     justify-content: center;
 }
-
- 
-  
-  

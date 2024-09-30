@@ -23,6 +23,7 @@ import VitalSignsDisplay from './components/fitbit/VitalSignsDisplay';
 import Notifications from './components/Notifications/Notification';
 import VitalSigns from './components/vitalsigns/VitalSigns';
 import PasswordReset from './components/password/password';
+import HealthForm from './apiHandler/HealthForm';
 
 
 const App = () => {
@@ -106,6 +107,11 @@ const App = () => {
         {
           path:"/root/PasswordReset",
           element:<PasswordReset/>
+        },
+        {
+          path:"/root/healthform",
+          element:<HealthForm/>
+
         }
       ],
     },    

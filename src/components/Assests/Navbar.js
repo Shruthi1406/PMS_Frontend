@@ -238,7 +238,7 @@ function Navbar({notificationCount}) {
           ) : (
             <li><Link onClick={handleShowAddDevice}>Add Device</Link></li> // Show Add Device otherwise
           )}
-          <li><Link onClick={handleLogin}>Fitbit Device</Link></li>
+          <li><Link to="/root/healthform">Fitbit Device</Link></li>
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>
