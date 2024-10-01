@@ -32,7 +32,7 @@ const Appointments = () => {
         };
 
         fetchAppointments();
-    }, []);
+    }, [appointments]);
 
     //  const getStatusText = (appointment) => {
     //     const currentDate = new Date();
@@ -76,10 +76,12 @@ const Appointments = () => {
         if (window.confirm('Are you sure you want to cancel this appointment?')) {
             try {
                 await api.delete(`/Appointment/Cancel/${appointmentId}`);
-                // Remove the cancelled appointment from the state
+                
+                // Immediately remove the cancelled appointment from the state
                 setAppointments(prevAppointments => 
                     prevAppointments.filter(app => app.appointmentId !== appointmentId)
                 );
+
                 alert('Appointment cancelled successfully.');
             } catch (error) {
                 setError('Failed to cancel appointment: ' + (error.response ? error.response.data : error.message));
@@ -124,10 +126,10 @@ const Appointments = () => {
                                         {getStatusText(appointment)}
                                     </td>
                                     <td>
-                                        <button 
+                                    <button 
                                             className="btn btn-danger" 
                                             onClick={() => handleCancel(appointment.appointmentId)}
-                                            disabled={appointment.statusId === 0} // Disable if already cancelled
+                                            disabled={appointment.statusId === 0} 
                                         >
                                             Cancel
                                         </button>
