@@ -162,5 +162,7 @@ label {
   color: black; /* Set option text color to black (or any other color) */
   background-color: white; /* Set option background color */
 }
-
+.appointment-form{
+  color:white;
+}
 

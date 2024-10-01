@@ -124,17 +124,18 @@ function Navbar() {
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
         <div className="container-fluid">
           <Link to="/root" className="navbar-brand">
-            <img  src={PmsLogo1} className="img-fluid custom-logo ml-5" alt="Logo"  />
+            <img  src={PmsLogo1} style={{width:'60px',height:'60px'}}  className="img-fluid custom-logo ml-5" alt="Logo"   />
+            <span className="custom-title-logo">Find Your Doctor</span>
           </Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarScroll">
+          <div className="collapse navbar-collapse custom-searchbar" id="navbarScroll">
             <ul className="navbar-nav me-auto my-2 my-lg-0">
-              <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>            
+                      
               <li className='nav-item'>
                 <div className="input-group">
-                  <input type="text" id="search" className="form-control"  placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
+                  <input type="text" id="search" className="form-control custom-search-input"  style={{ width: '400px' }} placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
                   value={location}
                   onChange={handleLocationChange}
                   />
@@ -145,6 +146,7 @@ function Navbar() {
             
 
             <ul className="navbar-nav ms-auto my-2 my-lg-0">
+            <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>    
             <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
               <li className="nav-item">
               <Link to="/root/notifications" className="nav-link">

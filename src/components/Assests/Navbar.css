@@ -9,7 +9,7 @@
   }
  
   .custom-logo {
-    max-width: 300px;
+    max-width: 400px;
     border-radius: 50%;
     height: auto;
   }
@@ -43,6 +43,7 @@
  
   .custom-search-input {
     border: 1px solid #ced4da;
+    
   }
  
   .custom-search-button {
@@ -180,4 +181,13 @@
     display: flex;
     align-items: center; 
     justify-content: center;
+}
+
+.custom-searchbar{
+  width:800px;
+}
+.custom-title-logo{
+  font-style: italic;
+  color:white;
+
 }

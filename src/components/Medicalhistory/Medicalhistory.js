@@ -194,7 +194,7 @@ const PatientForm = () => {
           {/* Appointment Fields */}
           <div className="row mb-6">
             <div className="col-md-6 ">
-              <label htmlFor="firstName">First Name:</label>
+              <label htmlFor="firstName" className='appointment-form'>First Name:</label>
               <input
                 type="text"
                 id="first"
@@ -206,7 +206,7 @@ const PatientForm = () => {
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="lastName">Last Name:</label>
+              <label className='appointment-form' htmlFor="lastName">Last Name:</label>
               <input
                 type="text"
                 id="lastName"
@@ -220,7 +220,7 @@ const PatientForm = () => {
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="gender">Gender:</label>
+              <label className='appointment-form' htmlFor="gender">Gender:</label>
               <select
                 id="gender"
                 name="gender"
@@ -238,7 +238,7 @@ const PatientForm = () => {
               </select>
             </div>
             <div className="col-md-6">
-              <label htmlFor="height">Height (in cm):</label>
+              <label className='appointment-form' htmlFor="height">Height (in cm):</label>
               <input
                 type="number"
                 id="height"
@@ -252,7 +252,7 @@ const PatientForm = () => {
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="weight">Weight (in kg):</label>
+              <label className='appointment-form' htmlFor="weight">Weight (in kg):</label>
               <input
                 type="number"
                 id="weight"
@@ -264,7 +264,7 @@ const PatientForm = () => {
               />
             </div>
             <div className="col-md-6">
-              <label htmlFor="dob">Date of Birth:</label>
+              <label className='appointment-form' htmlFor="dob">Date of Birth:</label>
               <input
                 type="date"
                 id="dob"
@@ -278,7 +278,7 @@ const PatientForm = () => {
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="email">Email:</label>
+              <label className='appointment-form' htmlFor="email">Email:</label>
               <input
                 type="email"
                 id="email"
@@ -290,7 +290,7 @@ const PatientForm = () => {
               />
             </div>
             <div className="col-md-6">
-                <label htmlFor="appointmentDate">Appointment Date:</label>
+                <label className='appointment-form' htmlFor="appointmentDate">Appointment Date:</label>
                 <input
                   type="date"
                   id="appointmentDate"
@@ -307,7 +307,7 @@ const PatientForm = () => {
           {formData.appointmentDate && (
               <div className="row mb-3">
                 <div className="col-md-12">
-                  <label>Select Slot:</label>
+                  <label className='appointment-form'>Select Slot:</label>
                   <div>
                     {
                       (slots.slot_1 && slots.slot_2 && slots.slot_3 && slots.slot_4 && slots.slot_5)?
@@ -373,7 +373,7 @@ const PatientForm = () => {
 
           <div className="row mb-6">
             <div className="col-md-12">
-              <label htmlFor="reason">Reason for Visit:</label>
+              <label className='appointment-form' htmlFor="reason">Reason for Visit:</label>
               <input
                 type="text"
                 id="reason"
@@ -387,7 +387,7 @@ const PatientForm = () => {
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="medication">Medication:</label>
+              <label className='appointment-form' htmlFor="medication">Medication:</label>
               <input
                 type="text"
                 id="medication"
@@ -399,20 +399,20 @@ const PatientForm = () => {
               />
             </div>
             <div className="col-md-6">
-              <label>Health Conditions:</label>
+              <label className='appointment-form'>Health Conditions:</label>
               <div>
-                <label><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
+                <label className='appointment-form'><input type="checkbox" name="hasAsthma" checked={formData.hasAsthma} onChange={handleChange} /> Asthma &nbsp;&nbsp;</label>
+                <label className='appointment-form'><input type="checkbox" name="hasBloodPressure" checked={formData.hasBloodPressure} onChange={handleChange} /> Blood Pressure &nbsp;&nbsp;</label>
+                <label className='appointment-form'><input type="checkbox" name="hasCancer" checked={formData.hasCancer} onChange={handleChange} /> Cancer &nbsp;&nbsp;</label>
+                <label className='appointment-form'><input type="checkbox" name="hasCholesterol" checked={formData.hasCholesterol} onChange={handleChange} /> Cholesterol &nbsp;&nbsp;</label>
+                <label className='appointment-form'><input type="checkbox" name="hasDiabetes" checked={formData.hasDiabetes} onChange={handleChange} /> Diabetes &nbsp;&nbsp;</label>
+                <label className='appointment-form'><input type="checkbox" name="hasHeartDisease" checked={formData.hasHeartDisease} onChange={handleChange} /> Heart Disease</label>
               </div>
             </div>
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="exerciseFrequency">Exercise Frequency:</label>
+              <label className='appointment-form' htmlFor="exerciseFrequency">Exercise Frequency:</label>
               <select
                 id="exerciseFrequency"
                 name="exerciseFrequency"
@@ -429,7 +429,7 @@ const PatientForm = () => {
               </select>
             </div>
             <div className="col-md-6">
-              <label htmlFor="alcoholConsumption">Alcohol Consumption:</label>
+              <label className='appointment-form' htmlFor="alcoholConsumption">Alcohol Consumption:</label>
               <select
                 id="alcoholConsumption"
                 name="alcoholConsumption"
@@ -448,10 +448,10 @@ const PatientForm = () => {
           </div>
           <div className="row mb-6">
             <div className="col-md-6">
-              <label htmlFor="smoke">Do you smoke?</label>
+              <label className='appointment-form' htmlFor="smoke">Do you smoke?</label>
               <div>
-                <label><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
-                <label><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
+                <label className='appointment-form'><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
+                <label className='appointment-form'><input type="radio" name="smoke" value="No" checked={formData.smoke === 'No'} onChange={handleRadioChange} /> No</label>
               </div>
             </div>
           </div>
