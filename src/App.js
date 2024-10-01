@@ -24,6 +24,8 @@ import Notifications from './components/Notifications/Notification';
 import VitalSigns from './components/vitalsigns/VitalSigns';
 import PasswordReset from './components/password/password';
 import HealthForm from './apiHandler/HealthForm';
+import { NotificationProvider } from './components/Notifications/NotificationContext';
+import Navbar from './components/Assests/Navbar';
 
 
 const App = () => {
@@ -81,7 +83,7 @@ const App = () => {
         {
           path:'/root/notifications',
 
-          element:<Notifications setNotificationCount={setNotificationCount}/>
+          element:<Notifications/>
         },
         {
           path: '/root/fitbit-callback',
@@ -127,9 +129,13 @@ const App = () => {
   ]);
 
   return (
+    <NotificationProvider>
+      
     <div>
       <RouterProvider router={router} />
     </div>
+    </NotificationProvider>
+  
   );
 };
 
