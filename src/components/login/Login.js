@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../../apiHandler/api';
 import "./Login.css";
 const Login = ({ onClose }) => {
-  const [loginData, setLoginData] = useState({
-    Email: '',
-    Password: '',
-  });
+    const [loginData, setLoginData] = useState({
+        Email: '',
+        Password: '',
+    });
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState(null);
-  const [isUserValid,setIsUserValid]=useState(true);
-  const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [apiError, setApiError] = useState(null);
+    const [isUserValid, setIsUserValid] = useState(true);
+    const navigate = useNavigate();
 
-  const validate = () => {
-    const newErrors = {};
+    const validate = () => {
+        const newErrors = {};
+        if (!loginData.Email) newErrors.Email = 'Email is required';
+        if (!loginData.Password || loginData.Password.length < 6) newErrors.Password = 'Password must be at least 6 characters';
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
-    if (!loginData.Email) newErrors.Email = 'Email is required';
-    if (!loginData.Password || loginData.Password.length < 6) newErrors.Password = 'Password must be at least 6 characters';
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setLoginData({ ...loginData, [name]: value });
+    };
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -71,18 +77,7 @@ const Login = ({ onClose }) => {
             navigate("/root");
           }
         }
-        else
-        {
-          setIsUserValid(false);
-        }
-
-      } catch (error) {
-        setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+    };
 
   return (
     <Container>
@@ -120,11 +115,14 @@ const Login = ({ onClose }) => {
         </Form.Group>
 
         <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Logging in...' : 'Login'}
         </Button>
-      </Form>
+        <div>
+        <Link to="/root/PasswordReset">Forgot Password?</Link>
+        </div>
+       </Form>
     </Container>
-  );
+    );
 };
 
 export default Login;

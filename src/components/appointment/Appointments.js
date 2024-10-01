@@ -3,11 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import '../css/Appointments.css';
 
+
 import { getStatusText } from './AppointmentUtil';
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
+   
     
 
 
@@ -34,24 +36,24 @@ const Appointments = () => {
         fetchAppointments();
     }, [appointments]);
 
-    //  const getStatusText = (appointment) => {
-    //     const currentDate = new Date();
+     const getStatusText = (appointment) => {
+        const currentDate = new Date();
 
-    //     if (new Date(appointment.appointmentDate) < currentDate) {
-    //         return 'Completed';
-    //     }
+        if (new Date(appointment.appointmentDate) < currentDate) {
+            return 'Completed';
+        }
 
-    //     switch (appointment.statusId) {
-    //         case 1:
-    //             return 'Booked';
-    //         case 0:
-    //             return 'Cancelled';
-    //         case -1:
-    //             return 'Pending';
-    //         default:
-    //             return 'Unknown'; 
-    //     }
-    // };
+        switch (appointment.statusId) {
+            case 1:
+                return 'Booked';
+            case 0:
+                return 'Cancelled';
+            case -1:
+                return 'Pending';
+            default:
+                return 'Unknown'; 
+        }
+    };
 
     const getStatusClass = (appointment) => {
         const currentDate = new Date();
