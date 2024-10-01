@@ -15,7 +15,7 @@ const Appointments = () => {
         const fetchAppointments = async () => {
             try {
                 const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
-                const response = await api.get(`/Appointment/GetAppointmentByPatientId/${patientInfo.patientId}`);
+                const response = await api.get(`/Appointment/GetAppointmentByPatientId/${patientInfo.id}`);
                 console.log(response.data);
                 
                 if (!response.data) {
