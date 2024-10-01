@@ -23,7 +23,7 @@ const PatientForm = () => {
     exerciseFrequency: '',
     alcoholConsumption: '',
     smoke: '',
-    patientId: patientInfo.patientId,
+    Id: patientInfo.id,
     doctorId: doctor.doctorId,
     hospitalName: hospital.hospitalName,
     firstName: '',
@@ -70,7 +70,7 @@ const PatientForm = () => {
  
     try {
       // Validation of form data before sending
-      if (!formData.patientId || !formData.doctorId || !formData.hospitalName) {
+      if (!formData.Id || !formData.doctorId || !formData.hospitalName) {
         throw new Error('Patient ID, Doctor ID, and Hospital Name are required.');
       }
       if (!selectedSlot) {
@@ -78,7 +78,7 @@ const PatientForm = () => {
       }
       // Prepare data for the first API call
       const medicalHistoryData = {
-        patientId: formData.patientId,
+        Id: formData.Id,
         reason: formData.reason,
         medication: formData.medication,
         hasAsthma: formData.hasAsthma,
@@ -107,7 +107,7 @@ const PatientForm = () => {
  
       // Prepare data for the second API call
       const appointmentData = {
-        patientId: formData.patientId,
+        Id: formData.Id,
         doctorId: formData.doctorId,
         hospitalName: formData.hospitalName,
         patientName: formData.firstName + " " + formData.lastName,
@@ -154,7 +154,7 @@ const PatientForm = () => {
         appointmentDate: '',
         appointmentTime:''
       });
-      setTimeout(()=>navigate(-1),5000);
+      setTimeout(()=>navigate(-1),3000);
     } catch (error) {
       console.error('There was an error!', error);
       const errorMsg = error.response?.data?.errors || error.message || 'There was an error submitting the form';

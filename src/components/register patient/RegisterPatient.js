@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
 import api from '../../apiHandler/api';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const RegisterPatient = ({ onClose }) => {
   const [formData, setFormData] = useState({
     FirstName: '',
     LastName: '',
-    PatientEmail: '',
+    Email: '',
     ContactNumber: '',
     Password: '',
     ConfirmPassword: '',
@@ -17,17 +18,17 @@ const RegisterPatient = ({ onClose }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
-
+  const navigate=useNavigate();
   const validate = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.FirstName) newErrors.FirstName = 'First Name is required';
     if (!formData.LastName) newErrors.LastName = 'Last Name is required';
-    if (!formData.PatientEmail) {
-      newErrors.PatientEmail = 'Email is required';
-    } else if (!emailRegex.test(formData.PatientEmail)) {
-      newErrors.PatientEmail = 'Valid email is required';
+    if (!formData.Email) {
+      newErrors.Email = 'Email is required';
+    } else if (!emailRegex.test(formData.Email)) {
+      newErrors.Email = 'Valid email is required';
     }
     if (!formData.ContactNumber) newErrors.ContactNumber = 'Contact Number is required';
     if (!formData.Password || formData.Password.length < 6) {
@@ -54,12 +55,55 @@ const RegisterPatient = ({ onClose }) => {
       setLoading(true);
       setApiError(null);
       try {
-        const response = await api.post('/Patient/Register', formData);
-        console.log('Patient registered successfully:', response.data);
-        onClose();  
-      } catch (error) {
-        setApiError(error.response ? error.response.data : 'An error occurred');
-      } finally {
+        const response = await api.post('/Auth/register/patient', formData);
+        if(response.data.isSuccess)
+        {
+          console.log('Patient registered successfully:', response.data);
+          onClose();  
+          try {
+            const loginData={
+              Email: formData.Email,
+              Password:  formData.Password
+            };
+            const response = await api.post('/Auth/login', loginData);
+            console.log('receptionist logged in successfully:', response.data);
+            if (response.data && response.data.isSuccess) {
+              console.log('Patient logged in successfully:', response.data);
+              localStorage.setItem('patientInfo', JSON.stringify(response.data.user)); 
+              localStorage.setItem('authToken', response.data.user.token);
+              navigate('/root');
+              setTimeout(()=>{
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('patientInfo');
+              },1800000);
+              onClose(); 
+            }
+            else
+            {
+              //setIsUserValid(false);
+            }
+    
+          } catch (error) {
+            setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
+          } finally {
+            setLoading(false);
+          }
+        }
+        
+      } catch (error) 
+        {
+          if (error.response && typeof error.response.data === 'object') 
+            {
+            // Extract the relevant message to display
+              const errorMessage = error.response.data.message || JSON.stringify(error.response.data);
+              setApiError(errorMessage);
+            } 
+            else 
+            {
+              setApiError('An error occurred');
+            } 
+        }
+        finally {
         setLoading(false);
       }
     }
@@ -71,7 +115,7 @@ const RegisterPatient = ({ onClose }) => {
         {apiError && <Alert variant="danger">{apiError}</Alert>}
         
         <Form.Group controlId="formFirstName">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label  className='custom-label'>First Name</Form.Label>
           <Form.Control
             type="text"
             name="FirstName"
@@ -86,7 +130,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formLastName" className="mt-3">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label className='custom-label'>Last Name</Form.Label>
           <Form.Control
             type="text"
             name="LastName"
@@ -101,22 +145,22 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formEmail" className="mt-3">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className='custom-label'>Email</Form.Label>
           <Form.Control
             type="email"
-            name="PatientEmail"
+            name="Email"
             placeholder="Enter your email"
-            value={formData.PatientEmail}
+            value={formData.Email}
             onChange={handleChange}
-            isInvalid={!!errors.PatientEmail}
+            isInvalid={!!errors.Email}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.PatientEmail}
+            {errors.Email}
           </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formContactNumber" className="mt-3">
-          <Form.Label>Contact Number</Form.Label>
+          <Form.Label className='custom-label'>Contact Number</Form.Label>
           <Form.Control
             type="text"
             name="ContactNumber"
@@ -133,7 +177,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formPassword" className="mt-3">
-          <Form.Label>Password</Form.Label>
+          <Form.Label className='custom-label'>Password</Form.Label>
           <Form.Control
             type="password"
             name="Password"
@@ -148,7 +192,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formConfirmPassword" className="mt-3">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label className='custom-label'>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             name="ConfirmPassword"
@@ -163,7 +207,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formAge" className="mt-3">
-          <Form.Label>Age</Form.Label>
+          <Form.Label className='custom-label'>Age</Form.Label>
           <Form.Control
             type="number"
             name="Age"
@@ -178,7 +222,7 @@ const RegisterPatient = ({ onClose }) => {
         </Form.Group>
 
         <Form.Group controlId="formGender" className="mt-3">
-          <Form.Label>Gender</Form.Label>
+          <Form.Label className='custom-label'>Gender</Form.Label>
           <Form.Control
             as="select"
             name="Gender"

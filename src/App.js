@@ -24,6 +24,7 @@ import Notifications from './components/Notifications/Notification';
 import VitalSigns from './components/vitalsigns/VitalSigns';
 import PasswordReset from './components/password/password';
 import HealthForm from './apiHandler/HealthForm';
+import Login from './components/login/Login';
 import { NotificationProvider } from './components/Notifications/NotificationContext';
 import Navbar from './components/Assests/Navbar';
 
@@ -67,6 +68,10 @@ const App = () => {
         {
           path: '/root/hospitals',
           element: <Hospital />,
+        },
+        {
+          path:"/root/login",
+          element:<Login/>
         },
         {
           path: '/root/locationSearch',

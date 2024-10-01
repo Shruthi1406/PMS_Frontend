@@ -178,14 +178,7 @@ function Navbar() {
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Tabs id="login-tabs" activeKey={key} onSelect={(k) => setKey(k)} className="mb-3">
-            <Tab eventKey="patient" title="Patient Login">
-              <Login onClose={handleCloseLogin} />
-            </Tab>
-            <Tab eventKey="receptionist" title="Receptionist Login">
-              <ReceptionistLogin onClose={handleCloseLogin} />
-            </Tab>
-          </Tabs>
+          <Login onClose={handleCloseLogin} />
           <div className="text-center mt-3">
             <span>Not registered yet? </span>
             <Button variant="link" onClick={() => {
