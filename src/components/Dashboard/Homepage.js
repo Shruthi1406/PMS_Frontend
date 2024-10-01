@@ -19,7 +19,7 @@ function Homepage() {
         <div className='homepage'>
           <div className="d-flex justify-content-around description">
             <div className="flex-grow-1 mt-5">
-              <h2>Streamline Your Healthcare Experience with Effortless Appointment Booking</h2>
+              <h2 className='doctor-heading'>Streamline Your Healthcare Experience with Effortless Appointment Booking</h2>
               <h5>Simplify Scheduling with Our User-Friendly Booking System</h5>
               <p>
                 Welcome to a new era of convenience in healthcare management. 
@@ -34,7 +34,7 @@ function Homepage() {
           </div>
 
           <div className='problems'>
-            <h2>Consult top Doctors online for any health concern</h2>
+            <h2 className='doctor-heading'>Consult top Doctors online for any health concern</h2>
             <div className="d-flex justify-content-around">
               {/* Problem 1 */}
               <div className="card custom-card">
@@ -84,7 +84,7 @@ function Homepage() {
 
           {/* Specialization Based */}
           <div className='appointment'>
-            <h2>Book an appointment for in-clinic consultation</h2>
+            <h2 className='doctor-heading'>Book an appointment for in-clinic consultation</h2>
             <div className='d-flex justify-content-around'>
               {/* Dentist */}
               <div className="card custom-card">
