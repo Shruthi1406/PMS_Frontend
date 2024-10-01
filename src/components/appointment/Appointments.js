@@ -3,11 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import '../css/Appointments.css';
 
+
 import { getStatusText } from './AppointmentUtil';
 
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
+   
     
 
 
@@ -32,26 +34,26 @@ const Appointments = () => {
         };
 
         fetchAppointments();
-    }, []);
+    }, [appointments]);
 
-    //  const getStatusText = (appointment) => {
-    //     const currentDate = new Date();
+     const getStatusText = (appointment) => {
+        const currentDate = new Date();
 
-    //     if (new Date(appointment.appointmentDate) < currentDate) {
-    //         return 'Completed';
-    //     }
+        if (new Date(appointment.appointmentDate) < currentDate) {
+            return 'Completed';
+        }
 
-    //     switch (appointment.statusId) {
-    //         case 1:
-    //             return 'Booked';
-    //         case 0:
-    //             return 'Cancelled';
-    //         case -1:
-    //             return 'Pending';
-    //         default:
-    //             return 'Unknown'; 
-    //     }
-    // };
+        switch (appointment.statusId) {
+            case 1:
+                return 'Booked';
+            case 0:
+                return 'Cancelled';
+            case -1:
+                return 'Pending';
+            default:
+                return 'Unknown'; 
+        }
+    };
 
     const getStatusClass = (appointment) => {
         const currentDate = new Date();
@@ -76,10 +78,12 @@ const Appointments = () => {
         if (window.confirm('Are you sure you want to cancel this appointment?')) {
             try {
                 await api.delete(`/Appointment/Cancel/${appointmentId}`);
-                // Remove the cancelled appointment from the state
+                
+                // Immediately remove the cancelled appointment from the state
                 setAppointments(prevAppointments => 
                     prevAppointments.filter(app => app.appointmentId !== appointmentId)
                 );
+
                 alert('Appointment cancelled successfully.');
             } catch (error) {
                 setError('Failed to cancel appointment: ' + (error.response ? error.response.data : error.message));
@@ -124,10 +128,10 @@ const Appointments = () => {
                                         {getStatusText(appointment)}
                                     </td>
                                     <td>
-                                        <button 
+                                    <button 
                                             className="btn btn-danger" 
                                             onClick={() => handleCancel(appointment.appointmentId)}
-                                            disabled={appointment.statusId === 0} // Disable if already cancelled
+                                            disabled={appointment.statusId === 0} 
                                         >
                                             Cancel
                                         </button>

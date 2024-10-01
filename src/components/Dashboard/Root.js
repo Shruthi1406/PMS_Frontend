@@ -3,7 +3,7 @@ import { Outlet ,useLocation} from 'react-router-dom'
 import Navbar from '../Assests/Navbar'
 
 
-function Root({  notificationCount, setNotificationCount }) {
+function Root() {
   // const [notificationCount, setNotificationCount] = useState(0);
   //   const location = useLocation();
 
@@ -14,9 +14,9 @@ function Root({  notificationCount, setNotificationCount }) {
  
   return (
     <div>
-        <Navbar notificationCount={notificationCount}/>
+        <Navbar/>
        
-        <Outlet context={{setNotificationCount}}/>
+        <Outlet/>
     </div>
   )
 }

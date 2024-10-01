@@ -12,15 +12,16 @@ import AddDevice from '../vitalsigns/AddDevice';
 import Notifications from '../Notifications/Notification';
 import Login from '../login/Login'; 
 import RegisterPatient from '../register patient/RegisterPatient';
+import { useNotification } from '../Notifications/NotificationContext';
 
-
-function Navbar({notificationCount}) {
+function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
+  const { notificationCount } = useNotification();
   // const locationForNotification=useLocation();
   // const notificationCount=locationForNotification.state?.notificationCount || 0;
   // Add the necessary state for the AddDevice modal
@@ -150,7 +151,7 @@ function Navbar({notificationCount}) {
                                     <i style={{ fontSize: "30px" }} className="fa-regular fa-bell">
                                     {
                                       localStorage.getItem("authToken")!=null?
-                                      notificationCount > 0 && <span className="notification-count">{notificationCount}</span>:                                  
+                                      notificationCount > 0 && <span className="notification-count"> {notificationCount}</span>:                                  
                                       <></> 
 
                                     }
