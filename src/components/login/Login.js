@@ -27,14 +27,6 @@ const Login = ({ onClose }) => {
         const { name, value } = e.target;
         setLoginData({ ...loginData, [name]: value });
     };
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginData({ ...loginData, [name]: value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,8 +69,14 @@ const Login = ({ onClose }) => {
             navigate("/root");
           }
         }
+      }
+      catch (error) {
+        setApiError(error.response ? error.response.data.message || 'An error occurred' : 'An error occurred');
+      } finally {
+          setLoading(false);
+      }
     };
-
+  }
   return (
     <Container>
       <Form onSubmit={handleSubmit} className="p-4 border rounded shadow-sm bg-white">

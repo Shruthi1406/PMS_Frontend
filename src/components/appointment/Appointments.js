@@ -3,38 +3,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import '../css/Appointments.css';
 
-
-import { getStatusText } from './AppointmentUtil';
-
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
    
-    
+    const fetchAppointments = async () => {
+        try {
+            const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
+            const response = await api.get(`/Appointment/GetAppointmentByPatientId/${patientInfo.id}`);
+            console.log(response.data);
+            
+            if (!response.data) {
+                throw new Error('Network response was not ok');
+            }
+            
+            setAppointments(response.data);
+
+            localStorage.setItem('appointments', JSON.stringify(response.data));
+         
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
 
 
     useEffect(() => {
-        const fetchAppointments = async () => {
-            try {
-                const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
-                const response = await api.get(`/Appointment/GetAppointmentByPatientId/${patientInfo.id}`);
-                console.log(response.data);
-                
-                if (!response.data) {
-                    throw new Error('Network response was not ok');
-                }
-                
-                setAppointments(response.data);
-
-                localStorage.setItem('appointments', JSON.stringify(response.data));
-             
-            } catch (error) {
-                setError(error.message);
-            }
-        };
-
         fetchAppointments();
-    }, [appointments]);
+    }, []);
 
      const getStatusText = (appointment) => {
         const currentDate = new Date();
@@ -79,11 +75,7 @@ const Appointments = () => {
             try {
                 await api.delete(`/Appointment/Cancel/${appointmentId}`);
                 
-                // Immediately remove the cancelled appointment from the state
-                setAppointments(prevAppointments => 
-                    prevAppointments.filter(app => app.appointmentId !== appointmentId)
-                );
-
+                fetchAppointments();
                 alert('Appointment cancelled successfully.');
             } catch (error) {
                 setError('Failed to cancel appointment: ' + (error.response ? error.response.data : error.message));
@@ -128,13 +120,17 @@ const Appointments = () => {
                                         {getStatusText(appointment)}
                                     </td>
                                     <td>
-                                    <button 
-                                            className="btn btn-danger" 
-                                            onClick={() => handleCancel(appointment.appointmentId)}
-                                            disabled={appointment.statusId === 0} 
-                                        >
-                                            Cancel
-                                        </button>
+                                        {appointment.statusId === -1 ? (
+                                                <button 
+                                                    className="btn btn-danger"
+                                                    style={{width:"80px"}} 
+                                                    onClick={() => handleCancel(appointment.appointmentId)}
+                                                >
+                                                    Cancel
+                                                </button>
+                                            ) : (
+                                                <span></span> // Keeps the space in the table
+                                        )}
                                     </td>
                                 </tr>
                             ))}

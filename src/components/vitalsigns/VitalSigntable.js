@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
@@ -9,13 +7,13 @@ import oxygen from '../Assests/oxygen.jpg';
 import bp from '../Assests/bp.jpg';
 import temperature from '../Assests/temperature.jpg';
 import respiratory from '../Assests/respiratory.jpg';
-
+ 
 const VitalSignsTable = () => {
   const [patientId] = useState(2); 
   const [vitalSigns, setVitalSigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     const fetchVitalSigns = async () => {
       try {
@@ -41,13 +39,13 @@ const VitalSignsTable = () => {
         setLoading(false);
       }
     };
-
+ 
     fetchVitalSigns();
   }, [patientId]); // Depend on patientId
-
+ 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching data: {error}</p>;
-
+ 
   // Vital sign data structure
   const vitalSignData = [
     { type: 'Heart Rate', value: vitalSigns.length > 0 ? vitalSigns[0].heartRate : 'N/A', image: heartrate },
@@ -56,35 +54,35 @@ const VitalSignsTable = () => {
     { type: 'Temperature', value: vitalSigns.length > 0 ? vitalSigns[0].temperature : 'N/A', image: temperature },
     { type: 'Respiratory Rate', value: vitalSigns.length > 0 ? vitalSigns[0].respiratoryRate : 'N/A', image: respiratory },
   ];
-
+ 
   return (
-    <div className="vital-signs-container mb-4" style={{ width: '60%', margin: '0 auto' }}>
-      <h2 className="vital-signs-title mb-4">Vital Signs</h2>
+<div className="vital-signs-container mb-4" style={{ width: '60%', margin: '0 auto' }}>
+<h2 className="vital-signs-title mb-4">Vital Signs</h2>
       {vitalSignData.length > 0 ? (
-        <div className="row">
+<div className="row">
           {vitalSignData.map((sign, index) => (
-            <div className="col-md-4 mb-4" key={index}>
-              <div className="card vital-sign-card">
-                <img 
+<div className="col-md-4 mb-4" key={index}>
+<div className="card vital-sign-card">
+<img 
                   src={sign.image} 
                   alt={sign.type} 
                   className="card-img-top" 
                 />
-                <div className="card-body">
-                  <h5 className="card-title">{sign.type}</h5>
-                  <p className="card-text">
-                    <strong>{sign.value}</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
+<div className="card-body">
+<h5 className="card-title">{sign.type}</h5>
+<p className="card-text">
+<strong>{sign.value}</strong>
+</p>
+</div>
+</div>
+</div>
           ))}
-        </div>
+</div>
       ) : (
-        <p>No vital signs available.</p>
+<p>No vital signs available.</p>
       )}
-    </div>
+</div>
   );
 };
-
+ 
 export default VitalSignsTable;
