@@ -72,6 +72,22 @@ const Appointments = () => {
         }
     };
 
+    const handleCancel = async (appointmentId) => {
+        if (window.confirm('Are you sure you want to cancel this appointment?')) {
+            try {
+                await api.delete(`/Appointment/Cancel/${appointmentId}`);
+                // Remove the cancelled appointment from the state
+                setAppointments(prevAppointments => 
+                    prevAppointments.filter(app => app.appointmentId !== appointmentId)
+                );
+                alert('Appointment cancelled successfully.');
+            } catch (error) {
+                setError('Failed to cancel appointment: ' + (error.response ? error.response.data : error.message));
+            }
+        }
+    };
+
+
     if (error) {
         return <div className="alert alert-danger">Error: {error}</div>;
     }
@@ -106,6 +122,15 @@ const Appointments = () => {
                                     <td>{new Date(appointment.appointmentDate).toLocaleString()}</td>
                                     <td className={getStatusClass(appointment)}>
                                         {getStatusText(appointment)}
+                                    </td>
+                                    <td>
+                                        <button 
+                                            className="btn btn-danger" 
+                                            onClick={() => handleCancel(appointment.appointmentId)}
+                                            disabled={appointment.statusId === 0} // Disable if already cancelled
+                                        >
+                                            Cancel
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
