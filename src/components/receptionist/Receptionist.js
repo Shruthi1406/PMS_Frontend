@@ -36,16 +36,20 @@ const Receptionist = () => {
   const confirmAppointment = async (appointmentId) => {
     try {
       const token=localStorage.getItem("recAuthToken");
-      await axios.put(`https://localhost:44376/api//Appointment/UpdateStatus/${appointmentId}`,{
+      const status = 1;
+      const response = await axios.put(`https://localhost:44376/api/Appointment/UpdateStatus/${appointmentId}?status=${status}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setAppointments((prevAppointments) =>
-        prevAppointments.filter((appointment) => appointment.appointmentId !== appointmentId)
-      );
+      if (response.data) {
+        setAppointments((prevAppointments) =>
+          prevAppointments.filter((appointment) => appointment.appointmentId !== appointmentId)
+        );
       alert(`Appointment for ID ${appointmentId} confirmed!`);
-    } catch (error) {
+      } 
+    }
+    catch (error) {
       console.error('Error confirming appointment:', error);
       alert('Error confirming appointment. Please try again.');
     }
