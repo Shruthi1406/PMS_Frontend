@@ -35,7 +35,12 @@ const Receptionist = () => {
 
   const confirmAppointment = async (appointmentId) => {
     try {
-      await api.put(`/Appointment/UpdateStatus/${appointmentId}`); 
+      const token=localStorage.getItem("recAuthToken");
+      await axios.put(`https://localhost:44376/api//Appointment/UpdateStatus/${appointmentId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setAppointments((prevAppointments) =>
         prevAppointments.filter((appointment) => appointment.appointmentId !== appointmentId)
       );
