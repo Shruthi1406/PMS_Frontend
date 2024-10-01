@@ -3,7 +3,7 @@
   padding-right: 20%;
 }
 
-.body {
+.image {
   background-image: 
     linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), /* Light white overlay */
     url('../Assests/pexels-photo-6129044.webp'); /* Corrected the path */

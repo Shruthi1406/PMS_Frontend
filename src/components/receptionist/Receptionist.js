@@ -53,7 +53,7 @@ const Receptionist = () => {
   };
 
   return (
-    <div className="body">
+    <div className="image">
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light sticky-top" style={{ background: 'skyblue' }}>
         <div className="container d-flex justify-content-between">
