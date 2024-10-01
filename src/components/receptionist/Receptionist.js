@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../receptionist/receptionist.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import { useNavigate } from 'react-router-dom';
+
 const Receptionist = () => {
   const [appointments, setAppointments] = useState([]);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const receptionistInfo = localStorage.getItem('receptionistInfo') ? JSON.parse(localStorage.getItem('receptionistInfo')) : null;
-  let hospitalName;
-  let receptionistName;
-  if(receptionistInfo!=null)
-  {
-    hospitalName=receptionistInfo.hospitalName;
-    receptionistName=receptionistInfo.receptionistName;
-  }
+
+  const hospitalName = receptionistInfo?.hospitalName || 'Unknown Hospital';
+  const receptionistName = receptionistInfo?.receptionistName || 'Unknown Receptionist';
+
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem('recAuthToken');
         const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}`, {
           headers: {
-            Authorization: `Bearer ${token}` // Include the token here
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
-        if(response.data)
-        {
-            console.log(response.data);
-            setAppointments(response.data);
+        if (response.data) {
+          setAppointments(response.data);
         }
       } catch (error) {
         console.error('Error fetching appointments:', error);
@@ -34,7 +31,7 @@ const Receptionist = () => {
     };
 
     fetchAppointments();
-  }, []);
+  }, [hospitalName]);
 
   const confirmAppointment = async (appointmentId) => {
     try {
@@ -48,13 +45,15 @@ const Receptionist = () => {
       alert('Error confirming appointment. Please try again.');
     }
   };
+
   const handleLogout = () => {
     localStorage.removeItem('recAuthToken');
     localStorage.removeItem('receptionistInfo');
     navigate('/root');
   };
+
   return (
-    <div>
+    <div className="body">
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-light sticky-top" style={{ background: 'skyblue' }}>
         <div className="container d-flex justify-content-between">
@@ -62,7 +61,7 @@ const Receptionist = () => {
             Hospital Name: {hospitalName}
           </a>
           <span className="nav-link">Receptionist: {receptionistName}</span>
-          <button onClick={handleLogout} className='btn-primary'>Logout</button>
+          <button onClick={handleLogout} className='btn btn-primary'>Logout</button>
         </div>
       </nav>
 
@@ -90,7 +89,7 @@ const Receptionist = () => {
                           </p>
                         </div>
                         <button
-                          className="btn btn-primary ml-auto"
+                          className="btn btn-primary"
                           onClick={() => confirmAppointment(appointment.appointmentId)}
                         >
                           Confirm

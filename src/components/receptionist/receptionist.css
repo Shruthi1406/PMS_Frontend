@@ -1,5 +1,27 @@
 .rec-container {
-    padding-left: 20%;
-    padding-right: 20%;
-  }
-  
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.body {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), /* Light white overlay */
+    url('../Assests/pexels-photo-6129044.webp'); /* Corrected the path */
+  background-size: cover; /* Ensures the image covers the whole area */
+  background-position: center; /* Center the background image */
+  min-height: 100vh; /* Ensure the body takes the full height */
+}
+
+.navbar {
+  background: skyblue; /* Ensure the background color is consistent */
+  padding: 20px; /* Increase padding for more height */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adds a shadow to the navbar */
+}
+
+.card {
+  transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+}
+
+.card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
