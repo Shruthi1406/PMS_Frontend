@@ -7,18 +7,19 @@ import oxygen from '../Assests/oxygen.jpg';
 import bp from '../Assests/bp.jpg';
 import temperature from '../Assests/temperature.jpg';
 import respiratory from '../Assests/respiratory.jpg';
- 
+import api from '../../apiHandler/api';
 const VitalSignsTable = () => {
-  const [patientId] = useState(2); 
   const [vitalSigns, setVitalSigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
- 
+  const patientInfo = localStorage.getItem('patientInfo')!=null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
   useEffect(() => {
     const fetchVitalSigns = async () => {
       try {
-        if (patientId) {
-          const response = await axios.get(`https://localhost:44376/api/VitalSign/GetVitalSigns?patientId=${patientId}`);
+        if (patientInfo?.id) {
+          const response = await api.get(`/VitalSign/GetVitalSignsByPatientId`, {
+            params: { patientId: patientInfo.id }, 
+          });
           console.log('Vital Signs Response:', response.data); 
           if (Array.isArray(response.data)) {
             setVitalSigns(response.data);
@@ -41,7 +42,7 @@ const VitalSignsTable = () => {
     };
  
     fetchVitalSigns();
-  }, [patientId]); // Depend on patientId
+  }, [patientInfo.id]); // Depend on patientId
  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error fetching data: {error}</p>;
