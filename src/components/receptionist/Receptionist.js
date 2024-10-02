@@ -11,15 +11,64 @@ const Receptionist = () => {
 
   const hospitalName = receptionistInfo?.hospitalName || 'Unknown Hospital';
   const receptionistName = receptionistInfo?.receptionistName || 'Unknown Receptionist';
-
+  const [appointments, setAppointments] = useState([]);
+  const [tasks, setTasks] = useState([]);
   const handleLogout = () => {
     localStorage.removeItem('recAuthToken');
     localStorage.removeItem('receptionistInfo');
     navigate('/root');
   };
-
-  const [tasks, setTasks] = useState([]); // State for tasks count
-
+  
+  //fetching appointments
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      const token = localStorage.getItem('recAuthToken');
+      const hospitalName = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalName;
+      const statusId=2;
+      try {
+        const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}/${statusId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAppointments(response.data || []);
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      }
+    };
+    console.log("appointments executed");
+    fetchAppointments();
+  }, []);
+  //fetching pending appointments
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const token = localStorage.getItem('recAuthToken');
+      const hospitalName = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalName;
+      const statusId=-1;
+      try {
+        const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}/${statusId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setTasks(response.data || []);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+    console.log("tasks executed");
+    fetchTasks();
+  }, []);
+  const confirmAppointment = async (appointmentId) => {
+    const token = localStorage.getItem('recAuthToken');
+    const statusId = 1;
+    try {
+      await axios.put(`https://localhost:44376/api/Appointment/UpdateStatus/${appointmentId}?statusId=${statusId}`, null, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setTasks(prev => prev.filter(task => task.appointmentId !== appointmentId));
+      alert(`Appointment for ID ${appointmentId} confirmed!`);
+    } catch (error) {
+      console.error('Error confirming appointment:', error);
+      alert('Error confirming appointment. Please try again.');
+    }
+  };
   const renderDefaultCards = () => (
     <div className="default-cards d-flex justify-content-between">
       <div className="card-custom flex-fill mx-2">
@@ -27,7 +76,11 @@ const Receptionist = () => {
           <h5 className="card-title"><i className="fa fa-calendar" aria-hidden="true"></i>   Appointments</h5>
         </div>
         <div className="card-body-custom">
-          <p className="card-text">You have appointments today.</p>
+          {
+            appointments?.length>0?
+            <p className="card-text">You have {appointments.length} completed appointments.</p>:
+            <p className="card-text">You have 0 completed appointments</p>
+          }
         </div>
       </div>
       <div className="card-custom flex-fill mx-2">
@@ -35,7 +88,11 @@ const Receptionist = () => {
           <h5 className="card-title"><i class="fas fa-tasks"></i>  Tasks</h5>
         </div>
         <div className="card-body-custom">
-          <p className="card-text">You have  tasks to complete.</p>
+          {
+            tasks?.length>0?
+            <p className="card-text">You have {tasks.length} tasks to complete.</p>:
+            <p className="card-text">You have no tasks to complete.</p>
+          }
         </div>
       </div>
     </div>
@@ -71,10 +128,10 @@ const Receptionist = () => {
         <div className="overview-section d-flex flex-column">
           <div className='bg-light'>{activeComponent === 'default' &&renderDefaultCards()}</div>
           <div>
-            {activeComponent === 'appointments' && <Appointments />}
+            {activeComponent === 'appointments' && <Appointments appointments={appointments}/>}
           </div>
           <div>
-            {activeComponent === 'tasks' && <Tasks />}
+            {activeComponent === 'tasks' && <Tasks tasks={tasks} confirmAppointment={confirmAppointment}/>}
           </div>
           <div>
             {activeComponent === 'doctors' && <Doctors />}
@@ -86,40 +143,7 @@ const Receptionist = () => {
 };
 
 // Appointments Component
-const Appointments = () => {
-  const [appointments, setAppointments] = useState([]);
-
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      const token = localStorage.getItem('recAuthToken');
-      const hospitalName = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalName;
-      const statusId=2;
-      try {
-        const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}/${statusId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setAppointments(response.data || []);
-      } catch (error) {
-        console.error('Error fetching appointments:', error);
-      }
-    };
-    fetchAppointments();
-  }, []);
-
-  // const confirmAppointment = async (appointmentId) => {
-  //   const token = localStorage.getItem('recAuthToken');
-  //   const status = 1;
-  //   try {
-  //     await axios.put(`https://localhost:44376/api/Appointment/UpdateStatus/${appointmentId}?status=${status}`, null, {
-  //       headers: { Authorization: `Bearer ${token}` },
-  //     });
-  //     setAppointments(prev => prev.filter(appointment => appointment.appointmentId !== appointmentId));
-  //     alert(`Appointment for ID ${appointmentId} confirmed!`);
-  //   } catch (error) {
-  //     console.error('Error confirming appointment:', error);
-  //     alert('Error confirming appointment. Please try again.');
-  //   }
-  // };
+const Appointments = ({appointments}) => {
 
   return (
     <div>
@@ -153,39 +177,9 @@ const Appointments = () => {
 };
 
 // Tasks Component
-const Tasks = () => {
-  const [tasks, setTasks] = useState([]);
+const Tasks = ({tasks,confirmAppointment}) => {
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const token = localStorage.getItem('recAuthToken');
-      const hospitalName = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalName;
-      const statusId=-1;
-      try {
-        const response = await axios.get(`https://localhost:44376/api/Appointment/GetHospitalName/${hospitalName}/${statusId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setTasks(response.data || []);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
-    };
-    fetchTasks();
-  }, []);
-  const confirmAppointment = async (appointmentId) => {
-    const token = localStorage.getItem('recAuthToken');
-    const status = 1;
-    try {
-      await axios.put(`https://localhost:44376/api/Appointment/UpdateStatus/${appointmentId}?status=${status}`, null, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setTasks(prev => prev.filter(task => task.appointmentId !== appointmentId));
-      alert(`Appointment for ID ${appointmentId} confirmed!`);
-    } catch (error) {
-      console.error('Error confirming appointment:', error);
-      alert('Error confirming appointment. Please try again.');
-    }
-  };
+ 
   return (
     <div>
       <h2 className="text-center mb-4">Appointment List</h2>
