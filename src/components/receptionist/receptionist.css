@@ -1,27 +1,121 @@
-.rec-container {
-  padding-left: 20%;
-  padding-right: 20%;
+.receptionist-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.image {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), /* Light white overlay */
-    url('../Assests/pexels-photo-6129044.webp'); /* Corrected the path */
-  background-size: cover; /* Ensures the image covers the whole area */
-  background-position: center; /* Center the background image */
-  min-height: 100vh; /* Ensure the body takes the full height */
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
 }
 
-.navbar {
-  background: skyblue; /* Ensure the background color is consistent */
-  padding: 20px; /* Increase padding for more height */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adds a shadow to the navbar */
+.sidebar-custom {
+  width: 250px; /* Fixed width for sidebar */
+  background-color: #f8f9fa; /* Light background */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.card {
-  transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+.sidebar-heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-links li {
+  margin: 10px 0;
+}
+
+.sidebar-links a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.sidebar-links a:hover {
+  text-decoration: underline;
+}
+
+.overview-section {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.overview-title {
+  font-size: 1.8rem;
+}
+
+.card-custom {
+  transition: box-shadow 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem; /* Set border radius for all corners */
+  min-height: 15vh; /* Set a minimum height based on viewport height */
+  margin: 10px; /* Add margin for spacing between cards */
+}
+
+@media (max-width: 768px) {
+  .card-custom {
+    min-height: 20vh; /* Increased minimum height for smaller screens */
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
+
+.card-custom:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-body-custom {
+  padding: 50px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar-custom {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+.navbar-custom {
+  background: skyblue;
+  padding: 1px 5px; /* Adjusted padding for better spacing */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem; /* Increase font size for visibility */
+  color: white; /* Ensure the brand text is visible against the background */
+}
+
+.navbar-text {
+  color: white; /* Set text color to match brand color */
+  margin-right: 10px; /* Add spacing between text and button */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Customize button color */
+  border: none; /* Remove border for a cleaner look */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+.card-header-custom {
+  background-color: #f1f1f1; /* Light gray background */
+  padding: 15px; /* Padding for the header */
+  border-bottom: 1px solid #dee2e6; /* Bottom border */
+  border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
 }
