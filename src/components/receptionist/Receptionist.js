@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../receptionist/receptionist.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate,Link } from 'react-router-dom';
-
+import StarRatings from 'react-star-ratings'
 const Receptionist = () => {
   const [activeComponent, setActiveComponent] = useState('default');
   const navigate = useNavigate();
@@ -13,12 +13,14 @@ const Receptionist = () => {
   const receptionistName = receptionistInfo?.receptionistName || 'Unknown Receptionist';
   const [appointments, setAppointments] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const handleLogout = () => {
     localStorage.removeItem('recAuthToken');
     localStorage.removeItem('receptionistInfo');
     navigate('/root');
   };
-  
   //fetching appointments
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -69,6 +71,25 @@ const Receptionist = () => {
       alert('Error confirming appointment. Please try again.');
     }
   };
+  //fetching doctors
+  const fetchDoctors = async () => {
+    const token = localStorage.getItem('recAuthToken');
+    const hospitalId = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalId;
+    try {
+      const response = await axios.get(`https://localhost:44376/api/Doctor/Get/Doctor/HospitalId/${hospitalId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data);
+      setDoctors(response.data || []);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchDoctors();
+  }, []);
   const renderDefaultCards = () => (
     <div className="default-cards d-flex justify-content-between">
       <div className="card-custom flex-fill mx-2">
@@ -97,8 +118,14 @@ const Receptionist = () => {
       </div>
     </div>
   );
-
-  
+  const handleAddDoctorSuccess = () => {
+    setActiveComponent('doctors')
+    fetchDoctors(); // Optionally re-fetch doctors after adding a new one
+  };
+  const handleAddDoctorClick=()=>
+  {
+    setActiveComponent("AddDoctor");
+  }
 
   return (
     <div className="receptionist-container">
@@ -134,7 +161,10 @@ const Receptionist = () => {
             {activeComponent === 'tasks' && <Tasks tasks={tasks} confirmAppointment={confirmAppointment}/>}
           </div>
           <div>
-            {activeComponent === 'doctors' && <Doctors />}
+            {activeComponent === 'doctors' && <Doctors doctors={doctors} error={error} loading={loading} handleAddDoctorClick={handleAddDoctorClick} onAddDoctorSuccess={handleAddDoctorSuccess} />}
+          </div>
+          <div>
+            {activeComponent==='AddDoctor' && <AddDoctor onAddSuccess={handleAddDoctorSuccess}></AddDoctor>}
           </div>
         </div>
       </div>
@@ -218,47 +248,131 @@ const Tasks = ({tasks,confirmAppointment}) => {
 };
 
 // Doctors Component
-const Doctors = () => {
-  const [doctors, setDoctors] = useState([]);
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      const token = localStorage.getItem('recAuthToken');
-      const hospitalName = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalName;
-      try {
-        const response = await axios.get(`https://localhost:44376/api/Doctor/GetDoctors/${hospitalName}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setDoctors(response.data || []);
-      } catch (error) {
-        console.error('Error fetching doctors:', error);
-      }
-    };
-    fetchDoctors();
-  }, []);
-
+const Doctors = ({ doctors, loading, error, handleAddDoctorClick}) => {
+  const getRandomRating = () => Math.floor(Math.random() * 5) + 1;
+  
   return (
-    <div>
-      <h2 className="text-center mb-4">Doctors</h2>
-      <div className="row">
-        {doctors.length === 0 ? (
-          <p className="text-center">No doctors available.</p>
-        ) : (
-          doctors.map((doctor) => (
-            <div className="col-12 mb-3" key={doctor.doctorId}>
-              <div className="card-custom">
-                <div className="card-body-custom">
-                  <h5 className="card-title">{doctor.name}</h5>
-                  <p className="card-text">
-                    <strong>Specialty:</strong> {doctor.specialty} <br />
-                    <strong>Email:</strong> {doctor.email}
-                  </p>
-                </div>
+    <div className="doctors-container" >
+      <div className='d-flex mb-4 justify-content-between'>
+        <h2>Doctors List</h2>
+        <button className='btn btn-primary' onClick={handleAddDoctorClick}>Add Doctor</button>
+      </div>
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+      {doctors.length > 0 ? (
+        doctors.map(doctor => {
+          const rating = getRandomRating();
+          return (
+            <div className="doctor-card d-flex justify-content-between" key={doctor.doctorId}>
+              <div className="doctor-image">
+                <img
+                  src={`data:image/jpeg;base64,${doctor.image}`}
+                  className="img-fluid"
+                  alt={doctor.name}
+                />
+              </div>
+              <div className="doctor-details">
+                <h4>{doctor.name}</h4>
+                <strong> {doctor.doctorName}</strong>
+                <p>Specialization: {doctor.specialization}</p>
+                <p>Consultation Fee: Rs.{doctor.consultationFee}</p>
+                <p>Email: {doctor.doctorEmail}</p>
+                <p>
+                  <StarRatings
+                    rating={rating}
+                    starRatedColor="gold"
+                    numberOfStars={5}
+                    name='rating'
+                    starDimension="20px"
+                    starSpacing="2px"
+                  />
+                </p>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          );
+        })
+      ) : (
+        !loading && <div>No doctors available.</div>
+      )}
+    </div>
+  );
+};
+const AddDoctor = ({ onAddSuccess }) => {
+  const [doctorName, setDoctorName] = useState('');
+  const [email, setEmail] = useState('');
+  const [specialization, setSpecialization] = useState('');
+  const [contact, setContact] = useState('');
+  const [consultationFee, setConsultationFee] = useState('');
+  const [isAvailable, setIsAvailable] = useState(true);
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const hospitalId = JSON.parse(localStorage.getItem('receptionistInfo'))?.hospitalId;
+
+    const formData = new FormData();
+    formData.append('Doctorname', doctorName);
+    formData.append('email', email);
+    formData.append('specialization', specialization);
+    formData.append('contact', contact);
+    formData.append('isAvailable',isAvailable);
+    formData.append('consultationFee', consultationFee);
+    formData.append('hospitalId', hospitalId);
+    if (file) formData.append('file', file);
+
+    try {
+      const token = localStorage.getItem('recAuthToken');
+      await axios.post('https://localhost:44376/api/Doctor/Add/Doctors', formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      onAddSuccess(); // Trigger re-fetch or state update
+      alert('Doctor added successfully!');
+    } catch (error) {
+      setError('Error adding doctor. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="add-doctor-form">
+      <h2>Add New Doctor</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="form-group">
+          <label>Doctor Name:</label>
+          <input type="text" className="form-control" value={doctorName} onChange={(e) => setDoctorName(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Specialization:</label>
+          <input type="text" className="form-control" value={specialization} onChange={(e) => setSpecialization(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Contact:</label>
+          <input type="text" className="form-control" value={contact} onChange={(e) => setContact(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Consultation Fee:</label>
+          <input type="number" className="form-control" value={consultationFee} onChange={(e) => setConsultationFee(e.target.value)} required />
+        </div>
+
+        <div className="form-group">
+          <label>Upload Image:</label>
+          <input type="file" className="form-control" onChange={(e) => setFile(e.target.files[0])} />
+        </div>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Adding...' : 'Add Doctor'}
+        </button>
+      </form>
     </div>
   );
 };

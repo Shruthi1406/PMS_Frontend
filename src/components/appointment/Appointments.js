@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import '../css/Appointments.css';
-
+import { Link, useNavigate } from 'react-router-dom';
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
-   
+    const navigate=useNavigate();
     const fetchAppointments = async () => {
         try {
             const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
@@ -46,6 +46,8 @@ const Appointments = () => {
                 return 'Cancelled';
             case -1:
                 return 'Pending';
+            case -2:
+                return 'Completed';
             default:
                 return 'Unknown'; 
         }
@@ -65,6 +67,8 @@ const Appointments = () => {
                 return 'bg-danger text-white'; 
             case -1:
                 return 'bg-warning text-dark'; 
+            case -2:
+                return 'bg-info text-white';
             default:
                 return 'bg-secondary text-white'; 
         }
@@ -87,7 +91,6 @@ const Appointments = () => {
     if (error) {
         return <div className="alert alert-danger">Error: {error}</div>;
     }
-
     return (
         <div className="container mt-5 appointments-heading">
             <h1 className="mb-4 appoinment-header">Appointments</h1>
@@ -120,17 +123,9 @@ const Appointments = () => {
                                         {getStatusText(appointment)}
                                     </td>
                                     <td>
-                                        {appointment.statusId === -1 ? (
-                                                <button 
-                                                    className="btn btn-danger"
-                                                    style={{width:"80px"}} 
-                                                    onClick={() => handleCancel(appointment.appointmentId)}
-                                                >
-                                                    Cancel
-                                                </button>
-                                            ) : (
-                                                <span></span> // Keeps the space in the table
-                                        )}
+                                    <Link to="/root/viewAppointment" state={appointment}>
+                                            <button className="btn btn-info">View</button>
+                                    </Link>
                                     </td>
                                 </tr>
                             ))}

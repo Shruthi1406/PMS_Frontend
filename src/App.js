@@ -27,6 +27,7 @@ import HealthForm from './apiHandler/HealthForm';
 import Login from './components/login/Login';
 import { NotificationProvider } from './components/Notifications/NotificationContext';
 import Navbar from './components/Assests/Navbar';
+import ViewAppointment from './components/appointment/ViewAppointment';
 
 
 const App = () => {
@@ -63,6 +64,10 @@ const App = () => {
               path: 'vitalsignstable',
               element: <VitalSignsTable />,
             },
+            {
+              path:'viewAppointment',
+              element:<ViewAppointment/>
+            }
           ],
         },
         {
