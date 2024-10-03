@@ -20,7 +20,7 @@ function Homepage() {
       <div className='linear'>
         <div className='back'>
           <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
-            <h4 style={{ color: 'skyblue' }}>The right care, is wherever you are</h4><br />
+            <h4 style={{ color: 'blue' }}>The right care, is wherever you are</h4><br />
             <h1 className="font-bold">
               <span className='rem'>Consult India's</span><br />
               <span className='rem'>Top Doctors Online</span>
