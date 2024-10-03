@@ -26,6 +26,7 @@ import PasswordReset from './components/password/password';
 import HealthForm from './apiHandler/HealthForm';
 import Login from './components/login/Login';
 import { NotificationProvider } from './components/Notifications/NotificationContext';
+import Notify from './components/Notifications/Notify';
 import Navbar from './components/Assests/Navbar';
 import EmailSender from './components/password/EmailSender';
 
@@ -92,10 +93,14 @@ const App = () => {
           path:'/root/specialist',
           element:<Specailist/>
         },
+        // {
+        //   path:'/root/notifications',
+
+        //   element:<Notifications/>
+        // },
         {
           path:'/root/notifications',
-
-          element:<Notifications/>
+          element:<Notify/>
         },
         {
           path:"/root/add-device",
