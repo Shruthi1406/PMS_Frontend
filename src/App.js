@@ -29,6 +29,8 @@ import { NotificationProvider } from './components/Notifications/NotificationCon
 import Navbar from './components/Assests/Navbar';
 import EmailSender from './components/password/EmailSender';
 
+import ViewAppointment from './components/appointment/ViewAppointment';
+
 
 const App = () => {
   const [location, setLocation] = useState('');
@@ -64,6 +66,10 @@ const App = () => {
               path: 'vitalsignstable',
               element: <VitalSignsTable />,
             },
+            {
+              path:'viewAppointment',
+              element:<ViewAppointment/>
+            }
           ],
         },
         {
