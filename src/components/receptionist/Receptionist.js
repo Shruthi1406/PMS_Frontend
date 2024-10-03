@@ -91,29 +91,34 @@ const Receptionist = () => {
     fetchDoctors();
   }, []);
   const renderDefaultCards = () => (
-    <div className="default-cards d-flex justify-content-between">
-      <div className="card-custom flex-fill mx-2">
-        <div className="card-header-custom">
-          <h5 className="card-title"><i className="fa fa-calendar" aria-hidden="true"></i>   Appointments</h5>
-        </div>
-        <div className="card-body-custom">
-          {
-            appointments?.length>0?
-            <p className="card-text">You have {appointments.length} completed appointments.</p>:
-            <p className="card-text">You have 0 completed appointments</p>
-          }
-        </div>
+    <div>
+      <div>
+        <h1>Overview</h1>
       </div>
-      <div className="card-custom flex-fill mx-2">
-        <div className="card-header-custom">
-          <h5 className="card-title"><i class="fas fa-tasks"></i>  Tasks</h5>
+      <div className="default-cards d-flex justify-content-between">
+        <div className="card-custom flex-fill mx-2">
+          <div className="card-header-custom">
+            <h5 className="card-title"><i className="fa fa-calendar" aria-hidden="true"></i>   Appointments</h5>
+          </div>
+          <div className="card-body-custom">
+            {
+              appointments?.length>0?
+              <p className="card-text">You have {appointments.length} completed appointments.</p>:
+              <p className="card-text">You have 0 completed appointments</p>
+            }
+          </div>
         </div>
-        <div className="card-body-custom">
-          {
-            tasks?.length>0?
-            <p className="card-text">You have {tasks.length} tasks to complete.</p>:
-            <p className="card-text">You have no tasks to complete.</p>
-          }
+        <div className="card-custom flex-fill mx-2">
+          <div className="card-header-custom">
+            <h5 className="card-title"><i class="fas fa-tasks"></i>  Tasks</h5>
+          </div>
+          <div className="card-body-custom">
+            {
+              tasks?.length>0?
+              <p className="card-text">You have {tasks.length} tasks to complete.</p>:
+              <p className="card-text">You have no tasks to complete.</p>
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -252,7 +257,7 @@ const Doctors = ({ doctors, loading, error, handleAddDoctorClick}) => {
   const getRandomRating = () => Math.floor(Math.random() * 5) + 1;
   
   return (
-    <div className="doctors-container" >
+    <div className="doc-container" >
       <div className='d-flex mb-4 justify-content-between'>
         <h2>Doctors List</h2>
         <button className='btn btn-primary' onClick={handleAddDoctorClick}>Add Doctor</button>
@@ -263,32 +268,30 @@ const Doctors = ({ doctors, loading, error, handleAddDoctorClick}) => {
         doctors.map(doctor => {
           const rating = getRandomRating();
           return (
-            <div className="doctor-card d-flex justify-content-between" key={doctor.doctorId}>
-              <div className="doctor-image">
-                <img
-                  src={`data:image/jpeg;base64,${doctor.image}`}
-                  className="img-fluid"
-                  alt={doctor.name}
-                />
-              </div>
-              <div className="doctor-details">
-                <h4>{doctor.name}</h4>
-                <strong> {doctor.doctorName}</strong>
-                <p>Specialization: {doctor.specialization}</p>
-                <p>Consultation Fee: Rs.{doctor.consultationFee}</p>
-                <p>Email: {doctor.doctorEmail}</p>
-                <p>
-                  <StarRatings
-                    rating={rating}
-                    starRatedColor="gold"
-                    numberOfStars={5}
-                    name='rating'
-                    starDimension="20px"
-                    starSpacing="2px"
-                  />
-                </p>
-              </div>
-            </div>
+            <div className="doc-card d-flex justify-content-between" key={doctor.doctorId}>
+      <div className="doc-image">
+        <img
+          src={`data:image/jpeg;base64,${doctor.image}`}
+          alt={doctor.name}
+        />
+      </div>
+      <div className="doc-details">
+        <h4>{doctor.name}</h4>
+        <strong>{doctor.doctorName}</strong>
+        <p>Specialization: {doctor.specialization}</p>
+        <p>Consultation Fee: Rs.{doctor.consultationFee}</p>
+        <p>Email: {doctor.doctorEmail}</p>
+        <StarRatings
+          rating={getRandomRating()}
+          starRatedColor="gold"
+          numberOfStars={5}
+          name='rating'
+          starDimension="20px"
+          starSpacing="2px"
+        />
+      </div>
+    </div>
+
           );
         })
       ) : (

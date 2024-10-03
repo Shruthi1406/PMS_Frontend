@@ -49,12 +49,12 @@ const ViewAppointment = () => {
                         <p className="text-warning mt-3">Upcoming Appointment</p>
                     ) : (
                         (appointment.statusId === 1 || appointment.statusId === -1) && isCancelable ? (
-                            <button className="btn btn-danger mt-3" onClick={handleCancel}>
+                            <button className="btn btn-danger mt-3 " onClick={handleCancel}>
                                 Cancel Appointment
                             </button>
                         ) : (
                             appointment.statusId === 0 ? (
-                                <p className="text-danger mt-3">Cancelled</p>
+                                <p className="text-danger mt-3 fs-1 fw-bold">Cancelled</p>
                             ) : (
                                 appointment.statusId === 2 ? (
                                     <p className="text-success mt-3">Completed</p>

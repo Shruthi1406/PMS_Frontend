@@ -92,47 +92,40 @@ const Appointments = () => {
         return <div className="alert alert-danger">Error: {error}</div>;
     }
     return (
-        <div className="container mt-5 appointments-heading">
-            <h1 className="mb-4 appoinment-header">Appointments</h1>
-            {
-                appointments.length === 0 ? (
-                    <div>
-                        <h3>You don't have any Appointments</h3>
-                    </div>
-                ) : (
-                    <table className="table table-striped table-bordered table-hover">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Hospital Name</th>
-                                <th>Doctor Name</th>
-                                <th>Reason</th>
-                                <th>Created At</th>
-                                <th>Appointment Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {appointments.map(appointment => (
-                                <tr key={appointment.appointmentId}>
-                                    <td>{appointment.hospitalName}</td>
-                                    <td>{appointment.doctorName}</td>
-                                    <td>{appointment.reason}</td>
-                                    <td>{new Date(appointment.createdAt).toLocaleString()}</td>
-                                    <td>{new Date(appointment.appointmentDate).toLocaleString()}</td>
-                                    <td className={getStatusClass(appointment)}>
-                                        {getStatusText(appointment)}
-                                    </td>
-                                    <td>
-                                    <Link to="/root/viewAppointment" state={appointment}>
-                                            <button className="btn btn-info">View</button>
-                                    </Link>
-                                    </td>
+        <div className="d-flex justify-content-center">
+            <div className="container mt-5 appointments-heading">
+                <h1 className="mb-4 appoinment-header">Appointments</h1>
+                {
+                    appointments.length === 0 ? (
+                        <div>
+                            <h3>You don't have any Appointments</h3>
+                        </div>
+                    ) : (
+                        <table className="table table-striped table-bordered table-hover" style={{ tableLayout: 'fixed', width: '70%' }}>
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th style={{ width: '30%' }}>Hospital Name</th>
+                                    <th style={{ width: '30%' }}>Doctor Name</th>
+                                    <th style={{ width: '7%' }}>Status</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )
-            }
+                            </thead>
+                            <tbody>
+                                {appointments.map(appointment => (
+                                    <tr key={appointment.appointmentId}>
+                                        <td style={{ width: '30%' }}>{appointment.hospitalName}</td>
+                                        <td style={{ width: '30%' }}>{appointment.doctorName}</td>
+                                        <td style={{ width: '10%' }}>
+                                        <Link to="/root/viewAppointment" state={appointment}>
+                                            <button className="btn btn-info">View</button>
+                                        </Link>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )
+                }
+            </div>
         </div>
     );
 };

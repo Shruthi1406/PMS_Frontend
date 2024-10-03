@@ -17,6 +17,7 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
+
 .sidebar-heading {
   font-size: 1.5rem;
   margin-bottom: 1rem;
@@ -119,11 +120,13 @@
   border-bottom: 1px solid #dee2e6; /* Bottom border */
   border-radius: 0.5rem 0.5rem 0 0; /* Rounded top corners */
 }
-.doctors-container {
+.doc-container {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.doctor-card {
+.doc-card {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
@@ -131,25 +134,25 @@
   background-color: #f9f9f9;
   display: flex;
   align-items: center;
+  min-height: 150px; /* Set a minimum height for the card */
 }
 
-.doctor-image {
-  flex: 1;
-  max-width: 100px;
+.doc-image {
+  flex: 1; /* Allow this div to take up space */
+  max-width: 100px; /* Set a maximum width */
   margin-right: 20px;
+  overflow: hidden; /* Hide overflow to maintain aspect ratio */
 }
 
-.doctor-image img {
+.doc-image img {
   border-radius: 8px;
-  max-width: 100%;
-  height: auto;
+  width: 100%; /* Full width of the container */
+  height: 120px; /* Set a fixed height */
+  object-fit: cover; /* Ensures the image covers the area */
 }
 
-.doctor-details {
+
+
+.doc-details {
   flex: 2;
-}
-
-.appointment-button {
-  flex: 0.5;
-  text-align: right;
 }

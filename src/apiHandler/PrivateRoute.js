@@ -13,7 +13,7 @@ const PrivateRoute = () => {
   }, [token]);
 
   if (!token) {
-    return <Navigate to="/root" />;
+    return <Navigate to="/root/login" />;
   }
 
   return <Outlet />;
