@@ -7,15 +7,12 @@ import securityIcon from './security.svg';
 import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
+import Specialities from './Specialities';
 
 function Homepage() {
 
   return (
     <>
-      <div className="container-fluid"> {/* Use container-fluid for full width */}
-        <OnlineConsultation />
-      </div>
-
       <div className='linear'>
         <div className='back'>
           <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
@@ -29,6 +26,10 @@ function Homepage() {
           <div className='backimg'>
           </div>
         </div>
+      </div>
+      <Specialities/>
+      <div className="container-fluid"> {/* Use container-fluid for full width */}
+        <OnlineConsultation />
       </div>
     </>
   );
