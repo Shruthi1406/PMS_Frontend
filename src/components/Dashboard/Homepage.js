@@ -8,17 +8,6 @@ import securityIcon from './security.svg';
 import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
-import dashboard from './dashboard.jpg';
-import cough from './cough.jpg';
-import bone from './bone.jpeg';
-import depression from './depression.jpg';
-import migrane from './migrane.jpg';
-import { Link } from 'react-router-dom';
-import derma from './derma.jpg';
-import dentist from './dentist.jpg';
-import cardio from './cardio.jpg';
-import nutrionist from './nutritionist.png';
-import Footer from '../Footer';
 import Specialities from './Specialities';
 
 function Homepage() {
@@ -42,12 +31,7 @@ function Homepage() {
           </div>
             <div className='backimg'>
           </div>
-      </div>
-      <div className="container-fluid"> {/* Use container-fluid for full width */}
-        <OnlineConsultation />
-      </div>
-          {/* Specialization Based */}
-         
+      </div>         
       </div>
       <Specialities/>
       <div className="container-fluid"> {/* Use container-fluid for full width */}

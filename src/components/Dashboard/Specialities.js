@@ -2,14 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
- 
+import "./Specialities.css";
 import derma from './derma.jpg';
 import dentist from './dentist.jpg';
 import cardio from './cardio.jpg';
 import nutrionist from './nutritionist.png';
 import psychologist from './pyschologist 1.png';
-import orthopedic from './orthopedic.png'
-;
+import orthopedic from './orthopedic.png';
 import gynecologist from './gynecologist 1.png';
 import pediatrician from './pediatrician 1.jpg';
  
@@ -63,7 +62,7 @@ const Specialities = () => {
             >
                 {specialists.map((specialist, idx) => (
                     <div key={idx} className="d-flex justify-content-center">
-                        <div className="card custom-card mx-1" style={{ width: '100%', maxWidth: '250px' }}>
+                        <div className="card custom-card" style={{ width: '100%', maxWidth: '250px' }}>
                             <img src={specialist.image} className="card-img-top img-fluid problem-img" alt={specialist.name} />
                             <div className="card-body">
                                 <Link to='/root/specialist' state={{ specialization: specialist.name }} className="btn btn-info">
@@ -77,5 +76,5 @@ const Specialities = () => {
         </div>
     );
 };
- 
+
 export default Specialities;
