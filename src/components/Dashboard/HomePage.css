@@ -40,6 +40,83 @@
     margin: 1rem;
     text-align: center;
 }
+.backimg {
+    background-image: url('../Assests/navphoto.webp');
+    background-position: 90% center; /* Moves the image 85% from the left, creating space on the right */
+    background-repeat: no-repeat; 
+    background-position: right;
+    
+    /* Prevents the image from repeating */
+    background-size: 60%; /* Sets the size of the image to 35% of the container */
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full width */
+
+}
+.linear {
+    background-image: linear-gradient(
+      rgba(136, 202, 233, 0.5), /* Light blue */
+      rgba(177, 106, 184, 0.5)  /* Light purple */
+    );
+    height: 70vh; /* Set height to cover full viewport height */
+    display: flex;  /* Use flexbox if needed */
+}
+
+.back {
+    display: flex; /* Use Flexbox to align children */
+    height: 100%; /* Ensure the back div takes the full height of the linear gradient */
+    width: 100%;  /* Full width */
+}
+
+.back{
+    display: flex;
+    height: 10px;
+    margin: 10%;
+    margin-top: -100px;
+    
+}
+.btn-custom-long {
+    width: 300px; /* Set desired width */
+    font-size: 1.2rem; /* Adjust font size if needed */
+    color: white; /* Make the text color white */
+    background-color: #FFA500; /* Set custom background color */
+    border: none; /* Remove border */
+}
+.font-bold {
+    font-weight: bold; /* Makes the text bold */
+    font-size: 2rem; /* Optional: Adjust the font size as needed */
+    margin-top: 0%;
+}
+
+
+.btn-custom-long:hover {
+    background-color: #ff3c00; /* Darker shade on hover */
+}
+
+
+.btn-custom-orange {
+    background-color: #e95e0e; /* Custom orange color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+}
+
+.btn-custom-orange:hover {
+    background-color: #d85f0f; /* Darker shade on hover */
+}
+
+.textto{
+    
+    display: flex;
+   justify-content: center;
+    margin-left: 100px;
+    margin-top: -400px;
+}
+.h4text{
+    color: blue;
+}
+.rem{
+    font-size: 2rem;
+}
+
 
 .problem-img {
     width: 100%; 

@@ -9,13 +9,42 @@ import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
 
 function Homepage() {
+
   return (
     <>
       <div className="container-fluid"> {/* Use container-fluid for full width */}
         <OnlineConsultation />
       </div>
+
+      <div className='linear'>
+        <div className='back'>
+          <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
+            <h4 style={{ color: 'skyblue' }}>The right care, is wherever you are</h4><br />
+            <h1 className="font-bold">
+              <span className='rem'>Consult India's</span><br />
+              <span className='rem'>Top Doctors Online</span>
+            </h1><br />
+            <button className="btn btn-warning btn-custom-long">Consult Now</button>
+          </div>
+
+          <div className='backimg'>
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
     </>
   );
+
 }
 
 function OnlineConsultation() {
@@ -115,5 +144,7 @@ function OnlineConsultation() {
     </div>
   );
 }
+
+
 
 export default Homepage;

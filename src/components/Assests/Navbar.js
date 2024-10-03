@@ -1,63 +1,30 @@
-import React, { useState,useEffect,useRef } from 'react';
-import PmsLogo1 from './PmsLogo1.jpg';
-import { Modal, Button, Tabs, Tab } from 'react-bootstrap';
+import React, { useState, useEffect, useRef } from 'react';
+import logo from "./newlogo.png";
+import { Modal, Button } from 'react-bootstrap';
 import './Navbar.css';
-import { Link, useNavigate,useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import ReceptionistLogin from '../receptionist/ReceptionistLogin';
-import { getAuthorizationUrl } from '../fitbit/fitbitAPI';
-import HospitalSearchComponent from '../Search';
-import AddDevice from '../vitalsigns/AddDevice';
-import Notifications from '../Notifications/Notification';
-import Login from '../login/Login'; 
+import Login from '../login/Login';
 import RegisterPatient from '../register patient/RegisterPatient';
 import { useNotification } from '../Notifications/NotificationContext';
 
 function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [key, setKey] = useState('patient');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const { notificationCount } = useNotification();
-  // const locationForNotification=useLocation();
-  // const notificationCount=locationForNotification.state?.notificationCount || 0;
-  // Add the necessary state for the AddDevice modal
-  const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
-  const [deviceAdded, setDeviceAdded] = useState(false);
-  // Handle show and close functions
-  const handleShowAddDevice = () => setShowAddDeviceModal(true);
-  const handleCloseAddDevice = () => setShowAddDeviceModal(false);
-  const [location, setLocation] = useState('');
-  console.log("Notification count in navbar:",notificationCount);
-  // const locationNotify = useLocation();
-  // const notificationCount = locationNotify.state?.notificationCount || 0;
- 
-  // const[notificationCount,setNotificationCount]=useState(0);
-  // const locationNotify=useLocation();
-   //const [location, setLocation] = useState('');
-  
-//    const decrementNotificationCount = () => {
-//     setNotificationCount(prevCount => Math.max(prevCount - 1, 0));
-// };
-
-
 
   const handleCloseLogin = () => setShowLoginModal(false);
   const handleShowLogin = () => setShowLoginModal(true);
-
-  
   const handleCloseRegister = () => setShowRegisterModal(false);
   const handleShowRegister = () => setShowRegisterModal(true);
-  
-  const patientInfo = localStorage.getItem('patientInfo')!=null ? JSON.parse(localStorage.getItem('patientInfo')) : null;
-
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('patientInfo');
-    setSidebarOpen(!sidebarOpen);
+    setSidebarOpen(false);
     navigate('/root');
   };
 
@@ -65,19 +32,33 @@ function Navbar() {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const patientInfo = JSON.parse(localStorage.getItem('patientInfo')) || null;
 
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-  function handleSearch()
-  {
-    navigate(`/root/locationSearch?location=${location.toLowerCase()}`);
-    setLocation('');
-  }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setSidebarOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [sidebarOpen]);
 
-  function getInitials(name) {
+  const getInitials = (name) => {
     return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
-  }
+  };
+
+  const profileStyle = {
+    display: "flex",
+    height: "45px",
+    width: "45px",
+    borderRadius: "100px",
+    color: "white",
+    background: patientInfo ? generateBackground(patientInfo.patientName) : '#ccc',
+    margin: "auto",
+  };
 
   function generateBackground(name) {
     let hash = 0;
@@ -92,131 +73,40 @@ function Navbar() {
     return color;
   }
 
-  const profileStyle = {
-    display: "flex",
-    height: "45px",
-    width: "45px",
-    borderRadius: "100px",
-    color: "white",
-    background: patientInfo!=null ? generateBackground(patientInfo.patientName) : '#ccc',
-    margin: "auto",
-  };
-  const handleLogin = () => {
-    window.location.href = getAuthorizationUrl();
-  };
-  const onDeviceAdded = () => {
-    setDeviceAdded(true);
-    handleCloseAddDevice();
-  };
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (sidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setSidebarOpen(false); 
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [sidebarOpen]);
   return (
-    <header className='navbar-header' style={{ margin: '50px' }}>
-      <nav className="navbar navbar-expand-lg custom-navbar fixed-top ">
-        <div className="container-fluid">
-          <Link to="/root" className="navbar-brand">
-            <img  src={PmsLogo1} style={{width:'60px',height:'60px'}}  className="img-fluid custom-logo ml-5" alt="Logo"   />
-            <span className="custom-title-logo">Find Your Doctor</span>
-          </Link>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse custom-searchbar" id="navbarScroll">
-            <ul className="navbar-nav me-auto my-2 my-lg-0">
-                      
-              <li className='nav-item'>
-                <div className="input-group">
-                  <input type="text" id="search" className="form-control custom-search-input"  style={{ width: '400px' }} placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
-                  value={location}
-                  onChange={handleLocationChange}
-                  />
-                  <button className="btn btn-outline-secondary custom-search-button" type="button" onClick={handleSearch}>Search</button>
-                </div>
-              </li>
-            </ul>
-            
+    <header className='navbar-header'>
+      <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
+        <div className="container-fluid d-flex justify-content-between align-items-center">
+          <div className="d-flex ">
+            <Link to="/root">
+              <img src={logo} className="custom-logo" alt="Logo" />
+            </Link>
+            <span className="custom-title-logo fw-bold" >PMS</span>
+          </div>
 
-            <ul className="navbar-nav ms-auto my-2 my-lg-0">
-            <li className="nav-item"><Link to='/root/hospitals' className="nav-link">Hospitals</Link></li>    
-            <li className="nav-item"><Link to="appointments" className="nav-link">Appointments</Link></li>
-              <li className="nav-item">
-              <Link to="/root/notifications" className="nav-link">
-                                    <i style={{ fontSize: "30px" }} className="fa-regular fa-bell">
-                                    {
-                                      localStorage.getItem("authToken")!=null?
-                                      notificationCount > 0 && <span className="notification-count"> {notificationCount}</span>:                                  
-                                      <></> 
+          <div className="navbar-links d-flex align-items-center">
 
-                                    }
-                                    </i>
-              </Link>
-              </li>
-              <li className="nav-item">
-                {localStorage.getItem("authToken")!=null ? (
-                  <div style={profileStyle}>
-                    <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
-                  </div>
-                ) : (
-                  <Button variant="light" onClick={handleShowLogin}>Login/Signup</Button>
-                )}
-              </li>
-            </ul>
+            <Link to='/root/hospitals' className="nav-link">Our Services</Link>
+            <Link to="appointments" className="nav-link">About Us</Link>
+            <Link to="appointments" className="nav-link">More</Link>
+            {localStorage.getItem("authToken") != null?(
+              <div style={profileStyle}>
+                <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
+              </div>):
+              (
+                <Button variant="light" className='custom-login-button fw-bold' onClick={handleShowLogin}>Login/Signup</Button>
+              )
+            }
           </div>
         </div>
       </nav>
 
-      {/* Login Modal */}
-      <Modal show={showLoginModal} onHide={handleCloseLogin}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Login onClose={handleCloseLogin} />
-          <div className="text-center mt-3">
-            <span>Not registered yet? </span>
-            <Button variant="link" onClick={() => {
-              handleCloseLogin(); 
-              handleShowRegister(); 
-            }}>
-              Register here
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
-
-      {/* Register Modal */}
-      <Modal  size="lg" show={showRegisterModal} onHide={handleCloseRegister}>
-        <Modal.Header closeButton>
-          <Modal.Title>Register</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <RegisterPatient onClose={handleCloseRegister} />
-          <div className="text-center mt-3">
-            <span>Already have an account? </span>
-            <Button variant="link" onClick={() => {
-              handleCloseRegister();
-              handleShowLogin(); 
-            }}>
-              Login here
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
-      <AddDevice onClose={handleCloseAddDevice} show={showAddDeviceModal} onDeviceAdded={onDeviceAdded}/>
+      {/* Sidebar */}
       <div className={`sidebar${sidebarOpen ? ' open' : ''}`} ref={sidebarRef}>
-        <button className="close-btn" onClick={toggleSidebar}  >×</button>
+        <button className="close-btn" onClick={toggleSidebar}>×</button>
         <div className="sidebar-header">
           <FontAwesomeIcon icon={faUser} size="4x" style={{ cursor: "pointer" }} />
-          {patientInfo!=null ? (
+          {patientInfo ? (
             <div>
               <h5>{patientInfo.patientName}</h5>
               <p>{patientInfo.patientEmail}</p>
@@ -229,19 +119,51 @@ function Navbar() {
           )}
         </div>
         <ul className="sidebar-nav mt-5">
-        {deviceAdded ? (
-            <li><Link to="/root/vitalsignstable">Vital Signs</Link></li> // Show Vital Signs if device added
-          ) : (
-            <li><Link onClick={handleShowAddDevice}>Add Device</Link></li> // Show Add Device otherwise
-          )}
-          <li><Link to="/root/healthform">Fitbit Device</Link></li>
+          <li><Link to="/root/vitalsignstable">Vital Signs</Link></li>
           <li><Link onClick={handleLogout}>Logout</Link></li>
         </ul>
       </div>
 
+      {/* Login Modal */}
+      <Modal show={showLoginModal} onHide={handleCloseLogin}>
+        <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Login onClose={handleCloseLogin} />
+          <div className="text-center mt-3">
+            <span>Not registered yet? </span>
+            <Button variant="link" onClick={() => {
+              handleCloseLogin();
+              handleShowRegister();
+            }}>
+              Register here
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* Register Modal */}
+      <Modal size="lg" show={showRegisterModal} onHide={handleCloseRegister}>
+        <Modal.Header closeButton>
+          <Modal.Title>Register</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <RegisterPatient onClose={handleCloseRegister} />
+          <div className="text-center mt-3">
+            <span>Already have an account? </span>
+            <Button variant="link" onClick={() => {
+              handleCloseRegister();
+              handleShowLogin();
+            }}>
+              Login here
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </header>
-    
   );
 }
+
 
 export default Navbar;
