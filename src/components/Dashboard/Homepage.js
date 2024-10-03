@@ -16,7 +16,6 @@ function Homepage() {
 
   return (
     <>
-
       <div className='linear'>
         <div className='back'>
           <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
@@ -27,22 +26,10 @@ function Homepage() {
             </h1><br />
             <button className="btn btn-warning btn-custom-long">Consult Now</button>
           </div>
-
           <div className='backimg'>
-
           </div>
         </div>
-
       </div>
-
-
-
-
-
-
-
-
-
     </>
   );
 
