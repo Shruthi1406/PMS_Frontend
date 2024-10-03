@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';  // Import axios
+import { toast } from 'react-toastify'; // Import toast
 import '../password/password.css';
 
 const PasswordReset = () => {
@@ -8,6 +10,7 @@ const PasswordReset = () => {
     const [email, setEmail] = useState('');
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(''); // Define setError
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -15,35 +18,32 @@ const PasswordReset = () => {
         setToken(urlParams.get('token'));
     }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
+    const handleSubmit = async (e) => { 
+        e.preventDefault();
+        
         if (password !== confirmPassword) {
-            setMessage("Passwords do not match.");
+            setError("Passwords do not match.");
             return;
         }
 
-        setLoading(true); // Set loading state
-        try {
-            const response = await fetch('http://localhost:3000/api/password/reset', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, token, password }),
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                setMessage("Password reset successful!");
-                // Optionally redirect to login page
-                // window.location.href = "/login";
+        setLoading(true);
+        try { 
+            const response = await axios.post('http://localhost:5157/api/ForgetPassword/reset', 
+                { Email: email, Token: token, NewPassword: password },  // Send email, token, and password
+                { headers: { 'Content-Type': 'application/json' } }
+            ); 
+            if (response.status === 200) { 
+                toast.success("Password reset successful!"); 
+                setMessage('Your password has been reset successfully.'); 
+                // Optionally redirect or reset the form
+            } 
+        } catch (err) { 
+            if (err.response) {
+                setError(err.response.data.message || 'An error occurred. Please try again.');
             } else {
-                setMessage(result.message || "Error resetting password.");
+                setError('An error occurred. Please check your network connection.');
             }
-        } catch (error) {
-            setMessage("An error occurred. Please try again.");
+            toast.error("Error occurred"); 
         } finally {
             setLoading(false); // Reset loading state
         }
@@ -86,6 +86,9 @@ const PasswordReset = () => {
                 <p className={message.includes("successful") ? 'success' : 'error'}>
                     {message}
                 </p>
+            )}
+            {error && (
+                <p className="error">{error}</p> // Display error messages
             )}
         </div>
     );

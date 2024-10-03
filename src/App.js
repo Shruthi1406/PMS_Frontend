@@ -27,6 +27,8 @@ import HealthForm from './apiHandler/HealthForm';
 import Login from './components/login/Login';
 import { NotificationProvider } from './components/Notifications/NotificationContext';
 import Navbar from './components/Assests/Navbar';
+import EmailSender from './components/password/EmailSender';
+
 import ViewAppointment from './components/appointment/ViewAppointment';
 
 
@@ -107,6 +109,10 @@ const App = () => {
         {
           path:"/root/PasswordReset",
           element:<PasswordReset/>
+        },
+        {
+          path: "/root/email-sender", // New route for EmailSender
+          element: <EmailSender/>
         },
         {
           path:"/root/healthform",
