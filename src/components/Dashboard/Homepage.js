@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
 
 import handIcon from './hand.svg';
@@ -7,15 +8,28 @@ import securityIcon from './security.svg';
 import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
+import dashboard from './dashboard.jpg';
+import cough from './cough.jpg';
+import bone from './bone.jpeg';
+import depression from './depression.jpg';
+import migrane from './migrane.jpg';
+import { Link } from 'react-router-dom';
+import derma from './derma.jpg';
+import dentist from './dentist.jpg';
+import cardio from './cardio.jpg';
+import nutrionist from './nutritionist.png';
+import Footer from '../Footer';
+import Specialities from './Specialities';
 
 function Homepage() {
 
+  const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex) => {
+        setIndex(selectedIndex);
+    };
   return (
     <>
-      <div className="container-fluid"> {/* Use container-fluid for full width */}
-        <OnlineConsultation />
-      </div>
-
       <div className='linear'>
         <div className='back'>
           <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
@@ -26,9 +40,18 @@ function Homepage() {
             </h1><br />
             <button className="btn btn-warning btn-custom-long">Consult Now</button>
           </div>
-          <div className='backimg'>
+            <div className='backimg'>
           </div>
-        </div>
+      </div>
+      <div className="container-fluid"> {/* Use container-fluid for full width */}
+        <OnlineConsultation />
+      </div>
+          {/* Specialization Based */}
+         
+      </div>
+      <Specialities/>
+      <div className="container-fluid"> {/* Use container-fluid for full width */}
+        <OnlineConsultation />
       </div>
     </>
   );
