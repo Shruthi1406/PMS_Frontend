@@ -116,7 +116,7 @@ const Login = ({ onClose }) => {
             {loading ? 'Logging in...' : 'Login'}
         </Button>
         <div>
-        <Link to="/root/PasswordReset">Forgot Password?</Link>
+        <Link to="/root/email-sender">Forgot Password?</Link>
         </div>
        </Form>
     </Container>
