@@ -1,5 +1,8 @@
 /* Appointments.css */
-
+.appointments-background {
+    background: linear-gradient(to bottom right, lightblue, lightpink);
+    min-height: 100vh; /* Make sure it covers the entire height of the viewport */
+}
 .table-custom thead {
     background-color: skyblue;
     color: white;
@@ -32,6 +35,6 @@
     margin:10%;
 }
 h1{
-   
+    text-align: center;
     margin-top: 100px;
 }

@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
-import { Accordion, Card, Container } from 'react-bootstrap';
-import {  Row, Col } from 'react-bootstrap';
+import { Container, Accordion, Card } from 'react-bootstrap'; // Ensure these components are imported correctly
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
 import smilyIcon from './smily.svg';
 import securityIcon from './security.svg';
@@ -10,7 +12,6 @@ import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
 import Specialities from './Specialities';
-import Footer from '../Footer';
 import Online1 from '../Assests/Online1.webp';
 import Online2 from '../Assests/Online2.webp';
 import Online3 from '../Assests/Online3.webp';
@@ -18,14 +19,14 @@ import Online4 from '../Assests/Online4.webp';
 import Online5 from '../Assests/Online5.webp';
 import Faqs from '../Faq';
 import { Link } from 'react-router-dom';
-
+import Footer from "../Footer";
 function Homepage() {
 
   const [index, setIndex] = useState(0);
 
-    const handleSelect = (selectedIndex) => {
-        setIndex(selectedIndex);
-    };
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
   return (
     <div >
       <div className='linear'>
@@ -38,10 +39,11 @@ function Homepage() {
             </h1><br />
             <Link to="/root/hospitals"><button className="btn btn-warning btn-custom-long">Consult Now</button></Link>
           </div>
-          <div className='backimg'></div>   
-        </div>    
+          <div className='backimg'>
+          </div>
+        </div>
       </div>
-      <Specialities/>   
+      <Specialities />
       <OnlineConsultation />
       <StatsComponent/>
       <div class="container-fluid">
@@ -52,7 +54,6 @@ function Homepage() {
      
 
     </div>
-
   );
 
 }
@@ -61,20 +62,20 @@ const StatsComponent = () => {
   return (
     <div className="stat-container text-center py-5">
       <div className='container'>
-      <div className="row justify-content-center align-items-center">
-        <div className="col-4 position-relative stat-item">
-          <h2 className="text-primary">30+</h2>
-          <p>Specialities</p>
+        <div className="row justify-content-center align-items-center">
+          <div className="col-4 position-relative stat-item">
+            <h2 className="text-primary">30+</h2>
+            <p>Specialities</p>
+          </div>
+          <div className="col-4 position-relative stat-item">
+            <h2 className="text-primary">4000+</h2>
+            <p>Doctors</p>
+          </div>
+          <div className="col-4 stat-item">
+            <h2 className="text-primary">600+</h2>
+            <p>Hospitals</p>
+          </div>
         </div>
-        <div className="col-4 position-relative stat-item">
-          <h2 className="text-primary">4000+</h2>
-          <p>Doctors</p>
-        </div>
-        <div className="col-4 stat-item">
-          <h2 className="text-primary">600+</h2>
-          <p>Hospitals</p>
-        </div>
-      </div>
       </div>
     </div>
   );
@@ -185,42 +186,42 @@ function Consultation() {
       <div className='container'>
         <h1 id="pmsWork" className='fw-bold'>How does PMS work?</h1>
         <div className="container mt-5">
-          <Step 
-            image={Online1} 
-            title="Choose a speciality" 
+          <Step
+            image={Online1}
+            title="Choose a speciality"
             description="Choose a specialty based on the medical condition you have. If unsure, consult with a general physician."
-           
+
           />
-          <Step 
-            image={Online2} 
-            title="Choose your doctor" 
+          <Step
+            image={Online2}
+            title="Choose your doctor"
             description="Choose your doctor based on your preferences like experience, qualifications, languages, and location."
-              // Modify image size here
+          // Modify image size here
           />
-          <Step 
+          <Step
             image={Online3}
-            title="Talk to a doctor online" 
+            title="Talk to a doctor online"
             description="Consult a doctor through chat, audio, or video call and get medical advice, tips, and prescriptions."
-             // Modify image size here
+          // Modify image size here
           />
-          <Step 
+          <Step
             image={Online4}
-            title="Book Lab Tests online" 
+            title="Book Lab Tests online"
             description="Get lab tests done from the comfort of your home. Your reports will be available on the app."
-             // Modify image size here
+          // Modify image size here
           />
-          <Step 
-            image={Online5} 
-            title="Buy medicines online" 
+          <Step
+            image={Online5}
+            title="Buy medicines online"
             description="Buy medicines online and get them delivered to your doorstep without stepping out of your home."
-            
+
           />
         </div>
       </div>
+      
     </>
   );
 }
-
 function Step({ image, title, description }) {
   return (
     <Row className="mb-5 align-items-center">

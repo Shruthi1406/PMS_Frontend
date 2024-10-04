@@ -159,6 +159,27 @@
   .stat-item h2, .stat-item p {
     margin-right: 20px;
   }
+  /* Custom styles for the accordion */
+.custom-accordion-button {
+    
+    color: black; /* Set text color to black */
+    border: none; /* Remove border */
+    background-color: white;
+  }
+  
+  .custom-accordion-button:focus {
+    box-shadow: none; /* Remove focus shadow */
+    background-color: white;
+  }
+  
+  .accordion-button.collapsed {
+    color: black; /* Keep text black when collapsed */
+    background-color: white;
+  }
+  
+  .accordion-item {
+    margin-bottom: 10px;
+   } /* Add margin between accordion items */
 
   #pmsWork{
     color: rgb(31, 157, 207);;

@@ -45,7 +45,7 @@ function Doctor() {
         }
     }
     return (
-        <>
+        <div className='baimage'>
             <div style={{margin:"100px"}}>
                 {loading && <div>Loading...</div>}
                 {error && <div>Error: {error.message}</div>}
@@ -83,7 +83,7 @@ function Doctor() {
                     !loading && <div>No doctors available.</div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

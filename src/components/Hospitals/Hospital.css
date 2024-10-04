@@ -14,7 +14,7 @@
 
   color: #333;
 
-  margin-bottom: 20px;
+  margin-bottom: 200px;
 
 }
  
@@ -22,11 +22,12 @@
 
 .custom-card {
 
-  border: 1px solid #ddd;
+  
 
-  border-radius: 8px;
+ 
 
   overflow: hidden;
+  width: 100%;
 
   transition: transform 0.2s;
 
@@ -42,7 +43,7 @@
 
 .custom-card-img-container {
 
-  height: 200px; /* Fixed height for uniformity */
+  height: 150px; /* Fixed height for uniformity */
 
   overflow: hidden;
 
@@ -61,11 +62,12 @@
 /* Card body styling */
 
 .card-body {
-
-  padding: 15px;
-
-  text-align: left;
-
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Horizontally center elements */
+  justify-content: center; /* Vertically center elements */
+  text-align: center; /* Center text alignment */
+  padding: 20px;
 }
  
 /* Card title styling */
@@ -105,7 +107,18 @@
 }
  
 /* Responsive styling */
+.backgroundimg{
+  background: linear-gradient(to right, lightblue, lightpink);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh; /* Full viewport height, adjust as needed */
+  width: 100%;
+  position: relative;
 
+  
+
+}
 @media (max-width: 768px) {
 
   .col-md-4 {
