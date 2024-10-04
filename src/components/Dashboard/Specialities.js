@@ -43,7 +43,7 @@ const responsive = {
  
 const Specialities = () => {
     return (
-        <div className='appointment'>
+        <div className='appointment container'>
             <h2 className='doctor-heading'>Consult top doctors across Specialities</h2>
             <Carousel
                 swipeable={false}
