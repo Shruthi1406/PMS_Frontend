@@ -47,7 +47,7 @@ function Navbar() {
   }, [sidebarOpen]);
 
   const getInitials = (name) => {
-    return `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`;
+    return `${name.split(' ')[0]}`;
   };
 
   const profileStyle = {
@@ -90,8 +90,13 @@ function Navbar() {
             <Link to="appointments" className="nav-link">About Us</Link>
             <Link to="appointments" className="nav-link">More</Link>
             {localStorage.getItem("authToken") != null?(
-              <div style={profileStyle}>
-                <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
+              <div className='dropdown' >
+                <span className='dropbtn' style={{ margin: 'auto', cursor: "pointer", fontSize: "20px" }}><i class="fa-solid fa-user" styyle={{color:'navy'}}></i>Hi,{getInitials(patientInfo.patientName)}</span>
+                <div className='dropdown-content'>
+                  <Link to='/root/hospitals'>Consult a Doctor</Link>
+                  <Link to='appointments'>My Appointments</Link>
+                  <Link  onClick={handleLogout}>LogOut</Link>
+                </div>
               </div>):
               (
                 <Button variant="light" className='custom-login-button fw-bold' onClick={handleShowLogin}>Login/Signup</Button>
