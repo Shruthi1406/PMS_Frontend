@@ -42,22 +42,21 @@ const Hospital = () => {
   }
 
   return (
-    <div className="container mt-5 list-hospitals" >
+    <div className='backgroundimg'>
+      <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
       <div className="row">
         {hospitals.map(hospital => (
           <div key={hospital.hospitalId} className="col-md-4 mb-4">
-            <div className="card custom-card hospital-card">
-            <div className="custom-card-img-container hospital-image w-100" style={{width: '18rem'}} >
+            <div className="card custom-card">
+            <div className="custom-card-img-container hospital-image w-100">
               {hospital.hospitalImage ? (
                 <img
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}
-                  className="card-img-top custom-card-img hospital-images"
+                  className="card-img-top custom-card-img"
                   alt={hospital.hospitalName}
-                  style={{width: '18rem'}}
-                  
                 />
               ) : (
                 <img
@@ -67,19 +66,22 @@ const Hospital = () => {
                 />
               )}
             </div>
-              <div className="card-body hospital-body">
-                <h5 className="hospital-title">{hospital.hospitalName} Hospital</h5>
+              <div className="card-body">
+                <h5 className="card-title">{hospital.hospitalName} Hospital</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
 
                 
-                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary doctor-button">View Doctors</div></Link>
+                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
               </div>
             </div>
           </div>
         ))}
       </div>
     </div>
+
+    </div>
+    
   );
 };
 
