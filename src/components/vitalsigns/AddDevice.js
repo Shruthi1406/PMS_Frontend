@@ -25,6 +25,7 @@ const AddDevice = ({ onClose, show ,onDeviceAdded }) => {
       if (response.data.isSuccess) {
         // Handle success, e.g., show success message or redirect
         //alert('Device added successfully!');
+        localStorage.setItem("vitalsigns",response.data.vitalSign);
         console.log(response.data);
         onDeviceAdded();
         onClose(); // Close modal

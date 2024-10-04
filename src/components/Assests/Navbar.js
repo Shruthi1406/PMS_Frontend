@@ -9,7 +9,7 @@ import Login from '../login/Login';
 import RegisterPatient from '../register patient/RegisterPatient';
 import { useNotification } from '../Notifications/NotificationContext';
 import serviceImg from "./doctor-consultation.jpg";
-
+import vs from "./vs.webp";
 function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -85,15 +85,23 @@ function Navbar() {
 
           <div className="navbar-links d-flex align-items-stretch mt-3">
             <div className="services-container">
-              <Link to='/root/hospitals' className="nav-link services">Our Services</Link>
+              <Link className="nav-link services">Our Services</Link>
               <div className='subnav-content'>
-                <div className='container'>
-                  <Link style={{textDecoration:"none"}}>
-                    <div className="card p-2 d-flex justify-content-center" style={{ width: "17%", height: "%" }}>
-                      <div className="card-body">
-                        <p className="card-text fw-bold text-center" >Doctor Consultation</p>
+                <div className='container cards-container'>
+                    <Link style={{textDecoration:"none"}}>
+                      <div className="card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
+                        <div className="card-body">
+                          <p className="card-text fw-bold text-center" >Doctor Consultation</p>
+                        </div>
+                        <img src={serviceImg} style={{borderRadius:"9px",height:"200px"}} className="card-img-bottom" alt="..." />
                       </div>
-                      <img src={serviceImg} style={{borderRadius:"9px",height:"200px"}} className="card-img-bottom" alt="..." />
+                    </Link>
+                  <Link style={{textDecoration:"none"}}>
+                    <div className="card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
+                      <div className="card-body">
+                        <p className="card-text fw-bold text-center" >Monitor Vitalsigns</p>
+                      </div>
+                      <img src={vs} style={{borderRadius:"9px",height:"200px"}} className="card-img-bottom" alt="..." />
                     </div>
                   </Link>
                 </div>
@@ -108,6 +116,7 @@ function Navbar() {
                 <div className='dropdown-content'>
                   <Link to='/root/hospitals'>Consult a Doctor</Link>
                   <Link to='appointments'>My Appointments</Link>
+                  <Link to="/root/add-device">Add Device</Link>
                   <Link  onClick={handleLogout}>LogOut</Link>
                 </div>
               </div>):
