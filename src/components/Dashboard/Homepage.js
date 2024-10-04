@@ -9,7 +9,7 @@ import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
 import Specialities from './Specialities';
-
+import Footer from '../Footer';
 function Homepage() {
 
   const [index, setIndex] = useState(0);
@@ -37,6 +37,7 @@ function Homepage() {
       <div> 
         <OnlineConsultation />
         <StatsComponent/>
+        <Footer/>
       </div>
     </>
   );

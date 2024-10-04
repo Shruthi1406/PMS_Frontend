@@ -1,84 +1,83 @@
 import React from 'react';
-import './css/Footer.css'
-import PmsLogo1 from '../components/Assests/PmsLogo1.jpg';
+import './css/Footer.css'; // Import custom CSS for additional styles
+import PmsLogo1 from './Assests/newlogo.png'; // Path to your logo
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer-background">
       <div className="footer-wrapper">
-        <div className="footer-content">
+        <div className="footer-content container">
           <div className="footer-column">
-            <div className="footer-title">Find your Doctor</div>
+            <h5 className="footer-title">Find your Doctor</h5>
             <div className="footer-links">
-              <a className="footer-item" href="#"  rel="noopener noreferrer">About</a>
-              <a className="footer-item" href="#"  rel="noopener noreferrer">Blog</a>
-              <a className="footer-item" href="#"  rel="noopener noreferrer">Careers</a>
-              <a className="footer-item" href="#"  rel="noopener noreferrer">Press</a>
-              <a className="footer-item" href="#"  rel="noopener noreferrer">Contact Us</a>
+              <a href="#" className="footer-item">About</a>
+              <a href="#" className="footer-item">Blog</a>
+              <a href="#" className="footer-item">Careers</a>
+              <a href="#" className="footer-item">Press</a>
+              <a href="#" className="footer-item">Contact Us</a>
             </div>
           </div>
           <div className="footer-column">
-            <div className="footer-title">For patients</div>
+            <h5 className="footer-title">For Patients</h5>
             <div className="footer-links">
-              <a className="footer-item" href="#">Search for doctors</a>
-              <a className="footer-item" href="#">Search for clinics</a>
-              <a className="footer-item" href="#">Search for hospitals</a>
-              <a className="footer-item" href="#">MedMonitor Plus</a>
-              <a className="footer-item" href="#">Covid Hospital listing</a>
-              <a className="footer-item" href="#">Practo Care Clinics</a>
-              <a className="footer-item" href="#">Read health articles</a>
-              <a className="footer-item" href="#">Read about medicines</a>
-              <a className="footer-item" href="#">MedMonitor drive</a>
-              <a className="footer-item" href="#">Health app</a>
+              <a href="#" className="footer-item">Search for doctors</a>
+              <a href="#" className="footer-item">Search for clinics</a>
+              <a href="#" className="footer-item">Search for hospitals</a>
+              <a href="#" className="footer-item">MedMonitor Plus</a>
+              <a href="#" className="footer-item">Covid Hospital Listing</a>
+              <a href="#" className="footer-item">Practo Care Clinics</a>
+              <a href="#" className="footer-item">Read health articles</a>
+              <a href="#" className="footer-item">Read about medicines</a>
+              <a href="#" className="footer-item">MedMonitor Drive</a>
+              <a href="#" className="footer-item">Health app</a>
             </div>
           </div>
           <div className="footer-column">
-            <div className="footer-title">For doctors</div>
+            <h5 className="footer-title">For Doctors</h5>
             <div className="footer-links">
-              <a className="footer-item" href="#">MedMonitor Profile</a>
+              <a href="#" className="footer-item">MedMonitor Profile</a>
             </div>
-            <div className="footer-title">For clinics</div>
+            
             <div className="footer-links">
-              <a className="footer-item" href="#">Ray by MedMonitor</a>
-              <a className="footer-item" href="#">MedMonitor Reach</a>
-              <a className="footer-item" href="#">Ray Tab</a>
-              <a className="footer-item" href="#">MedMonitor Pro</a>
-            </div>
-          </div>
-          <div className="footer-column">
-            <div className="footer-title">For hospitals</div>
-            <div className="footer-links">
-              <a className="footer-item" href="#">Insta by MedMonitor</a>
-              <a className="footer-item" href="#">Qikwell by MedMonitor</a>
-              <a className="footer-item" href="#">MedMonitor Profile</a>
-              <a className="footer-item" href="#">MedMonitor Reach</a>
-              <a className="footer-item" href="#">MedMonitor Drive</a>
-            </div>
-            <div className="footer-title">For Corporates</div>
-            <div className="footer-links">
-              <a className="footer-item" href="#">Wellness Plans</a>
+              <a href="#" className="footer-item">Ray by MedMonitor</a>
+              <a href="#" className="footer-item">MedMonitor Reach</a>
+              <a href="#" className="footer-item">Ray Tab</a>
+              <a href="#" className="footer-item">MedMonitor Pro</a>
             </div>
           </div>
           <div className="footer-column">
-            <div className="footer-title">More</div>
+            <h5 className="footer-title">For Hospitals</h5>
             <div className="footer-links">
-              <a className="footer-item" href="#">Help</a>
-              <a className="footer-item" href="#">Developers</a>
-              <a className="footer-item" href="#">Privacy Policy</a>
-              <a className="footer-item" href="#">Terms & Conditions</a>
-              <a className="footer-item" href="#">PCS T&C</a>
-              <a className="footer-item" href="#">Healthcare Directory</a>
-              <a className="footer-item" href="#">MedMonitor Health Wiki</a>
+              <a href="#" className="footer-item">Insta by MedMonitor</a>
+              <a href="#" className="footer-item">Qikwell by MedMonitor</a>
+              <a href="#" className="footer-item">MedMonitor Profile</a>
+              <a href="#" className="footer-item">MedMonitor Reach</a>
+              <a href="#" className="footer-item">MedMonitor Drive</a>
+            </div>
+            <div className="footer-links">
+              <a href="#" className="footer-item">Wellness Plans</a>
             </div>
           </div>
           <div className="footer-column">
-            <div className="footer-title">Social</div>
+            <h5 className="footer-title">More</h5>
             <div className="footer-links">
-              <a className="footer-item" href="#" rel="nofollow">Facebook</a>
-              <a className="footer-item" href="#" rel="nofollow">Twitter</a>
-              <a className="footer-item" href="#" rel="nofollow">LinkedIn</a>
-              <a className="footer-item" href="#" rel="nofollow">Youtube</a>
-              <a className="footer-item" href="#" rel="nofollow">Github</a>
+              <a href="#" className="footer-item">Help</a>
+              <a href="#" className="footer-item">Developers</a>
+              <a href="#" className="footer-item">Privacy Policy</a>
+              <a href="#" className="footer-item">Terms & Conditions</a>
+              <a href="#" className="footer-item">PCS T&C</a>
+              <a href="#" className="footer-item">Healthcare Directory</a>
+              <a href="#" className="footer-item">MedMonitor Health Wiki</a>
+            </div>
+          </div>
+          <div className="footer-column">
+            <h5 className="footer-title">Social</h5>
+            <div className="footer-links">
+              <a href="#" className="footer-item" rel="nofollow">Facebook</a>
+              <a href="#" className="footer-item" rel="nofollow">Twitter</a>
+              <a href="#" className="footer-item" rel="nofollow">LinkedIn</a>
+              <a href="#" className="footer-item" rel="nofollow">YouTube</a>
+              <a href="#" className="footer-item" rel="nofollow">GitHub</a>
             </div>
           </div>
         </div>
