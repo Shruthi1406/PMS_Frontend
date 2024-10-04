@@ -40,10 +40,29 @@ const Hospital = () => {
    
     navigate('/root/doctors');
   }
+  // function handleSearch()
+  // {
+  //   navigate(`/root/locationSearch?location=${location.toLowerCase()}`);
+  //   setLocation('');
+  // }
   
   return (
     <div>
-      
+      {/* <div className='backgroundimg'>
+      <ul className="navbar-nav me-auto my-2 my-lg-0">
+                       
+              <li className='nav-item'>
+                <div className="input-group">
+                  <input type="text" id="search" className="form-control"  placeholder="Find hospital by location" aria-label="Recipient's username with two button addons" 
+                  value={location}
+                  onChange={handleLocationChange}
+                  />
+                  <button className="btn btn-outline-secondary custom-search-button" type="button" onClick={handleSearch}>Search</button>
+                </div>
+              </li>
+            </ul>
+
+      </div> */}
       <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
