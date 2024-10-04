@@ -62,11 +62,12 @@
 /* Card body styling */
 
 .card-body {
-
-  padding: 15px;
-
-  text-align: left;
-
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Horizontally center elements */
+  justify-content: center; /* Vertically center elements */
+  text-align: center; /* Center text alignment */
+  padding: 20px;
 }
  
 /* Card title styling */
@@ -108,6 +109,15 @@
 /* Responsive styling */
 .backgroundimg{
   background: linear-gradient(to right, lightblue, lightpink);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh; /* Full viewport height, adjust as needed */
+  width: 100%;
+  position: relative;
+
+  
+
 }
 @media (max-width: 768px) {
 

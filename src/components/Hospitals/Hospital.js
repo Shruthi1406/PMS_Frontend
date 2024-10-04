@@ -79,8 +79,10 @@ const Hospital = () => {
         ))}
       </div>
     </div>
+    
 
     </div>
+    
     
   );
 };
