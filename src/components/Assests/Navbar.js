@@ -10,6 +10,7 @@ import RegisterPatient from '../register patient/RegisterPatient';
 import { useNotification } from '../Notifications/NotificationContext';
 import serviceImg from "./doctor-consultation.jpg";
 import vs from "./vs.webp";
+import AddDevice from '../vitalsigns/AddDevice';
 function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -17,7 +18,10 @@ function Navbar() {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const { notificationCount } = useNotification();
-  
+  const [deviceAdded, setDeviceAdded] = useState(false);
+  const [showAddDeviceModal, setShowAddDeviceModal] = useState(false);
+  const handleShowAddDevice = () => setShowAddDeviceModal(true);
+  const handleCloseAddDevice = () => setShowAddDeviceModal(false);
   const handleCloseLogin = () => setShowLoginModal(false);
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseRegister = () => setShowRegisterModal(false);
@@ -25,10 +29,11 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('patientInfo');
+    localStorage.removeItem("vitalsigns");
     setSidebarOpen(false);
     navigate('/root');
   };
-
+  const vitals =localStorage.getItem("vitalsigns")!=null? JSON.parse(localStorage.getItem("vitalsigns")):null;
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
   
   const patientInfo = JSON.parse(localStorage.getItem('patientInfo')) || null;
@@ -71,7 +76,10 @@ function Navbar() {
     }
     return color;
   }
-
+  const onDeviceAdded = () => {
+    setDeviceAdded(true);
+    handleCloseAddDevice();
+  };
   return (
     <header className='navbar-header'>
       <nav className="navbar navbar-expand-lg custom-navbar fixed-top">
@@ -116,7 +124,11 @@ function Navbar() {
                 <div className='dropdown-content'>
                   <Link to='/root/hospitals'>Consult a Doctor</Link>
                   <Link to='appointments'>My Appointments</Link>
-                  <Link to="/root/add-device">Add Device</Link>
+                  {vitals!=null ? (
+                      <Link to="/root/vitalsigns" state={vitals} >Vital Signs</Link> // Show Vital Signs if device added
+                    ) : (
+                      <Link onClick={handleShowAddDevice}>Add Device</Link>// Show Add Device otherwise
+                  )}
                   <Link  onClick={handleLogout}>LogOut</Link>
                 </div>
               </div>):
@@ -126,7 +138,7 @@ function Navbar() {
             }
         </div>
       </nav>
-
+      <AddDevice onClose={handleCloseAddDevice} show={showAddDeviceModal} onDeviceAdded={onDeviceAdded}/>
       {/* Sidebar */}
       <div className={`sidebar${sidebarOpen ? ' open' : ''}`} ref={sidebarRef}>
         <button className="close-btn" onClick={toggleSidebar}>×</button>
