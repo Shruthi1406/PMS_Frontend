@@ -14,7 +14,7 @@ const ViewAppointment = () => {
             try {
                 await api.delete(`/Appointment/Cancel/${appointment.appointmentId}`);
                 alert('Appointment cancelled successfully.');
-                navigate('/root/appointments'); // Navigate back to appointments
+                navigate('/root/appointments'); 
             } catch (error) {
                 setError('Failed to cancel appointment: ' + (error.response ? error.response.data : error.message));
             }
@@ -38,13 +38,12 @@ const ViewAppointment = () => {
     return (
         <div className="container-bg">
             <h1>Appointment Details</h1>
-            <div className="container card p-4 w-50">
+            <div className="container view-container d-flex justify-content-center card p-4 w-50">
                 <h5>Hospital Name: <span className="text-muted">{appointment.hospitalName}</span></h5>
                 <h5>Doctor Name: <span className="text-muted">{appointment.doctorName}</span></h5>
                 <h5>Reason: <span className="text-muted">{appointment.reason}</span></h5>
                 <h5>Created At: <span className="text-muted">{new Date(appointment.createdAt).toLocaleString()}</span></h5>
                 <h5>Appointment Date: <span className="text-muted">{new Date(appointment.appointmentDate).toLocaleString()}</span></h5>
-
                 {
                     (appointment.statusId === 1 && !isCancelable) ? (
                         <p className="text-warning mt-3">Upcoming Appointment</p>

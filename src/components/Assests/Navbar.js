@@ -97,7 +97,7 @@ function Navbar() {
               <div className='subnav-content'>
                 <div className='container cards-container'>
                     <Link style={{textDecoration:"none"}}>
-                      <div className="card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
+                      <div className="card service-card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
                         <div className="card-body">
                           <p className="card-text fw-bold text-center" >Doctor Consultation</p>
                         </div>
@@ -105,7 +105,7 @@ function Navbar() {
                       </div>
                     </Link>
                   <Link style={{textDecoration:"none"}}>
-                    <div className="card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
+                    <div className="card service-card p-2 d-flex justify-content-center" style={{ width: "60%", height: "25%" }}>
                       <div className="card-body">
                         <p className="card-text fw-bold text-center" >Monitor Vitalsigns</p>
                       </div>
