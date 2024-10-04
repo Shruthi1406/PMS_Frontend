@@ -1,0 +1,10 @@
+/* ViewAppointment.css */
+.container-bg {
+    background: linear-gradient(to right, lightblue, lightpink);
+    height: 100vh; /* Full viewport height */
+    position: absolute;
+    width: 100vw;  /* Full viewport width */
+    height: 100vh;
+
+  
+}
