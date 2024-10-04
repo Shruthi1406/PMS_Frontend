@@ -135,7 +135,7 @@
 }
 /* For the gradient background with white and light pink */
 .stat-container {
-    background: linear-gradient(to bottom, white, lightblue);
+    background: linear-gradient(to bottom, white, rgb(191, 175, 236));
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
@@ -152,7 +152,7 @@
     right: 0;
     height: 100%;
     width: 2px; /* Adjusting the width to make the line thicker */
-    border-right: 2px dotted #ccc; /* Thicker dotted line with increased border size */
+    border-right: 2px dotted #3d3838; /* Thicker dotted line with increased border size */
   }
   
   /* Optional: Add some margin for better spacing between text and dotted lines */
