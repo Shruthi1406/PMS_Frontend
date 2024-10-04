@@ -1,6 +1,6 @@
 import React from 'react';
 import './HomePage.css';
-
+import { Container, Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
 import smilyIcon from './smily.svg';
 import securityIcon from './security.svg';
@@ -12,8 +12,9 @@ function Homepage() {
 
   return (
     <>
-      <div className="container-fluid"> {/* Use container-fluid for full width */}
+      <div>
         <OnlineConsultation />
+        <StatsComponent/>
       </div>
 
       <div className='linear'>
@@ -35,10 +36,31 @@ function Homepage() {
 
 }
 
+const StatsComponent = () => {
+  return (
+    <div className="stat-container text-center py-5">
+      <div className="row justify-content-center align-items-center">
+        <div className="col-4 position-relative stat-item">
+          <h2 className="text-primary">30+</h2>
+          <p>Specialities</p>
+        </div>
+        <div className="col-4 position-relative stat-item">
+          <h2 className="text-primary">4000+</h2>
+          <p>Doctors</p>
+        </div>
+        <div className="col-4 stat-item">
+          <h2 className="text-primary">600+</h2>
+          <p>Hospitals</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function OnlineConsultation() {
   return (
     <div className="mt-5"> {/* Use mt-5 to add top margin */}
-      <div className="p-4" style={{ background: 'linear-gradient(to bottom, #ffcccb, #add8e6)', borderRadius: '10px' }}>
+      <div className="p-4" style={{ background: 'linear-gradient(to bottom, #ffcccb, #add8e6)' }}>
         {/* Left-aligned header with blue color */}
         <div className="row mb-4">       
           <h1 className="text-left text-primary">Why Consult Online on PMS</h1>        
