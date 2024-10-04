@@ -178,7 +178,8 @@
   }
   
   .accordion-item {
-    margin-bottom: 10px; /* Add margin between accordion items */
+    margin-bottom: 10px;
+   } /* Add margin between accordion items */
 
   #pmsWork{
     color: rgb(31, 157, 207);;
