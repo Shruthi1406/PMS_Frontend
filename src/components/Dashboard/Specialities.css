@@ -1,0 +1,15 @@
+.carousel-item-padding-0 {
+    padding: 0; /* Remove padding around carousel items */
+}
+
+.custom-card {
+    margin: 5px; /* Decrease margin between cards */
+    transition: transform 0.3s; /* Optional: Add a hover effect */
+}
+
+.custom-card:hover {
+    transform: scale(1.05); /* Optional: Scale effect on hover */
+}
+.appointment{
+    margin-top: "150px";
+}

@@ -133,6 +133,34 @@
 .doctor-heading{
     text-align: start;
 }
-
+/* For the gradient background with white and light pink */
+.stat-container {
+    background: linear-gradient(to bottom, white, lightblue);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .stat-item {
+    position: relative;
+  }
+  
+  /* Thicker dotted vertical lines between sections except the last one */
+  .stat-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px; /* Adjusting the width to make the line thicker */
+    border-right: 2px dotted #ccc; /* Thicker dotted line with increased border size */
+  }
+  
+  /* Optional: Add some margin for better spacing between text and dotted lines */
+  .stat-item h2, .stat-item p {
+    margin-right: 20px;
+  }
+    
+  
+  
 
 
