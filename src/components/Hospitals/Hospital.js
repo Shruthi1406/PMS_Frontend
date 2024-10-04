@@ -57,11 +57,8 @@ const Hospital = () => {
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}
                   className="card-img-top custom-card-img"
                   alt={hospital.hospitalName}
-<<<<<<< HEAD
-=======
                   style={{width: '18rem'}}
                  
->>>>>>> 8e074d6 (pmd)
                 />
               ) : (
                 <img
@@ -75,15 +72,9 @@ const Hospital = () => {
                 <h5 className="card-title">{hospital.hospitalName} Hospital</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
-<<<<<<< HEAD
-
-                
-                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
-=======
  
                
                 <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary doctor-button">View Doctors</div></Link>
->>>>>>> 8e074d6 (pmd)
               </div>
             </div>
           </div>
@@ -97,11 +88,6 @@ const Hospital = () => {
     
   );
 };
-<<<<<<< HEAD
-
-export default Hospital;
-=======
  
 export default Hospital;
  
->>>>>>> 8e074d6 (pmd)
