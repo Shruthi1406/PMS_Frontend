@@ -1,15 +1,60 @@
-.carousel-item-padding-0 {
-    padding: 0; /* Remove padding around carousel items */
+.Specialist{
+    color:#1A72A0;
+    font-family: Poppins, sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: start;
+}
+.Specialist-heading{
+    color:#282627;
+    font-size:20px;
+    font-family: Poppins,sans-serif;
+    padding:0px 0px 10px;
+    text-align: start;
+    font-weight: bold;
+}
+.appointment-specialist{
+    text-align: center;
+    margin-top:5%;
+}
+.specialist-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 260px; 
+    width: 250px; 
+    padding:0px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 10px;
+    overflow: hidden; 
+    transition: transform 0.2s; 
+    text-align: center;
+}
+.Specilist-main-card{
+    width:100%;
+    height:100%;
+
+}
+.reason-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    height: 3em; 
+    margin: 0; 
+    padding:4px;
 }
 
-.custom-card {
-    margin: 5px; /* Decrease margin between cards */
-    transition: transform 0.3s; /* Optional: Add a hover effect */
+.react-multiple-carousel__arrow--left {
+    left: 0px;
 }
 
-.custom-card:hover {
-    transform: scale(1.05); /* Optional: Scale effect on hover */
+
+.react-multiple-carousel__arrow--right {
+    right: 10px;
 }
-.appointment{
-    margin-top: "150px";
+.Specialist-consult{
+    margin:0px;
 }
