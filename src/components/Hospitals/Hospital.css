@@ -107,11 +107,7 @@
  
 /* Responsive styling */
 .backgroundimg{
-  background-image:
-  linear-gradient(
-    rgba(103, 227, 243, 0.3), /* Lighter black */
-    rgba(87, 150, 233, 0.3)  /* Lighter black */
-  )
+  background: linear-gradient(to right, lightblue, lightpink);
 }
 @media (max-width: 768px) {
 
