@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../../apiHandler/api';
+import '../css/ViewAppointment.css'
 
 const ViewAppointment = () => {
     const navigate = useNavigate();
@@ -35,9 +36,9 @@ const ViewAppointment = () => {
     const isCancelable = timeDifference >= 48 * 60 * 60 * 1000;
 
     return (
-        <div className="container mt-5">
-            <h1 className="mb-4">Appointment Details</h1>
-            <div className="card p-4">
+        <div className="container-bg">
+            <h1>Appointment Details</h1>
+            <div className="container card p-4 w-50">
                 <h5>Hospital Name: <span className="text-muted">{appointment.hospitalName}</span></h5>
                 <h5>Doctor Name: <span className="text-muted">{appointment.doctorName}</span></h5>
                 <h5>Reason: <span className="text-muted">{appointment.reason}</span></h5>

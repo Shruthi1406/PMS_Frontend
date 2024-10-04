@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api from '../../apiHandler/api';
 import '../css/Appointments.css';
 import { Link, useNavigate } from 'react-router-dom';
+
 const Appointments = () => {
     const [appointments, setAppointments] = useState([]);
     const [error, setError] = useState(null);
-    const navigate=useNavigate();
+    const navigate = useNavigate();
+
     const fetchAppointments = async () => {
         try {
             const patientInfo = JSON.parse(localStorage.getItem('patientInfo'));
@@ -18,7 +20,6 @@ const Appointments = () => {
             }
             
             setAppointments(response.data);
-
             localStorage.setItem('appointments', JSON.stringify(response.data));
          
         } catch (error) {
@@ -26,13 +27,11 @@ const Appointments = () => {
         }
     };
 
-
-
     useEffect(() => {
         fetchAppointments();
     }, []);
 
-     const getStatusText = (appointment) => {
+    const getStatusText = (appointment) => {
         const currentDate = new Date();
 
         if (new Date(appointment.appointmentDate) < currentDate) {
@@ -78,7 +77,6 @@ const Appointments = () => {
         if (window.confirm('Are you sure you want to cancel this appointment?')) {
             try {
                 await api.delete(`/Appointment/Cancel/${appointmentId}`);
-                
                 fetchAppointments();
                 alert('Appointment cancelled successfully.');
             } catch (error) {
@@ -87,12 +85,12 @@ const Appointments = () => {
         }
     };
 
-
     if (error) {
         return <div className="alert alert-danger">Error: {error}</div>;
     }
+
     return (
-        <div className="d-flex justify-content-center">
+        <div className="appointments-background d-flex justify-content-center">
             <div className="container mt-5 appointments-heading">
                 <h1 className="mb-4 appoinment-header">Appointments</h1>
                 {
@@ -101,28 +99,32 @@ const Appointments = () => {
                             <h3>You don't have any Appointments</h3>
                         </div>
                     ) : (
-                        <table className="table table-striped table-bordered table-hover" style={{ tableLayout: 'fixed', width: '70%' }}>
-                            <thead className="thead-dark">
-                                <tr>
-                                    <th style={{ width: '30%' }}>Hospital Name</th>
-                                    <th style={{ width: '30%' }}>Doctor Name</th>
-                                    <th style={{ width: '7%' }}>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {appointments.map(appointment => (
-                                    <tr key={appointment.appointmentId}>
-                                        <td style={{ width: '30%' }}>{appointment.hospitalName}</td>
-                                        <td style={{ width: '30%' }}>{appointment.doctorName}</td>
-                                        <td style={{ width: '10%' }}>
-                                        <Link to="/root/viewAppointment" state={appointment}>
-                                            <button className="btn btn-info">View</button>
-                                        </Link>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <div className="row justify-content-center">
+                            <div className="col-md-8">
+                                <table className="table table-striped table-bordered table-hover">
+                                    <thead className="thead-dark">
+                                        <tr>
+                                            <th style={{ width: '30%' }}>Hospital Name</th>
+                                            <th style={{ width: '30%' }}>Doctor Name</th>
+                                            <th style={{ width: '10%' }}>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {appointments.map(appointment => (
+                                            <tr key={appointment.appointmentId}>
+                                                <td>{appointment.hospitalName}</td>
+                                                <td>{appointment.doctorName}</td>
+                                                <td>
+                                                    <Link to="/root/viewAppointment" state={appointment}>
+                                                        <button className="btn btn-info">View</button>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     )
                 }
             </div>
