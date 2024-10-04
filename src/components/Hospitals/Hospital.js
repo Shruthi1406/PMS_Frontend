@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../apiHandler/api';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useNavigate } from 'react-router-dom';
-import './Hospital.css'; 
-
-
-
+import './Hospital.css';
+ 
+ 
+ 
 const Hospital = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-
+ 
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
     fetchHospitals();
   }, []);
-
+ 
   const fetchHospitals = async () => {
     try {
       const response = await api.get('/Hospital/Get/All/Hospitals');
@@ -30,24 +30,24 @@ const Hospital = () => {
       setLoading(false);
     }
   };
-
+ 
   const handleReset = () => {
     setSearchTerm('');
     setHospitals([]);
   }
-  
+ 
   function handleClick(){
    
     navigate('/root/doctors');
   }
-
+ 
   return (
     <div className='backgroundimg'>
       <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
-      <div className="row">
+      <div className="row hospital-background">
         {hospitals.map(hospital => (
           <div key={hospital.hospitalId} className="col-md-4 mb-4">
             <div className="card custom-card">
@@ -57,6 +57,11 @@ const Hospital = () => {
                   src={`data:image/jpeg;base64,${hospital.hospitalImage}`}
                   className="card-img-top custom-card-img"
                   alt={hospital.hospitalName}
+<<<<<<< HEAD
+=======
+                  style={{width: '18rem'}}
+                 
+>>>>>>> 8e074d6 (pmd)
                 />
               ) : (
                 <img
@@ -70,9 +75,15 @@ const Hospital = () => {
                 <h5 className="card-title">{hospital.hospitalName} Hospital</h5>
                 <p className="card-text">City: {hospital.city}</p>
                 <p className="card-text">Pincode: {hospital.pincode}</p>
+<<<<<<< HEAD
 
                 
                 <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary">View Doctors</div></Link>
+=======
+ 
+               
+                <Link to="/root/doctors" state={hospital}><div  className="btn btn-primary doctor-button">View Doctors</div></Link>
+>>>>>>> 8e074d6 (pmd)
               </div>
             </div>
           </div>
@@ -86,5 +97,11 @@ const Hospital = () => {
     
   );
 };
+<<<<<<< HEAD
 
 export default Hospital;
+=======
+ 
+export default Hospital;
+ 
+>>>>>>> 8e074d6 (pmd)

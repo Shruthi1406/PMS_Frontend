@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import StarRatings from 'react-star-ratings'
 import './Doctor.css';
-
+ 
 function Doctor() {
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ function Doctor() {
     useEffect(() => {
         handleApi();
     }, []);
-
+ 
    
     function handleApi() {
         api.get('/Doctor/Get/Doctor/HospitalId/'+hospital.hospitalId)
@@ -86,5 +86,6 @@ function Doctor() {
         </div>
     );
 }
-
+ 
 export default Doctor;
+ 

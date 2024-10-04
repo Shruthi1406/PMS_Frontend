@@ -241,6 +241,27 @@
   text-decoration: none;
   display: block;
 }
+.dropdown-content a:hover {
+ 
+  border:1px solid #1A72A0;
+  border-radius:10px;
+  padding:2%;
+  margin:5%;
+ 
+}
+.fa-user{
+  color:#1A72A0;
+}
+.dropbtn:hover{
+  border:1px solid #1A72A0;
+  border-radius:10px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+  position: absolute;
+  top:45px;
+ 
+}
 
 .cards-container {
   display: flex; /* Use flexbox to align cards horizontally */
