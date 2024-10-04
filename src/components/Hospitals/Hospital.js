@@ -40,15 +40,17 @@ const Hospital = () => {
    
     navigate('/root/doctors');
   }
-
+  
   return (
-    <div className="container mt-5 list-hospitals" >
+    <div>
+      
+      <div className="container mt-5 list-hospitals" >
       <h1 className="mb-4 list-hospitals">Hospitals List</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error.message}</div>}
       <div className="row">
         {hospitals.map(hospital => (
-          <div key={hospital.hospitalId} className="col-md-4 mb-4">
+          <div key={hospital.hospitalId} className="col-md-3 mb-4">
             <div className="card custom-card hospital-card">
             <div className="custom-card-img-container hospital-image w-100" style={{width: '18rem'}} >
               {hospital.hospitalImage ? (
@@ -80,6 +82,9 @@ const Hospital = () => {
         ))}
       </div>
     </div>
+
+    </div>
+    
   );
 };
 
