@@ -10,6 +10,7 @@ import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
 import Specialities from './Specialities';
+import Footer from '../Footer';
 import Online1 from '../Assests/Online1.webp';
 import Online2 from '../Assests/Online2.webp';
 import Online3 from '../Assests/Online3.webp';
@@ -47,8 +48,11 @@ function Homepage() {
       
       </div>
       <Faq/>
+      <Footer/>
      
+
     </div>
+
   );
 
 }

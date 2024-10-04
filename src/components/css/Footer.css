@@ -1,6 +1,4 @@
 .footer {
-  background-color: #87CEEB; 
-  color: white; 
   padding: 20px;
   text-align: center;
   position: relative;
@@ -24,14 +22,13 @@
   flex: 1;
   min-width: 150px; 
   margin: 10px;
-  /* Ensure that columns grow equally, with minimum size constraints */
   max-width: 200px; /* Ensure columns don’t stretch too wide */
 }
 
 .footer-title {
   font-weight: bold;
   margin-bottom: 10px;
-  color: white; 
+  color: white; /* Set title color to white */
 }
 
 .footer-links {
@@ -40,14 +37,14 @@
 }
 
 .footer-item {
-  color: white; 
+  color: #b0b0b0; /* Set link color to grey */
   text-decoration: none;
   margin-bottom: 5px;
 }
 
 .footer-item:hover {
-  text-decoration: underline;
-  color: #ffdd00; 
+  text-decoration: underline; /* Underline on hover */
+  color: #ffdd00; /* Change color on hover */
 }
 
 .footer-copyright {
@@ -67,5 +64,18 @@
 
 .copyright-text {
   font-size: 14px;
-  color: white; 
+  color: white; /* Set copyright text color to white */
+}
+
+.footer-background {
+  background: black; /* Background color of the footer */
+}
+
+/* Additional classes for consistent white and grey text */
+.text-white {
+  color: white; /* Set text color to white */
+}
+
+.text-grey {
+  color: #b0b0b0; /* Set text color to grey */
 }
