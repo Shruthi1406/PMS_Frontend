@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
-import { Accordion, Card, Container } from 'react-bootstrap';
-import {  Row, Col } from 'react-bootstrap';
+import { Container, Accordion, Card } from 'react-bootstrap'; // Ensure these components are imported correctly
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
 import smilyIcon from './smily.svg';
 import securityIcon from './security.svg';
@@ -21,9 +23,9 @@ function Homepage() {
 
   const [index, setIndex] = useState(0);
 
-    const handleSelect = (selectedIndex) => {
-        setIndex(selectedIndex);
-    };
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
   return (
     <div >
       <div className='linear'>
@@ -36,19 +38,18 @@ function Homepage() {
             </h1><br />
             <button className="btn btn-warning btn-custom-long">Consult Now</button>
           </div>
-            <div className='backimg'>
+          <div className='backimg'>
           </div>
-      </div>         
+        </div>
       </div>
-      <Specialities/>   
+      <Specialities />
       <OnlineConsultation />
-      <StatsComponent/>
-      <div class="container-fluid">
-      <Consultation/>
+      <StatsComponent />
+      <Consultation />
+      <Faqs/>
       
-      </div>
-      <Faq/>
-     
+
+
     </div>
   );
 
@@ -58,20 +59,20 @@ const StatsComponent = () => {
   return (
     <div className="stat-container text-center py-5">
       <div className='container'>
-      <div className="row justify-content-center align-items-center">
-        <div className="col-4 position-relative stat-item">
-          <h2 className="text-primary">30+</h2>
-          <p>Specialities</p>
+        <div className="row justify-content-center align-items-center">
+          <div className="col-4 position-relative stat-item">
+            <h2 className="text-primary">30+</h2>
+            <p>Specialities</p>
+          </div>
+          <div className="col-4 position-relative stat-item">
+            <h2 className="text-primary">4000+</h2>
+            <p>Doctors</p>
+          </div>
+          <div className="col-4 stat-item">
+            <h2 className="text-primary">600+</h2>
+            <p>Hospitals</p>
+          </div>
         </div>
-        <div className="col-4 position-relative stat-item">
-          <h2 className="text-primary">4000+</h2>
-          <p>Doctors</p>
-        </div>
-        <div className="col-4 stat-item">
-          <h2 className="text-primary">600+</h2>
-          <p>Hospitals</p>
-        </div>
-      </div>
       </div>
     </div>
   );
@@ -83,8 +84,8 @@ function OnlineConsultation() {
       <div className="p-4" style={{ background: 'linear-gradient(to bottom, #ffcccb, #add8e6)' }}>
         <div className='container'>
           {/* Left-aligned header with blue color */}
-          <div className="row mb-4">       
-            <h1 className="text-left text-primary">Why Consult Online on PMS</h1>        
+          <div className="row mb-4">
+            <h1 className="text-left text-primary">Why Consult Online on PMS</h1>
           </div>
           <div className="row">
             {/* Accessibility */}
@@ -181,42 +182,42 @@ function Consultation() {
     <>
       <div>
         <div className="container mt-5">
-          <Step 
-            image={Online1} 
-            title="Choose a speciality" 
+          <Step
+            image={Online1}
+            title="Choose a speciality"
             description="Choose a specialty based on the medical condition you have. If unsure, consult with a general physician."
-           
+
           />
-          <Step 
-            image={Online2} 
-            title="Choose your doctor" 
+          <Step
+            image={Online2}
+            title="Choose your doctor"
             description="Choose your doctor based on your preferences like experience, qualifications, languages, and location."
-              // Modify image size here
+          // Modify image size here
           />
-          <Step 
+          <Step
             image={Online3}
-            title="Talk to a doctor online" 
+            title="Talk to a doctor online"
             description="Consult a doctor through chat, audio, or video call and get medical advice, tips, and prescriptions."
-             // Modify image size here
+          // Modify image size here
           />
-          <Step 
+          <Step
             image={Online4}
-            title="Book Lab Tests online" 
+            title="Book Lab Tests online"
             description="Get lab tests done from the comfort of your home. Your reports will be available on the app."
-             // Modify image size here
+          // Modify image size here
           />
-          <Step 
-            image={Online5} 
-            title="Buy medicines online" 
+          <Step
+            image={Online5}
+            title="Buy medicines online"
             description="Buy medicines online and get them delivered to your doorstep without stepping out of your home."
-            
+
           />
         </div>
       </div>
+      
     </>
   );
 }
-
 function Step({ image, title, description }) {
   return (
     <Row className="mb-5 align-items-center">
@@ -230,83 +231,172 @@ function Step({ image, title, description }) {
     </Row>
   );
 }
-
-
-
-function Faq() {
+function Faqs() {
   return (
-    <Container className="mt-5">
-      <h2 className="mb-4">FAQ</h2>
-      <Accordion defaultActiveKey="0">
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="0">
-            What is an online consultation?
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="0">
-            <Card.Body>
-              <p>
-                The steps to <strong>talk to a doctor online</strong> are simple:
-              </p>
-              <ol>
-                <li>Contact us by visiting our website or downloading the app.</li>
-                <li>Choose your symptoms or select a specialist doctor to consult.</li>
-                <li><strong>Book doctor appointment online</strong> and a specialist will get in touch with you.</li>
-                <li><strong>Ask a doctor online</strong> about your symptoms, condition, and medication.</li>
-                <li><strong>Online doctor consultation</strong> may require you to submit medical records.</li>
-                <li>Post-consultation, you can follow up with the doctor or get a prescription.</li>
-                <li>Order medicines online or book lab tests from the app.</li>
-              </ol>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+    <>
+      <div className="accordion accordion-flush mt-4" id="accordionFlushExample" style={{ margin: '20px' }}>
+        {/* First Accordion Item */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="flush-headingOne">
+            <button
+              className="accordion-button collapsed "
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              <h3><b>What is Online Consultation?</b></h3>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseOne"
+            className="accordion-collapse collapse"
+            aria-labelledby="flush-headingOne"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div className="accordion-body">
+              An online doctor consultation happens over an online doctor chat, call, or video call. This enables you
+              to talk to doctors online without having to search or locate a clinic or hospital near you. You can now
+              opt for an online medical consultation by simply selecting a doctor from various specialties from the
+              comfort of your home, without dealing with the hassle of waiting in traffic or long queues.
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="1">
-            Which online doctor should I see?
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="1">
-            <Card.Body>
-              You can consult any doctor based on your symptoms. We have specialists in various fields like general medicine, cardiology, and more.
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+        {/* Second Accordion Item */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="flush-headingTwo">
+            <button
+              className="accordion-button collapsed custom-accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo"
+              aria-expanded="false"
+              aria-controls="flush-collapseTwo"
+            >
+              <h3><b>How do I do an online consultation?</b></h3>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseTwo"
+            className="accordion-collapse collapse"
+            aria-labelledby="flush-headingTwo"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div className="accordion-body">
+              The steps to talk to a doctor online are simple:<br />
+              1. Contact us by visiting our website or downloading the MFine app for doctor consultation.<br />
+              2. Choose your symptoms or select a specialist doctor to consult. You can even consult a general
+              physician who can understand your condition better.<br />
+              3. Book a doctor appointment online and a specialist will get in touch with you immediately.<br />
+              4. Ask a doctor online about your symptoms, problems, condition, medication, and more during your
+              consultation.<br />
+              5. Online doctor consultation at MFine may require you to submit previous medical records, lab results,
+              etc. so the doctor can better understand your condition.<br />
+              6. Post the teleconsultation, you can get follow-ups with your doctor.<br />
+              7. You can also order medicines online from the MFine app.<br />
+              8. You can also get lab tests done at home.
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="2">
-            Can I choose a specific doctor to consult with?
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="2">
-            <Card.Body>
-              Yes, you can select a doctor based on their experience, qualifications, and patient reviews.
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+        {/* Third Accordion Item */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="flush-headingThree">
+            <button
+              className="accordion-button collapsed custom-accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseThree"
+              aria-expanded="false"
+              aria-controls="flush-collapseThree"
+            >
+              <h3><b>Which online doctor should I see?</b></h3>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseThree"
+            className="accordion-collapse collapse"
+            aria-labelledby="flush-headingThree"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div className="accordion-body">
+              If you are aware of your condition, you should consult with a doctor of the specialty your condition
+              falls under. For example, if you suffer from back pain or fracture, you should see an orthopedician. If
+              you suffer from irregular periods, you should consult a gynecologist. But if you are unable to understand
+              your symptoms, it will be best to consult a general physician.
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="3">
-            Can I get a prescription after an online medical consultation?
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="3">
-            <Card.Body>
-              Yes, after your online consultation, the doctor can provide a prescription based on your medical condition.
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
+        {/* Fourth Accordion Item */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="flush-headingFour">
+            <button
+              className="accordion-button collapsed custom-accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseFour"
+              aria-expanded="false"
+              aria-controls="flush-collapseFour"
+            >
+              <h3><b>Can I choose a specific doctor to consult with?</b></h3>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseFour"
+            className="accordion-collapse collapse"
+            aria-labelledby="flush-headingFour"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div className="accordion-body">
+              Yes, you can avail of online consultation with a doctor of your choice. With multiple doctors in various
+              specialties and cities, you can select a doctor based on their profile.
+            </div>
+          </div>
+        </div>
 
-        <Card>
-          <Accordion.Toggle as={Card.Header} eventKey="4">
-            Is my online medical consultation secure?
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey="4">
-            <Card.Body>
-              Absolutely! All consultations are conducted over secure channels, ensuring your privacy and data security.
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
-    </Container>
+        {/* Fifth Accordion Item */}
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="flush-headingFive">
+            <button
+              className="accordion-button collapsed custom-accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseFive"
+              aria-expanded="false"
+              aria-controls="flush-collapseFive"
+            >
+              <h3><b>Is my online medical consultation secure?</b></h3>
+            </button>
+          </h2>
+          <div
+            id="flush-collapseFive"
+            className="accordion-collapse collapse"
+            aria-labelledby="flush-headingFive"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div className="accordion-body">
+              With MFine, you can consult a doctor online without having to worry about privacy. We ensure that your
+              interaction with a doctor online remains confidential.
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
