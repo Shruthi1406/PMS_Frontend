@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
-
+import { Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
 import smilyIcon from './smily.svg';
 import securityIcon from './security.svg';
@@ -20,6 +20,12 @@ import cardio from './cardio.jpg';
 import nutrionist from './nutritionist.png';
 import Footer from '../Footer';
 import Specialities from './Specialities';
+import Online1 from '../Assests/Online1.webp';
+import Online2 from '../Assests/Online2.webp';
+import Online3 from '../Assests/Online3.webp';
+import Online4 from '../Assests/Online4.webp';
+import Online5 from '../Assests/Online5.webp';
+
 
 function Homepage() {
 
@@ -52,6 +58,9 @@ function Homepage() {
       <Specialities/>
       <div className="container-fluid"> {/* Use container-fluid for full width */}
         <OnlineConsultation />
+      <div class="container-fluid">
+      <Consultation/>
+      </div>
       </div>
     </>
   );
@@ -153,6 +162,60 @@ function OnlineConsultation() {
         </div>
       </div>
     </div>
+  );
+}
+function Consultation() {
+  return (
+    <>
+      <div>
+        <div className="container mt-5">
+          <Step 
+            image={Online1} 
+            title="Choose a speciality" 
+            description="Choose a specialty based on the medical condition you have. If unsure, consult with a general physician."
+           
+          />
+          <Step 
+            image={Online2} 
+            title="Choose your doctor" 
+            description="Choose your doctor based on your preferences like experience, qualifications, languages, and location."
+              // Modify image size here
+          />
+          <Step 
+            image={Online3}
+            title="Talk to a doctor online" 
+            description="Consult a doctor through chat, audio, or video call and get medical advice, tips, and prescriptions."
+             // Modify image size here
+          />
+          <Step 
+            image={Online4}
+            title="Book Lab Tests online" 
+            description="Get lab tests done from the comfort of your home. Your reports will be available on the app."
+             // Modify image size here
+          />
+          <Step 
+            image={Online5} 
+            title="Buy medicines online" 
+            description="Buy medicines online and get them delivered to your doorstep without stepping out of your home."
+            
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function Step({ image, title, description }) {
+  return (
+    <Row className="mb-5 align-items-center">
+      <Col md={2}>
+        <img src={image} alt={title} className="img-fluid" />
+      </Col>
+      <Col md={10}>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </Col>
+    </Row>
   );
 }
 
