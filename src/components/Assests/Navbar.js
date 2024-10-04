@@ -120,7 +120,7 @@ function Navbar() {
           </div>
           {localStorage.getItem("authToken") != null?(
               <div className='dropdown' >
-                <span className='dropbtn' style={{ margin: 'auto', cursor: "pointer", fontSize: "20px" }}><i class="fa-solid fa-user" styyle={{color:'navy'}}></i>Hi,{getInitials(patientInfo.patientName)}</span>
+                <span className='dropbtn' style={{ margin: 'auto', cursor: "pointer", fontSize: "20px" }}><i class="fa-solid fa-user" ></i> Hi,{getInitials(patientInfo.patientName)}</span>
                 <div className='dropdown-content'>
                   <Link to='/root/hospitals'>Consult a Doctor</Link>
                   <Link to='appointments'>My Appointments</Link>
