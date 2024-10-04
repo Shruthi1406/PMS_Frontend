@@ -101,7 +101,8 @@ function Navbar() {
             </div>
             <Link to="appointments" className="nav-link">About Us</Link>
             <Link to="appointments" className="nav-link">More</Link>
-            {localStorage.getItem("authToken") != null?(
+          </div>
+          {localStorage.getItem("authToken") != null?(
               <div className='dropdown' >
                 <span className='dropbtn' style={{ margin: 'auto', cursor: "pointer", fontSize: "20px" }}><i class="fa-solid fa-user" styyle={{color:'navy'}}></i>Hi,{getInitials(patientInfo.patientName)}</span>
                 <div className='dropdown-content'>
@@ -114,7 +115,6 @@ function Navbar() {
                 <Button variant="light" className='custom-login-button fw-bold' onClick={handleShowLogin}>Login/Signup</Button>
               )
             }
-          </div>
         </div>
       </nav>
 
