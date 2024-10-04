@@ -13,15 +13,17 @@ import gynecologist from './gynecologist 1.png';
 import pediatrician from './pediatrician 1.jpg';
  
 const specialists = [
-    { name: 'Dentist', image: dentist },
-    { name: 'Dermatologist', image: derma },
-    { name: 'Cardiologist', image: cardio },
-    { name: 'Nutritionist', image: nutrionist },
-    { name: 'Psychologist', image: psychologist },
-    { name: 'Orthopedic', image: orthopedic },
-    { name: 'Gynecologist', image: gynecologist },
-    { name: 'Pediatrician', image: pediatrician },
+    { name: 'Dentist', image: dentist,Reasons:'Dental Cavity,Tooth Pain' },
+    { name: 'Dermatologist', image: derma,Reasons:'Acne,Hairfall,Itching,Rashes' },
+    { name: 'Cardiologist', image: cardio,Reasons:'heartburn,dizziness' },
+    { name: 'Nutritionist', image: nutrionist ,Reasons:'malNutrition,Anaemia'},
+    { name: 'Psychologist', image: psychologist,Reasons:'Depression,Anxiety,Autism' },
+    { name: 'Orthopedic', image: orthopedic,Reasons:'Back Pain,Sprains' },
+    { name: 'Gynecologist', image: gynecologist,Reasons:'PCOS,Pregnancy' },
+    { name: 'Pediatrician', image: pediatrician,Reasons:'Vomiting,Cough,Runny Nose' },
 ];
+
+
  
 const responsive = {
     desktop: {
@@ -43,8 +45,9 @@ const responsive = {
  
 const Specialities = () => {
     return (
-        <div className='appointment container'>
-            <h2 className='doctor-heading'>Consult top doctors across Specialities</h2>
+        <div className='appointment-specialist container'>
+            <p className='Specialist'> 30+ Specialities</p>
+            <h2 className='Specialist-heading'>Consult top doctors across Specialities</h2>
             <Carousel
                 swipeable={false}
                 draggable={false}
@@ -61,13 +64,14 @@ const Specialities = () => {
                 itemClass="carousel-item-padding-0"
             >
                 {specialists.map((specialist, idx) => (
-                    <div key={idx} className="d-flex justify-content-center">
-                        <div className="card custom-card" style={{ width: '100%', maxWidth: '250px' }}>
+                    <div key={idx} className='Specilist-main-card' >
+                        <div className="card custom-card specialist-card" style={{ width: '100%', maxWidth: '250px' }}>
                             <img src={specialist.image} className="card-img-top img-fluid problem-img" alt={specialist.name} />
-                            <div className="card-body">
+                            <div className="card-body Specialist-consult">
                                 <Link to='/root/specialist' state={{ specialization: specialist.name }} className="btn btn-info">
                                     {specialist.name}
                                 </Link>
+                               <div  className="reason-text"><p>{specialist.Reasons}</p></div> 
                             </div>
                         </div>
                     </div>

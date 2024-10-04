@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Accordion, Card, Container } from 'react-bootstrap';
+import {  Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
 import smilyIcon from './smily.svg';
 import securityIcon from './security.svg';
@@ -10,6 +11,13 @@ import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
 import Specialities from './Specialities';
 import Footer from '../Footer';
+import Online1 from '../Assests/Online1.webp';
+import Online2 from '../Assests/Online2.webp';
+import Online3 from '../Assests/Online3.webp';
+import Online4 from '../Assests/Online4.webp';
+import Online5 from '../Assests/Online5.webp';
+
+
 function Homepage() {
 
   const [index, setIndex] = useState(0);
@@ -33,11 +41,17 @@ function Homepage() {
           </div>
       </div>         
       </div>
-      <Specialities/>
-
+      <Specialities/>   
       <OnlineConsultation />
       <StatsComponent/>
+      <div class="container-fluid">
+      <Consultation/>
+      
+      </div>
+      <Faq/>
       <Footer/>
+     
+
     </div>
 
   );
@@ -166,6 +180,139 @@ function OnlineConsultation() {
     </div>
   );
 }
+function Consultation() {
+  return (
+    <>
+      <div>
+        <div className="container mt-5">
+          <Step 
+            image={Online1} 
+            title="Choose a speciality" 
+            description="Choose a specialty based on the medical condition you have. If unsure, consult with a general physician."
+           
+          />
+          <Step 
+            image={Online2} 
+            title="Choose your doctor" 
+            description="Choose your doctor based on your preferences like experience, qualifications, languages, and location."
+              // Modify image size here
+          />
+          <Step 
+            image={Online3}
+            title="Talk to a doctor online" 
+            description="Consult a doctor through chat, audio, or video call and get medical advice, tips, and prescriptions."
+             // Modify image size here
+          />
+          <Step 
+            image={Online4}
+            title="Book Lab Tests online" 
+            description="Get lab tests done from the comfort of your home. Your reports will be available on the app."
+             // Modify image size here
+          />
+          <Step 
+            image={Online5} 
+            title="Buy medicines online" 
+            description="Buy medicines online and get them delivered to your doorstep without stepping out of your home."
+            
+          />
+        </div>
+      </div>
+    </>
+  );
+}
+
+function Step({ image, title, description }) {
+  return (
+    <Row className="mb-5 align-items-center">
+      <Col md={2}>
+        <img src={image} alt={title} className="img-fluid" />
+      </Col>
+      <Col md={10}>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </Col>
+    </Row>
+  );
+}
+
+
+
+function Faq() {
+  return (
+    <Container className="mt-5">
+      <h2 className="mb-4">FAQ</h2>
+      <Accordion defaultActiveKey="0">
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="0">
+            What is an online consultation?
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body>
+              <p>
+                The steps to <strong>talk to a doctor online</strong> are simple:
+              </p>
+              <ol>
+                <li>Contact us by visiting our website or downloading the app.</li>
+                <li>Choose your symptoms or select a specialist doctor to consult.</li>
+                <li><strong>Book doctor appointment online</strong> and a specialist will get in touch with you.</li>
+                <li><strong>Ask a doctor online</strong> about your symptoms, condition, and medication.</li>
+                <li><strong>Online doctor consultation</strong> may require you to submit medical records.</li>
+                <li>Post-consultation, you can follow up with the doctor or get a prescription.</li>
+                <li>Order medicines online or book lab tests from the app.</li>
+              </ol>
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="1">
+            Which online doctor should I see?
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>
+              You can consult any doctor based on your symptoms. We have specialists in various fields like general medicine, cardiology, and more.
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="2">
+            Can I choose a specific doctor to consult with?
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="2">
+            <Card.Body>
+              Yes, you can select a doctor based on their experience, qualifications, and patient reviews.
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="3">
+            Can I get a prescription after an online medical consultation?
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="3">
+            <Card.Body>
+              Yes, after your online consultation, the doctor can provide a prescription based on your medical condition.
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+
+        <Card>
+          <Accordion.Toggle as={Card.Header} eventKey="4">
+            Is my online medical consultation secure?
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey="4">
+            <Card.Body>
+              Absolutely! All consultations are conducted over secure channels, ensuring your privacy and data security.
+            </Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
+    </Container>
+  );
+}
+
+
 
 
 
