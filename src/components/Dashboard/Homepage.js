@@ -44,6 +44,7 @@ function Homepage() {
 const StatsComponent = () => {
   return (
     <div className="stat-container text-center py-5">
+      <div className='container'>
       <div className="row justify-content-center align-items-center">
         <div className="col-4 position-relative stat-item">
           <h2 className="text-primary">30+</h2>
@@ -57,6 +58,7 @@ const StatsComponent = () => {
           <h2 className="text-primary">600+</h2>
           <p>Hospitals</p>
         </div>
+      </div>
       </div>
     </div>
   );
