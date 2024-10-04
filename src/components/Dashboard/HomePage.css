@@ -124,14 +124,9 @@
     object-fit: cover; 
 }
 
-.card-body {
-    text-align: center; 
-}
 
-.appointment {
-    margin: 2rem 0;
-    padding: 1rem; 
-}
+
+
 .Home-content{
     margin:5%;
 }

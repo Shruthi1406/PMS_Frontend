@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useState} from 'react';
+import { Carousel } from 'react-bootstrap';
 import './HomePage.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import handIcon from './hand.svg';
@@ -7,16 +8,17 @@ import securityIcon from './security.svg';
 import confidentialityIcon from './complete.svg';
 import certifiedIcon from './cerified.svg';
 import affordableIcon from './afforable.svg';
+import Specialities from './Specialities';
 
 function Homepage() {
 
+  const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex) => {
+        setIndex(selectedIndex);
+    };
   return (
     <>
-      <div>
-        <OnlineConsultation />
-        <StatsComponent/>
-      </div>
-
       <div className='linear'>
         <div className='back'>
           <div className="textto d-flex flex-column align-items-start justify-content-end" style={{ height: '100vh', paddingLeft: '20px' }}>
@@ -27,9 +29,14 @@ function Homepage() {
             </h1><br />
             <button className="btn btn-warning btn-custom-long">Consult Now</button>
           </div>
-          <div className='backimg'>
+            <div className='backimg'>
           </div>
-        </div>
+      </div>         
+      </div>
+      <Specialities/>
+      <div> 
+        <OnlineConsultation />
+        <StatsComponent/>
       </div>
     </>
   );
