@@ -29,10 +29,10 @@ function Homepage() {
             </h1><br />
             <button className="btn btn-warning btn-custom-long">Consult Now</button>
           </div>
-            <div className='backimg'>
-          </div>
-      </div>         
+          <div className='backimg'></div>   
+        </div>    
       </div>
+
       <Specialities/>
       <OnlineConsultation />
       <StatsComponent/>

@@ -8,6 +8,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Login from '../login/Login';
 import RegisterPatient from '../register patient/RegisterPatient';
 import { useNotification } from '../Notifications/NotificationContext';
+import serviceImg from "./doctor-consultation.jpg";
 
 function Navbar() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -16,7 +17,7 @@ function Navbar() {
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const { notificationCount } = useNotification();
-
+  
   const handleCloseLogin = () => setShowLoginModal(false);
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseRegister = () => setShowRegisterModal(false);
@@ -28,10 +29,8 @@ function Navbar() {
     navigate('/root');
   };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  
   const patientInfo = JSON.parse(localStorage.getItem('patientInfo')) || null;
 
   useEffect(() => {
@@ -81,23 +80,35 @@ function Navbar() {
             <Link to="/root">
               <img src={logo} className="custom-logo" alt="Logo" />
             </Link>
-            <span className="custom-title-logo fw-bold" >PMS</span>
+            <span className="custom-title-logo fw-bold">PMS</span>
           </div>
 
-          <div className="navbar-links d-flex align-items-center">
-
-            <Link to='/root/hospitals' className="nav-link">Our Services</Link>
+          <div className="navbar-links d-flex align-items-stretch mt-3">
+            <div className="services-container">
+              <Link to='/root/hospitals' className="nav-link services">Our Services</Link>
+              <div className='subnav-content'>
+                <div className='container'>
+                  <Link style={{textDecoration:"none"}}>
+                    <div className="card p-2 d-flex justify-content-center" style={{ width: "17%", height: "%" }}>
+                      <div className="card-body">
+                        <p className="card-text fw-bold text-center" >Doctor Consultation</p>
+                      </div>
+                      <img src={serviceImg} style={{borderRadius:"9px",height:"200px"}} className="card-img-bottom" alt="..." />
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
             <Link to="appointments" className="nav-link">About Us</Link>
             <Link to="appointments" className="nav-link">More</Link>
-            {localStorage.getItem("authToken") != null?(
+          </div>
+          {localStorage.getItem("authToken") != null ? (
               <div style={profileStyle}>
                 <span style={{ margin: 'auto', cursor: "pointer", fontSize: "25px" }} onClick={toggleSidebar}>{getInitials(patientInfo.patientName)}</span>
-              </div>):
-              (
-                <Button variant="light" className='custom-login-button fw-bold' onClick={handleShowLogin}>Login/Signup</Button>
-              )
-            }
-          </div>
+              </div>
+            ) : (
+              <Button variant="light" className='custom-login-button fw-bold' onClick={handleShowLogin}>Login/Signup</Button>
+            )}
         </div>
       </nav>
 
@@ -164,6 +175,5 @@ function Navbar() {
     </header>
   );
 }
-
 
 export default Navbar;
