@@ -87,7 +87,7 @@ function OnlineConsultation() {
         <div className='container'>
           {/* Left-aligned header with blue color */}
           <div className="row mb-4">       
-            <h1 className="text-left text-primary">Why Consult Online on PMS</h1>        
+            <h1 className="text-left text-primary">Why Book Appointment On PMS</h1>        
           </div>
           <div className="row">
             {/* Accessibility */}
