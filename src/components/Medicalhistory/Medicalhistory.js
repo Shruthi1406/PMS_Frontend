@@ -446,7 +446,7 @@ const PatientForm = () => {
             </div>
           </div>
           <div className="row mb-6">
-            <div className="col-md-6">
+            <div className="col-md-6 col">
               <label className='appointment-form' htmlFor="smoke">Do you smoke?</label>
               <div>
                 <label className='appointment-form'><input type="radio" name="smoke" value="Yes" checked={formData.smoke === 'Yes'} onChange={handleRadioChange} /> Yes &nbsp;</label>
@@ -457,7 +457,7 @@ const PatientForm = () => {
           {successMessage && <div className="alert alert-success">{successMessage}</div>}
           {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
           <div className="button-container">
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className="btn btn-primary submit-btn">Submit</button>
           </div>
         </form>
       </div>

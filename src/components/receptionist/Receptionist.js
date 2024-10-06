@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../receptionist/receptionist.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate,Link } from 'react-router-dom';
-import StarRatings from 'react-star-ratings'
+import { useNavigate,Link, NavLink } from 'react-router-dom';
+import StarRatings from 'react-star-ratings';
+import logo from './newlogo.png'
+
 const Receptionist = () => {
   const [activeComponent, setActiveComponent] = useState('default');
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const Receptionist = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showCard, setShowCard] = useState(false);
   const handleLogout = () => {
     localStorage.removeItem('recAuthToken');
     localStorage.removeItem('receptionistInfo');
@@ -90,11 +93,11 @@ const Receptionist = () => {
   useEffect(() => {
     fetchDoctors();
   }, []);
+
+  {/*overview*/}
   const renderDefaultCards = () => (
     <div>
-      <div>
-        <h1>Overview</h1>
-      </div>
+      
       <div className="default-cards d-flex justify-content-between">
         <div className="card-custom flex-fill mx-2">
           <div className="card-header-custom">
@@ -131,34 +134,52 @@ const Receptionist = () => {
   {
     setActiveComponent("AddDoctor");
   }
+  
 
   return (
     <div className="receptionist-container">
       {/* Navbar */}
       <nav className="navbar-custom sticky-top">
+      
+      
         <div className="container d-flex justify-content-between align-items-center">
-          <a className="navbar-brand" href="#">
-            Hospital Name: {hospitalName}
-          </a>
-          <span className="navbar-text">Receptionist: {receptionistName}</span>
-          <button onClick={handleLogout} className="btn btn-primary">Logout</button>
+        <div className="d-flex ">
+            <Link to="/root">
+              <img src={logo} className="custom-logo" alt="Logo" />
+            </Link>
+            <span className="custom-title-logo fw-bold">PMS</span>
+          </div>
+          <ul className='d-flex justify-content-between align-items-center receiptonist-navbar'>
+          <li><a className="navbar-brand" href="#">
+             {hospitalName} Hospital</a></li>
+          
+          <li><span className="navbar-text"><i class="fa-solid fa-user" ></i>{receptionistName}</span></li>
+          <li><i onClick={handleLogout}  class="fa-solid fa-power-off"></i></li>
+          </ul>
         </div>
+
       </nav>
 
       <div className="main-content d-flex">
         {/* Sidebar */}
         <div className="sidebar-custom">
-          <h2 className="sidebar-heading">Overview</h2>
-          <ul className="sidebar-links">
-            <li><Link onClick={() => setActiveComponent('appointments')}>Appointment History</Link></li>
-            <li><Link onClick={() => setActiveComponent('tasks')}>Tasks</Link></li>
-            <li><Link onClick={() => setActiveComponent('doctors')}>Doctors</Link></li>
+         
+         
+          <ul className="sidebar-links d-block ">
+            <li><NavLink to="#" className={({ isActive }) => (isActive ? 'active-link' : 'inactive-link')} onClick={() => setActiveComponent('overview')}>Overview</NavLink></li>
+            <li><NavLink to="#"  className={({ isActive }) => (isActive ? 'active-link' : 'inactive-link')} onClick={() => setActiveComponent('doctors')}>Doctors</NavLink></li>
+            <li><NavLink to="#"  className={({ isActive }) => (isActive ? 'active-link' : 'inactive-link')} onClick={() => setActiveComponent('appointments')}>Appointment History</NavLink></li>
+            <li><NavLink to="#" className={({ isActive }) => (isActive ? 'active-link' : 'inactive-link')} onClick={() => setActiveComponent('tasks')}>Tasks</NavLink></li>
+           
           </ul>
         </div>
 
         {/* Main Component Area */}
         <div className="overview-section d-flex flex-column">
           <div className='bg-light'>{activeComponent === 'default' &&renderDefaultCards()}</div>
+          <div>
+            {activeComponent === 'overview' && renderDefaultCards()}
+          </div>
           <div>
             {activeComponent === 'appointments' && <Appointments appointments={appointments}/>}
           </div>
@@ -183,30 +204,42 @@ const Appointments = ({appointments}) => {
   return (
     <div>
       <h2 className="text-center mb-4">Appointment List</h2>
-      <div className="row">
-        {appointments.length === 0 ? (
-          <p className="text-center">No appointments available.</p>
-        ) : (
-          appointments.map((appointment) => (
-            <div className="col-12 mb-3" key={appointment.appointmentId}>
-              <div className="card-custom">
-                <div className="card-body-custom d-flex justify-content-between align-items-start">
-                  <div>
-                    <h5 className="card-title">{appointment.patientName}</h5>
-                    <p className="card-text">
-                      <strong>Doctor:</strong> {appointment.doctorName} <br />
-                      <strong>Problem:</strong> {appointment.reason} <br />
-                      <strong>Gender:</strong> {appointment.gender} <br />
-                      <strong>Email:</strong> {appointment.email} <br />
-                      <strong>Appointment Time:</strong> {appointment.appointmentDate}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+
+      {/* Table for Appointments */}
+      {appointments.length === 0 ? (
+        <p className="text-center">No appointments available.</p>
+      ) : (
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Patient Name</th>
+              <th>DOB</th>
+              <th>Assigned Doctor</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {appointments.map(appointment => (
+              <tr key={appointment.appointmentId}>
+                <td>{new Date(appointment.appointmentDate).toLocaleDateString()}</td>
+                <td>{new Date(appointment.appointmentDate).toLocaleTimeString()}</td>
+                <td>{appointment.patientName}</td>
+                <td>{appointment.dob}</td>
+                <td>{appointment.doctorName}</td>
+                <td>{appointment.status}</td>
+                <td>
+                  {/* Action Buttons */}
+                  <button className="btn btn-primary btn-sm">View</button>
+                  <button className="btn btn-secondary btn-sm ml-2">Edit</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
@@ -379,5 +412,11 @@ const AddDoctor = ({ onAddSuccess }) => {
     </div>
   );
 };
+
+{/*table*/}
+function renderTable(){
+  
+}
+
 
 export default Receptionist;
