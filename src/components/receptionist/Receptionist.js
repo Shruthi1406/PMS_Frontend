@@ -231,9 +231,7 @@ const Appointments = ({appointments}) => {
                 <td>{appointment.doctorName}</td>
                 <td>{appointment.status}</td>
                 <td>
-                  {/* Action Buttons */}
-                  <button className="btn btn-primary btn-sm">View</button>
-                  <button className="btn btn-secondary btn-sm ml-2">Edit</button>
+                 
                 </td>
               </tr>
             ))}
